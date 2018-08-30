@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/</loc>
+    <lastmod>2018-06-02T12:47:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/tmux-most-useage/</loc>
+    <lastmod>2018-04-29T15:25:02+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/write-a-shell-in-c/</loc>
+    <lastmod>2018-03-31T21:52:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/useful-vim-command/</loc>
+    <lastmod>2018-03-05T11:07:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</loc>
+    <lastmod>2018-03-02T12:32:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</loc>
+    <lastmod>2017-12-22T21:34:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/illustration-http-1/</loc>
+    <lastmod>2017-12-18T20:43:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/illustration-http-0/</loc>
+    <lastmod>2017-12-15T18:55:02+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/ssserver-on-vps/</loc>
+    <lastmod>2017-12-02T15:25:11+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</loc>
+    <lastmod>2017-12-02T11:07:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/how-to-get-a-domain-name/</loc>
+    <lastmod>2017-12-01T21:46:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/</loc>
+    <lastmod>2017-11-28T13:50:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/</loc>
+    <lastmod>2017-11-27T20:26:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/how-to-buy-vps-and-security-setting/</loc>
+    <lastmod>2017-11-24T22:46:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/about/</loc>
+    <lastmod>2017-11-20T13:05:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/blog/</loc>
+    <lastmod>2017-12-02T11:07:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/c/</loc>
+    <lastmod>2018-03-31T21:52:55+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/domain-name/</loc>
+    <lastmod>2017-12-01T21:46:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/http/</loc>
+    <lastmod>2017-12-18T20:43:28+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/hugo/</loc>
+    <lastmod>2017-12-02T11:07:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/lets-encrypt/</loc>
+    <lastmod>2017-12-02T11:07:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/linux/</loc>
+    <lastmod>2017-12-22T21:34:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/machine-learning/</loc>
+    <lastmod>2018-03-02T12:32:53+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/memo/</loc>
+    <lastmod>2017-12-02T11:07:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/mysql/</loc>
+    <lastmod>2018-06-02T12:47:10+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/nginx/</loc>
+    <lastmod>2017-11-27T20:26:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/notes/</loc>
+    <lastmod>2018-03-02T12:32:53+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/</loc>
+    <lastmod>2018-06-02T12:47:10+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/script/</loc>
+    <lastmod>2018-03-05T11:07:06+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/shell/</loc>
+    <lastmod>2018-03-31T21:52:55+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/ssserver/</loc>
+    <lastmod>2017-12-02T15:25:11+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/</loc>
+    <lastmod>2017-12-02T11:07:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/tech/</loc>
+    <lastmod>2017-11-24T22:46:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/tmux/</loc>
+    <lastmod>2018-04-29T15:25:02+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/ubuntu16.04/</loc>
+    <lastmod>2017-11-27T20:26:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/vim/</loc>
+    <lastmod>2018-03-05T11:07:06+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/vps/</loc>
+    <lastmod>2017-12-02T11:07:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/</loc>
+    <lastmod>2018-06-02T12:47:10+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
+    <lastmod>2018-06-02T12:47:10+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/</loc>
+    <lastmod>2018-03-31T21:52:55+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E9%97%B2%E8%B0%88/</loc>
+    <lastmod>2018-03-05T11:07:06+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-12-18T20:43:28+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

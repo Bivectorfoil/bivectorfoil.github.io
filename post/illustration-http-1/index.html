@@ -1,0 +1,616 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>《图解HTTP》读书笔记（一） - Zvector &amp; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要">
+  
+  <meta itemprop="name" content="《图解HTTP》读书笔记（一） - Zvector &amp; Blog">
+  <meta itemprop="description" content="前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要">
+  <meta itemprop="image" content="https://bivectorfoil.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://bivectorfoil.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://bivectorfoil.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://bivectorfoil.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://bivectorfoil.github.io/highlight/styles/github.css">
+  <script src="https://bivectorfoil.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="https://bivectorfoil.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://bivectorfoil.github.io/css/style.css">
+</head>
+
+<body>
+  <header>
+    <div>
+  
+  <div id="imglogo">
+    <a href="https://bivectorfoil.github.io/"><img src="https://bivectorfoil.github.io/img/logo.svg" alt="Zvector &amp; Blog" title="Zvector &amp; Blog"/></a>
+  </div>
+  
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://bivectorfoil.github.io/" title="Zvector &amp; Blog">Zvector &amp; Blog</a></h1>
+    <h2 class="blog-motto">Connect the world</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder="搜索">
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://bivectorfoil.github.io/post/illustration-http-1/" title="《图解HTTP》读书笔记（一）" itemprop="url">《图解HTTP》读书笔记（一）</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://zvector.tk/" title="zvector">zvector</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2017-12-18 20:43:28 &#43;0800 CST" itemprop="datePublished">2017年12月18日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#http协议的作用">HTTP协议的作用</a>
+<ul>
+<li><a href="#通过请求和响应达成通信">通过请求和响应达成通信</a></li>
+</ul></li>
+<li><a href="#http是无状态协议">HTTP是无状态协议</a></li>
+<li><a href="#uri定位资源">URI定位资源</a></li>
+<li><a href="#http协议的几个方法">HTTP协议的几个方法</a>
+<ul>
+<li><a href="#get-获取资源">GET：获取资源</a></li>
+<li><a href="#post-传输实体主体">POST：传输实体主体</a></li>
+<li><a href="#put-传输文件">PUT：传输文件</a></li>
+<li><a href="#head-获得报文首部">HEAD 获得报文首部</a></li>
+<li><a href="#delet-删除文件">DELET：删除文件</a></li>
+<li><a href="#options-询问支持的方法">OPTIONS：询问支持的方法</a></li>
+<li><a href="#trace-追踪路径">TRACE：追踪路径</a></li>
+<li><a href="#connect-使用隧道协议连接代理">CONNECT：使用隧道协议连接代理</a></li>
+</ul></li>
+<li><a href="#如何持久连接">如何持久连接</a></li>
+<li><a href="#管线化">管线化</a></li>
+<li><a href="#cookie-状态管理">Cookie&ndash;状态管理</a></li>
+</ul></li>
+</ul>
+</nav>
+		</div>
+    
+    
+
+<h2 id="前言">前言</h2>
+
+<p>本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看：</p>
+
+<blockquote>
+<p><a href="https://zvector.tk/post/illustration-http-0/">《图解HTTP》读书笔记（零）</a></p>
+</blockquote>
+
+<p>本篇简要介绍HTTP协议的大致结构和主要方法，主要使用HTTP/1.1版本，是为简单的HTTP协议基础。</p>
+
+<h2 id="http协议的作用">HTTP协议的作用</h2>
+
+<p>HTTP是运用在客户端和服务端的协议内容，在通信的过程中，必定有一方是客户端，发起资源的请求访问，而做出资源响应的是服务端，一般情况下，仅就一条通信线路来说，客户端，服务端的角色不会变动，在客户端不住动发出请求的前提下，服务端不会发送响应。那么，客户端和服务端如何通信呢？</p>
+
+<h3 id="通过请求和响应达成通信">通过请求和响应达成通信</h3>
+
+<p>客户端向服务端发出一个请求：</p>
+
+<pre><code class="language-HTTP">GET / HTTP/1.1
+HOST: www.baidu.com
+</code></pre>
+
+<p>请求报文（还记得什么是报文吗？）由：方法，URI，协议版本，请求首部字段及内容实体等组成。</p>
+
+<p>服务端发送响应：</p>
+
+<pre><code class="language-HTTP">HTTP/1.1 200 OK
+Date: Mon, 18 Dec 2017 13:30:59 GMT
+Content-Type: text/html
+
+&lt;html&gt;
+....
+</code></pre>
+
+<p>响应报文同样以协议版本，状态码（200），原因短语（reason-phrase）等首部字段组成。然后，以一个<strong>空行</strong>分隔，接下来的是报文主体，返回所请求的资源。</p>
+
+<h2 id="http是无状态协议">HTTP是无状态协议</h2>
+
+<p>无状态（stateless）协议，是指在每次的请求&ndash;响应结束后，HTTP协议并没有规定客户端或服务端保存上次的通信信息，如此，使得HTTP协议可以快速处理大量请求。但对于需要”记住“上次通信内容的需求来说，可以通过引入Cookie技术来实现。</p>
+
+<h2 id="uri定位资源">URI定位资源</h2>
+
+<p>客户端发起请求，请求资源的格式是什么呢？就是先前介绍过的URI（Uniform Resource Indentifier），统一资源定位符。URI格式如下：</p>
+
+<p>协议方案名+登录信息（可选）+服务器地址+端口号（可选）+文件路径+查询字符串（可选）+标识符（可选）</p>
+
+<p>eg: <a href="http://user:pass@www.example.com:80/dir/index.html?uid=1#ch1">http://user:pass@www.example.com:80/dir/index.html?uid=1#ch1</a></p>
+
+<h2 id="http协议的几个方法">HTTP协议的几个方法</h2>
+
+<p>需要注意，HTTP协议的方法是大小写敏感的，所以方法名不可随便改变大小写。</p>
+
+<h3 id="get-获取资源">GET：获取资源</h3>
+
+<p>GET方法用来请求被URI标识的服务器上的资源，服务器解析后返回响应内容，若为文本资源，原样返回，若为类似CGI（Common Gateway Interface，通用网关接口）这样的程序，则返回执行后的结果。</p>
+
+<h3 id="post-传输实体主体">POST：传输实体主体</h3>
+
+<p>与GET方法不同的是，POST方法主要目的是向服务器发送资源。</p>
+
+<h3 id="put-传输文件">PUT：传输文件</h3>
+
+<p>PUT方法用于传输文件，类似FTP协议的文件上传，在请求报文中包含文件主体，保存至URI指定位置。但鉴于PUT方法不带身份验证，出于安全考虑，一般Web网站不开放该方法，除非引入其他安全机制来保障这一点。</p>
+
+<h3 id="head-获得报文首部">HEAD 获得报文首部</h3>
+
+<p>类似GET方法，但仅返回报文主体部分，常用于确认URI正确性和资源更新的日期时间。</p>
+
+<h3 id="delet-删除文件">DELET：删除文件</h3>
+
+<p>和PUT方法相反，DELET方法向服务器发出请求，删除对于的URI指定的资源。同样的，出于安全考虑，在无身份验证机制的Web网站上不开放该方法。</p>
+
+<h3 id="options-询问支持的方法">OPTIONS：询问支持的方法</h3>
+
+<p>OPTIONS方法用于询问服务器针对请求URI指定资源的支持的方法。</p>
+
+<h3 id="trace-追踪路径">TRACE：追踪路径</h3>
+
+<p>TRACE方法要求服务器将先前的请求通信环回给客户端，什么意思呢？客户端指定一个追踪的”长度“数值，要求所经过的每一个服务器节点，将这个数值减一后发送到下一个服务器节点，当次数值为0时，停止传输，最后一个服务器返回200 OK状态码。</p>
+
+<p>TRACE方法主要用于查看客户端与服务端之间的请求操作，但因为不常用，且容易引起XST（Cross-Site Tracing，跨站追踪）攻击，一般不会用到</p>
+
+<h3 id="connect-使用隧道协议连接代理">CONNECT：使用隧道协议连接代理</h3>
+
+<p>CONNECT方法指定客户端与服务端之间通信建立隧道。用于TCP通信，主要由SSL（Secure SocketLayer，安全套接字）和TLS（Transport Layer Secure，传输层安全）协议把通信内容加密后经隧道传输，相当于在客户端和服务端之间建立了一个隧道了。</p>
+
+<h2 id="如何持久连接">如何持久连接</h2>
+
+<p>在第一篇[《图解HTTP》读书笔记中]()中，我们提到，TCP协议通过三次握手策略保证通信可靠。原先的HTTP协议版本，每进行一次HTTP请求&ndash;响应通信后就断开TCP连接，再进行下一次HTTP通信又进行一次TCP连接，如此这般，会极大增加通信开销。后续的HTTP/1.1协议和一部分HTTP/1.0协议提出了持久连接（HTTP Persistent Connection或HTTP keep-alive）方法，主要内容即为，建立连接以后，若通信双方没有主动提出断开连接，则保持TCP连接状态。</p>
+
+<h2 id="管线化">管线化</h2>
+
+<p>持久连接是管线化（pipelining）方法的前提，使得并行发送请求成为可能，而不必等着上一个请求得到响应才能发送下一个请求。能实现比持久化连接更快的速度。</p>
+
+<h2 id="cookie-状态管理">Cookie&ndash;状态管理</h2>
+
+<p>前面说道，HTTP是无状态的连接，那么如何是服务端”记住“客户端呢？这就是Cookie技术引进的原因。简单来说，通过在服务端的HTTP响应报文首部添加一个Set-Cookie字段，通知客户端保存Cookie信息，如此，客户端在下一次请求中添加上Cookie信息，服务端便知道是谁发送的请求。在后续的笔记中会详细解释。</p>
+
+    
+        <div class="creative-commons">
+            <a rel="license"
+               href="http://creativecommons.org/licenses/by-sa/4.0/"><img
+               alt="知识共享许可协议" style="border-width:0"
+               src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+            </a><br />
+        </div>
+    
+    </div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://bivectorfoil.github.io/tags/http">HTTP</a>
+  
+  <a href="https://bivectorfoil.github.io/tags/notes">NOTES</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://bivectorfoil.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://bivectorfoil.github.io/post/illustration-http-1/" data-title="《图解HTTP》读书笔记（一）" data-tsina="" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "https://bivectorfoil.github.io/post/illustration-http-1/";
+this.page.identifier = "https://bivectorfoil.github.io/post/illustration-http-1/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = 'https://zvector.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://bivectorfoil.github.io/categories/%e6%8a%80%e6%9c%af%e5%a4%87%e5%bf%98%e5%bd%95" title="技术备忘录">技术备忘录<sup>9</sup></a></li>
+    
+    <li><a href="https://bivectorfoil.github.io/categories/%e6%8a%80%e6%9c%af%e7%bf%bb%e8%af%91" title="技术翻译">技术翻译<sup>1</sup></a></li>
+    
+    <li><a href="https://bivectorfoil.github.io/categories/%e6%8a%80%e6%9c%af%e9%97%b2%e8%b0%88" title="技术闲谈">技术闲谈<sup>2</sup></a></li>
+    
+    <li><a href="https://bivectorfoil.github.io/categories/%e8%af%bb%e4%b9%a6%e7%ac%94%e8%ae%b0" title="读书笔记">读书笔记<sup>2</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://bivectorfoil.github.io/tags/blog" title="blog">blog<sup>2</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/c" title="c">c<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/domain-name" title="domain-name">domain-name<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/http" title="http">http<sup>2</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/hugo" title="hugo">hugo<sup>2</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/lets-encrypt" title="lets-encrypt">lets-encrypt<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/linux" title="linux">linux<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/machine-learning" title="machine-learning">machine-learning<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/memo" title="memo">memo<sup>5</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/mysql" title="mysql">mysql<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/nginx" title="nginx">nginx<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/notes" title="notes">notes<sup>3</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/script" title="script">script<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/shell" title="shell">shell<sup>2</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/ssserver" title="ssserver">ssserver<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/tech" title="tech">tech<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/tmux" title="tmux">tmux<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/ubuntu16.04" title="ubuntu16.04">ubuntu16.04<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/vim" title="vim">vim<sup>1</sup></a></li>
+      
+			<li><a href="https://bivectorfoil.github.io/tags/vps" title="vps">vps<sup>1</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://bivectorfoil.github.io/post/#2018-06">2018年06月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://bivectorfoil.github.io/post/#2018-04">2018年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://bivectorfoil.github.io/post/#2018-03">2018年03月</a><span class="archive-list-count">3</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://bivectorfoil.github.io/post/#2017-12">2017年12月</a><span class="archive-list-count">6</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://bivectorfoil.github.io/post/#2017-11">2017年11月</a><span class="archive-list-count">3</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://bivectorfoil.github.io/tags/blog" style="font-size: 12px;">blog</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/c" style="font-size: 12px;">c</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/domain-name" style="font-size: 12px;">domain-name</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/http" style="font-size: 12px;">http</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/hugo" style="font-size: 12px;">hugo</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/lets-encrypt" style="font-size: 12px;">lets-encrypt</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/linux" style="font-size: 12px;">linux</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/machine-learning" style="font-size: 12px;">machine-learning</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/memo" style="font-size: 12px;">memo</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/mysql" style="font-size: 12px;">mysql</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/nginx" style="font-size: 12px;">nginx</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/notes" style="font-size: 12px;">notes</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/script" style="font-size: 12px;">script</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/shell" style="font-size: 12px;">shell</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/ssserver" style="font-size: 12px;">ssserver</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/tech" style="font-size: 12px;">tech</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/tmux" style="font-size: 12px;">tmux</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/ubuntu16.04" style="font-size: 12px;">ubuntu16.04</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/vim" style="font-size: 12px;">vim</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/vps" style="font-size: 12px;">vps</a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  
+  <div class="line">
+    <span></span>
+    <div style='background:no-repeat url("https://bivectorfoil.github.io/img/author.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  
+  
+  <section class="info">
+    <p>Connect the world <br/> Learn the world</p>
+  </section>
+  
+  <div class="social-font clearfix">
+    
+    
+    
+    <a href="https://github.com/Bivectorfoil" target="_blank" title="github"></a>
+    
+    
+    
+  </div>
+
+
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2018
+    
+    <a href="https://bivectorfoil.github.io/" title="Zvector &amp; Blog">Zvector &amp; Blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://bivectorfoil.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/bivectorfoil.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<link rel="stylesheet" href="https://bivectorfoil.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://bivectorfoil.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+
+</body>
+</html>
