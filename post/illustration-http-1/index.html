@@ -208,15 +208,15 @@ Content-Type: text/html
 <p>前面说道，HTTP是无状态的连接，那么如何是服务端”记住“客户端呢？这就是Cookie技术引进的原因。简单来说，通过在服务端的HTTP响应报文首部添加一个Set-Cookie字段，通知客户端保存Cookie信息，如此，客户端在下一次请求中添加上Cookie信息，服务端便知道是谁发送的请求。在后续的笔记中会详细解释。</p>
 
     
-        <div class="creative-commons">
-            <a rel="license"
-               href="http://creativecommons.org/licenses/by-sa/4.0/"><img
-               alt="知识共享许可协议" style="border-width:0"
-               src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
-            </a><br />
-        </div>
-    
+    <div class="creative-commons">
+        <a rel="license"
+           href="https://creativecommons.org/licenses/by-sa/4.0/"><img
+           alt="知识共享许可协议" style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+        </a><br />
     </div>
+    
+	</div>
   <footer class="article-footer clearfix">
   
 
@@ -256,6 +256,14 @@ Content-Type: text/html
 <div id="disqus_thread"></div>
 </section>
 <script>
+  <!-- detect whether Disuqs can load -->
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '//disqus.com/next/config.json?' + new Date().getTime(), true);
+  
+
+  xhr.onreadystatechange = function() { 
+    
+  if (xhr.readyState == 4 && xhr.status == 200) {
 
 
 var disqus_config = function () {
@@ -265,11 +273,18 @@ this.page.identifier = "https://bivectorfoil.github.io/post/illustration-http-1/
 (function() { 
 var d = document, s = d.createElement('script');
 
-s.src = 'https://zvector.disqus.com/embed.js';
+s.src = '//zvector.disqus.com/embed.js';
 
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
+
+}
+else {
+  <!-- cannot load Disqus, skip it. -->
+  return;
+}
+}
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
@@ -463,8 +478,6 @@ s.setAttribute('data-timestamp', +new Date());
     
     
   </div>
-
-
   <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2018
     
     <a href="https://bivectorfoil.github.io/" title="Zvector &amp; Blog">Zvector &amp; Blog</a>

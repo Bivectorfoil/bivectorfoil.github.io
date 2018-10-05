@@ -270,15 +270,15 @@ $ sudo systemctl enable nginx # 开启Nginx的默认自启动
 <p>That&rsquo;s all！更多的Nginx文档请参阅<a href="https://nginx.org/en/docs/">官方文档</a>。</p>
 
     
-        <div class="creative-commons">
-            <a rel="license"
-               href="http://creativecommons.org/licenses/by-sa/4.0/"><img
-               alt="知识共享许可协议" style="border-width:0"
-               src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
-            </a><br />
-        </div>
-    
+    <div class="creative-commons">
+        <a rel="license"
+           href="https://creativecommons.org/licenses/by-sa/4.0/"><img
+           alt="知识共享许可协议" style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+        </a><br />
     </div>
+    
+	</div>
   <footer class="article-footer clearfix">
   
 
@@ -320,6 +320,14 @@ $ sudo systemctl enable nginx # 开启Nginx的默认自启动
 <div id="disqus_thread"></div>
 </section>
 <script>
+  <!-- detect whether Disuqs can load -->
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '//disqus.com/next/config.json?' + new Date().getTime(), true);
+  
+
+  xhr.onreadystatechange = function() { 
+    
+  if (xhr.readyState == 4 && xhr.status == 200) {
 
 
 var disqus_config = function () {
@@ -329,11 +337,18 @@ this.page.identifier = "https://bivectorfoil.github.io/post/install-nginx-ubuntu
 (function() { 
 var d = document, s = d.createElement('script');
 
-s.src = 'https://zvector.disqus.com/embed.js';
+s.src = '//zvector.disqus.com/embed.js';
 
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
+
+}
+else {
+  <!-- cannot load Disqus, skip it. -->
+  return;
+}
+}
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
@@ -527,8 +542,6 @@ s.setAttribute('data-timestamp', +new Date());
     
     
   </div>
-
-
   <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2018
     
     <a href="https://bivectorfoil.github.io/" title="Zvector &amp; Blog">Zvector &amp; Blog</a>

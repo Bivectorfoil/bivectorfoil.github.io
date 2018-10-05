@@ -191,15 +191,15 @@ $ hugo server --theme=hugo-cactus-theme --buildDrafts
 <p>在浏览器地址栏打开<code>localhost:1313</code>，That&rsquo;s all ！Hugo搭建个人博客先告一段落，关于Hugo的部署有空我会再写一篇博文：2018.5.28 更新，请参看<a href="https://zvector.tk/post/deploy-personal-blogs-on-vps/">这里</a>）Now,enjoy writing~</p>
 
     
-        <div class="creative-commons">
-            <a rel="license"
-               href="http://creativecommons.org/licenses/by-sa/4.0/"><img
-               alt="知识共享许可协议" style="border-width:0"
-               src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
-            </a><br />
-        </div>
-    
+    <div class="creative-commons">
+        <a rel="license"
+           href="https://creativecommons.org/licenses/by-sa/4.0/"><img
+           alt="知识共享许可协议" style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+        </a><br />
     </div>
+    
+	</div>
   <footer class="article-footer clearfix">
   
 
@@ -241,6 +241,14 @@ $ hugo server --theme=hugo-cactus-theme --buildDrafts
 <div id="disqus_thread"></div>
 </section>
 <script>
+  <!-- detect whether Disuqs can load -->
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '//disqus.com/next/config.json?' + new Date().getTime(), true);
+  
+
+  xhr.onreadystatechange = function() { 
+    
+  if (xhr.readyState == 4 && xhr.status == 200) {
 
 
 var disqus_config = function () {
@@ -250,11 +258,18 @@ this.page.identifier = "https://bivectorfoil.github.io/post/minimal-hugo-build-p
 (function() { 
 var d = document, s = d.createElement('script');
 
-s.src = 'https://zvector.disqus.com/embed.js';
+s.src = '//zvector.disqus.com/embed.js';
 
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
+
+}
+else {
+  <!-- cannot load Disqus, skip it. -->
+  return;
+}
+}
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
@@ -448,8 +463,6 @@ s.setAttribute('data-timestamp', +new Date());
     
     
   </div>
-
-
   <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2018
     
     <a href="https://bivectorfoil.github.io/" title="Zvector &amp; Blog">Zvector &amp; Blog</a>
