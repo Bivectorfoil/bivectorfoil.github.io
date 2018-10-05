@@ -184,11 +184,10 @@
   <!-- detect whether Disuqs can load -->
   var xhr = new XMLHttpRequest();
   xhr.open('GET', '//disqus.com/next/config.json?' + new Date().getTime(), true);
-  
+  xhr.timeout = 3000;
 
-  xhr.onreadystatechange = function() { 
-    
-  if (xhr.readyState == 4 && xhr.status == 200) {
+  xhr.onload = function() { 
+  
 
 
 var disqus_config = function () {
@@ -203,13 +202,13 @@ s.src = '//zvector.disqus.com/embed.js';
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
-
 }
-else {
+  xhr.ontimeout = function() {
   <!-- cannot load Disqus, skip it. -->
   return;
 }
-}
+xhr.send(null);
+
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
