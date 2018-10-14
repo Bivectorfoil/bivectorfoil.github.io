@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://bivectorfoil.github.io/post/foucs-power/</loc>
+    <lastmod>2018-10-14T10:09:51+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/</loc>
     <lastmod>2018-06-02T12:47:10+08:00</lastmod>
   </url>
@@ -156,7 +161,7 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/post/</loc>
-    <lastmod>2018-06-02T12:47:10+08:00</lastmod>
+    <lastmod>2018-10-14T10:09:51+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -215,8 +220,14 @@
   </url>
   
   <url>
+    <loc>https://bivectorfoil.github.io/tags/web/</loc>
+    <lastmod>2018-10-14T10:09:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://bivectorfoil.github.io/index.xml</loc>
-    <lastmod>2018-06-02T12:47:10+08:00</lastmod>
+    <lastmod>2018-10-14T10:09:51+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -234,7 +245,7 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E9%97%B2%E8%B0%88/</loc>
-    <lastmod>2018-03-05T11:07:06+08:00</lastmod>
+    <lastmod>2018-10-14T10:09:51+08:00</lastmod>
     <priority>0</priority>
   </url>
   

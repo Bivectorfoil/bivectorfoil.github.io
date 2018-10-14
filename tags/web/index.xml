@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on Zvector &amp; Blog</title>
+    <link>https://bivectorfoil.github.io/tags/web/</link>
+    <description>Recent content in Web on Zvector &amp; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 14 Oct 2018 10:09:51 +0800</lastBuildDate>
+    
+	<atom:link href="https://bivectorfoil.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>专注的力量</title>
+      <link>https://bivectorfoil.github.io/post/foucs-power/</link>
+      <pubDate>Sun, 14 Oct 2018 10:09:51 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/foucs-power/</guid>
+      <description>Pyhton 开发者中很少有人没听过 Kenneth Reitz 的名号，Requests ( HTTP for Human), Pipenv (Pip and Virtulenv) 等库均是由他主持开发的。其余闪闪发光的事迹不必赘述，今天我想扯些闲篇，谈</description>
+    </item>
+    
+  </channel>
+</rss>
