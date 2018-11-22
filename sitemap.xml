@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://bivectorfoil.github.io/post/docker-nginx-gunicorn/</loc>
+    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://bivectorfoil.github.io/post/foucs-power/</loc>
     <lastmod>2018-10-14T10:09:51+08:00</lastmod>
   </url>
@@ -100,8 +105,20 @@
   </url>
   
   <url>
+    <loc>https://bivectorfoil.github.io/tags/docker/</loc>
+    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://bivectorfoil.github.io/tags/domain-name/</loc>
     <lastmod>2017-12-01T21:46:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/gunicorn/</loc>
+    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -149,7 +166,7 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/tags/nginx/</loc>
-    <lastmod>2017-11-27T20:26:31+08:00</lastmod>
+    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -161,7 +178,7 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/post/</loc>
-    <lastmod>2018-10-14T10:09:51+08:00</lastmod>
+    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -227,13 +244,13 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/index.xml</loc>
-    <lastmod>2018-10-14T10:09:51+08:00</lastmod>
+    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
-    <lastmod>2018-06-02T12:47:10+08:00</lastmod>
+    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
     <priority>0</priority>
   </url>
   

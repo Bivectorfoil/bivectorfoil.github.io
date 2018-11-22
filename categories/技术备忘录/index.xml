@@ -6,10 +6,19 @@
     <description>Recent content in 技术备忘录 on Zvector &amp; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 02 Jun 2018 12:47:10 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 15 Nov 2018 21:15:33 +0800</lastBuildDate>
     
 	<atom:link href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker Nginx Gunicorn</title>
+      <link>https://bivectorfoil.github.io/post/docker-nginx-gunicorn/</link>
+      <pubDate>Thu, 15 Nov 2018 21:15:33 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/docker-nginx-gunicorn/</guid>
+      <description>记一次 Dockerize Flask Web App 的踩坑之旅 当我们的 Flask Web App 开发完毕，要部署上线时，有多种方案可供我们选择，传统的有如远程服务器部署，便利点的有云部署（PaaS，</description>
+    </item>
     
     <item>
       <title>如何重置MySQL的root密码</title>

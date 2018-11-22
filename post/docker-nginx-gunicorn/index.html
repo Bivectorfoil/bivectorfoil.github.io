@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Categories - Zvector &amp; Blog</title>
+  <title>Docker Nginx Gunicorn - Zvector &amp; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="Categories">
+  <meta name="description" content="记一次 Dockerize Flask Web App 的踩坑之旅 当我们的 Flask Web App 开发完毕，要部署上线时，有多种方案可供我们选择，传统的有如远程服务器部署，便利点的有云部署（PaaS，">
   <meta name="author" content="zvector">
-  <meta itemprop="name" content="Categories - Zvector &amp; Blog">
-  <meta itemprop="description" content="Categories">
+  <meta itemprop="name" content="Docker Nginx Gunicorn - Zvector &amp; Blog">
+  <meta itemprop="description" content="记一次 Dockerize Flask Web App 的踩坑之旅 当我们的 Flask Web App 开发完毕，要部署上线时，有多种方案可供我们选择，传统的有如远程服务器部署，便利点的有云部署（PaaS，">
   <meta itemprop="image" content="https://bivectorfoil.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://bivectorfoil.github.io/feed.xml" title="Zvector &amp; Blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://bivectorfoil.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://bivectorfoil.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://bivectorfoil.github.io/apple-touch-icon.png" />
@@ -57,57 +57,244 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2018-11">2018-11</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/" title="技术备忘录" itemprop="url">
-    <h1 itemprop="name">技术备忘录</h1>
-    <p itemprop="description"></p>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://bivectorfoil.github.io/post/docker-nginx-gunicorn/" title="Docker Nginx Gunicorn" itemprop="url">Docker Nginx Gunicorn</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://bivectorfoil.github.io/" title="zvector">zvector</a>
+    
+  </p>
+  <p class="article-time">
     <time datetime="2018-11-15 21:15:33 &#43;0800 CST" itemprop="datePublished">2018年11月15日</time>
-  </a>
-</section>
+  </p>
+</header>
 
-      
-      
-      <h2 id="2018-10">2018-10</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E9%97%B2%E8%B0%88/" title="技术闲谈" itemprop="url">
-    <h1 itemprop="name">技术闲谈</h1>
-    <p itemprop="description"></p>
-    <time datetime="2018-10-14 10:09:51 &#43;0800 CST" itemprop="datePublished">2018年10月14日</time>
-  </a>
-</section>
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#记一次-dockerize-flask-web-app-的踩坑之旅">记一次 Dockerize Flask Web App 的踩坑之旅</a>
+<ul>
+<li><a href="#背景知识">背景知识</a></li>
+<li><a href="#开始踩坑">开始踩坑</a>
+<ul>
+<li><a href="#部署前的准备">部署前的准备</a></li>
+<li><a href="#创建镜像">创建镜像</a></li>
+<li><a href="#开始部署">开始部署</a></li>
+</ul></li>
+<li><a href="#小结">小结</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+		</div>
+    
+    
 
-      
-      
-      <h2 id="2018-03">2018-03</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/" title="技术翻译" itemprop="url">
-    <h1 itemprop="name">技术翻译</h1>
-    <p itemprop="description"></p>
-    <time datetime="2018-03-31 21:52:55 &#43;0800 CST" itemprop="datePublished">2018年03月31日</time>
-  </a>
-</section>
+<h2 id="记一次-dockerize-flask-web-app-的踩坑之旅">记一次 Dockerize Flask Web App 的踩坑之旅</h2>
 
-      
-      
-      <h2 id="2017-12">2017-12</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="读书笔记" itemprop="url">
-    <h1 itemprop="name">读书笔记</h1>
-    <p itemprop="description"></p>
-    <time datetime="2017-12-18 20:43:28 &#43;0800 CST" itemprop="datePublished">2017年12月18日</time>
-  </a>
-</section>
+<p>当我们的 Flask Web App 开发完毕，要部署上线时，有多种方案可供我们选择，传统的有如远程服务器部署，便利点的有云部署（PaaS，Platform as a Service）。云部署十分方便，不需要过多操心具体细节，故不在本文的讨论范围之内。如果需要自己做更多的定制的话，远程服务器部署可能更适合，本文诞生背景为利用虚拟主机（VPS）部署 Flask Web App，利用 Docker 容器技术实现一次构建，到处部署的效果。</p>
 
-      
-      
+<h3 id="背景知识">背景知识</h3>
+
+<p>继续阅读前假定读者已经对以下概念有所了解：</p>
+
+<ol>
+<li>什么是 Docker 及其主要作用？- <a href="https://docs.docker.com/">文档</a></li>
+<li>如何安装 Docker 和常用的命令。- <a href="https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce">文档</a></li>
+<li>Dockerfile 文件编写的基本规则。 - <a href="https://docs.docker.com/engine/reference/builder/#usage">文档</a></li>
+<li>Docker-compose 工具是什么及常用命令。- <a href="https://docs.docker.com/compose/">文档</a></li>
+<li>Flask Web App 的主要概念。- <a href="http://flask.pocoo.org/">文档</a></li>
+</ol>
+
+<h3 id="开始踩坑">开始踩坑</h3>
+
+<p>选择 Docker 之前其实已经配合 Shell 脚本部署成功了，虽然成功达到了<code>一键安装依赖并部署</code>的效果，但是体验确实一般 <del>水平不行写一行调试半天</del>。而且 Shell 脚本与系统耦合太强，要保证高通用性必须针对不同系统做适配，这样的累活一定有解决的方案。于是，Docker 就有了出场机会了。</p>
+
+<h4 id="部署前的准备">部署前的准备</h4>
+
+<p>对于一个典型的 Flask Web 应用，要部署在线上，光凭借 Flask 自带的调试服务器肯定是不行的，在这里，我们选用 <a href="http://docs.gunicorn.org/en/latest/index.html">Gunicorn</a> 做服务器，并配合 <a href="http://nginx.org/en/docs/">Nginx</a> 做反向代理服务器。系统架构为：Flask 在后台处理请求，Gunicorn 做 WSGI 服务器，Nginx 反向代理静态文件，处理缓存，提供一层防护。</p>
+
+<h4 id="创建镜像">创建镜像</h4>
+
+<p>一个典型的 Python 镜像 Dockerfile 如下：</p>
+
+<pre><code class="language-dockerfile">FROM python:2.7.15-alpine3.8
+
+RUN mkdir -p /usr/src/app  &amp;&amp; mkdir -p /var/log/gunicorn
+
+COPY ./requirements.txt /usr/src/app/requirements.txt
+
+WORKDIR /usr/src/app
+
+RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
+</code></pre>
+
+<p>这里为了生成的镜像大小考虑，使用精简版的 Python 版本，并定义容器内部目录 <code>/usr/src/app/</code> 为项目目录，复制必要的项目依赖文件到项目目录中，并安装依赖包。在这里，我并没有将项目代码也一起拷贝到容器中，而是在接下来的 <code>docker-compose.yml</code> 文件中，使用 <code>Volumes</code> 挂载宿主机的项目代码到容器中。因为使用到了 Gunicorn 和 Nginx 配合工作，故编排 <code>docker-compose.yml</code> 文件，利用 <code>docker-compose</code> 工具，来构建镜像，运行容器。定义如下两个 Docker 服务：</p>
+
+<pre><code class="language-dockerfile">version: '3'
+services:
+  flaskweb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - nginx_network
+    command: '/usr/local/bin/gunicorn -w 2 -b :8000 wsgi:app'
+
+  nginx:
+    # restart: always
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./gogo/static:/opt/services/flaskapp/static
+    depends_on:
+      - flaskweb
+    ports:
+      - &quot;80:80&quot;
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+</code></pre>
+
+<p>简要说明下文件含义，开头定义的 <code>version: '3'</code> 表示使用 <code>docker-compose</code> 的语法版本，当初刚接触 <code>docker-compose</code> 语法规则时还以为是所定义的服务的数量，然而并不是。对于 Flask 服务，需要注意的点不多，主要在于使用 <code>volumes</code> 挂载宿主机文件到容器中，定义了容器构建后要运行的命令。为了与 <code>Nginx</code> 互相通信，自定义了 <code>network</code> 。踩坑较多的地方在定义 <code>Nginx</code> 的服务时，除了配置文件从宿主机挂载到 <code>Nginx</code> 容器时的<strong>位置</strong>（否则自定义的配置文件 Nginx 加载不到）要注意的以外，<code>Nginx</code>所代理的<code>Flask</code> 静态文件设置也要特别小心。在接下来，Nginx 配置文件的设置中，代理静态文件的设置要与<code>docker-compose.yml</code>中定义的一致。一份自定义的 Nginx 配置文件如下：</p>
+
+<pre><code class="language-nginx">upstream web {
+    server flaskweb:8000;
+}
+
+server {
+    listen 80;
+
+    server_name localhost;
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+    
+    location / {
+        proxy_pass http://web; # gunicorn run port
+        proxy_redirect off;
+        
+        proxy_set_header Host               $host;
+        proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+    }
+
+    location /static {
+        alias /opt/services/flaskapp/static/;
+        expires 30d;
+    }
+}
+</code></pre>
+
+<p>注意所定义的上游服务器名字，需要与 <code>dockerfile.yml</code> 文件中定义的一致，使用自定义的 <code>network</code> 通信。代理静态文件的位置也应与 <code>dockerfile.yml</code> 文件中定义的一致。<code>proxy_pass</code> 代理入口也和非 <code>Docker</code> 部署的配置有所差别。</p>
+
+<h4 id="开始部署">开始部署</h4>
+
+<p>准备好 <code>Docker</code> 和 <code>docker-compose</code> 后，项目部署就十分简单了。进入项目根目录下：</p>
+
+<pre><code class="language-dockerfile">$ docker-compose up -d  # run the Docker service in the background
+$ docker-compose ps  # check for status
+</code></pre>
+
+<h3 id="小结">小结</h3>
+
+<p>使用 <code>Docker</code> 部署服务还是十分便捷的，当然也要付出一定的学习成本才好掌握。</p>
+
+    
+    <div class="creative-commons">
+        <a rel="license"
+           href="https://creativecommons.org/licenses/by-sa/4.0/"><img
+           alt="知识共享许可协议" style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+        </a><br />
     </div>
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://bivectorfoil.github.io/tags/docker">docker</a>
+  
+  <a href="https://bivectorfoil.github.io/tags/nginx">nginx</a>
+  
+  <a href="https://bivectorfoil.github.io/tags/gunicorn">gunicorn</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95">技术备忘录</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://bivectorfoil.github.io/post/docker-nginx-gunicorn/" data-title="Docker Nginx Gunicorn" data-tsina="" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+  <!-- detect whether Disuqs can load -->
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '//disqus.com/next/config.json?' + new Date().getTime(), true);
+  xhr.timeout = 3000; 
+
+  xhr.onload = function() { 
+
+
+var disqus_config = function () {
+this.page.url = "https://bivectorfoil.github.io/post/docker-nginx-gunicorn/";
+this.page.identifier = "https://bivectorfoil.github.io/post/docker-nginx-gunicorn/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//zvector.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+}
+  xhr.ontimeout = function() {
+  <!-- cannot load Disqus, skip it. -->
+  return;
+}
+xhr.send(null);
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -291,10 +478,6 @@
 
 
   
-<div class="rsspart">
-  <a rel="nofollow" href="https://bivectorfoil.github.io/feed.xml" type="application/rss+xml" target="_blank"></a>
-</div>
-
 
 </aside>
 </div>
@@ -385,6 +568,38 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -411,6 +626,27 @@ $(document).ready(function(){
 });
 </script>
 
+
+<link rel="stylesheet" href="https://bivectorfoil.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://bivectorfoil.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 
 
