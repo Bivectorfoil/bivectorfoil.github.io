@@ -101,12 +101,12 @@
 
 <p>使用Linux系统的用户应该都知道rm命令的威力，尤其是那个著名的rm -rf笑话，毋庸置疑，rm是一个效力很强的命令，如果使用不得当，很容易造成无法挽回的后果，误删文件。在经历一次小小的误删文件后，我决定要“改造”下这个命令了。在《Linux Shell脚本攻略》中，提供了一个alias命令，用于替换rm命令，使得我们使用rm命令时只是将文件移动到了自定义的Trash目录中，更安全的删除文件，这个alias命令如下：</p>
 
-<pre><code class="language-Bash">alias rm='cp $@ ~/backup &amp;&amp; rm $@'
+<pre><code class="language-bash">alias rm='cp $@ ~/backup &amp;&amp; rm $@'
 </code></pre>
 
 <p>命令的大概意思是，首先复制要删除文件（文件名由$@传递）到~/backup 目录，然后删除它。但在我的实际使用中，这个alias命令无法运行。查了资料后，发现，在Bash Shell中，alias命令不接受参数传递。有关讨论可以看<a href="https://www.zhihu.com/question/23137414">这个问题</a>，function才能。于是我修改了下，改为：</p>
 
-<pre><code class="language-Bash">alias rm='move(){ /bin/mv -v $@ ~/Trash ;};move $@'
+<pre><code class="language-bash">alias rm='move(){ /bin/mv -v $@ ~/Trash ;};move $@'
 </code></pre>
 
 <p>定义了move函数，调用命令mv，替代rm命令，移动要删除文件到~/Trash目录下。那么，怎么真正地删除~/Trash目录下的文件呢？使用“\&ldquo;转义即可，\rm即转义 alias命令，执行系统命令rm。但是要注意的是，在shell脚本中调用的rm命令仍然是系统级的rm。关于更加安全，健壮的删除命令，Github上有很多工具可以使用。</p>
@@ -206,7 +206,7 @@ xhr.send(null);
   <p class="asidetitle">分类</p>
   <ul>
     
-    <li><a href="https://bivectorfoil.github.io/categories/%e6%8a%80%e6%9c%af%e5%a4%87%e5%bf%98%e5%bd%95" title="技术备忘录">技术备忘录<sup>10</sup></a></li>
+    <li><a href="https://bivectorfoil.github.io/categories/%e6%8a%80%e6%9c%af%e5%a4%87%e5%bf%98%e5%bd%95" title="技术备忘录">技术备忘录<sup>11</sup></a></li>
     
     <li><a href="https://bivectorfoil.github.io/categories/%e6%8a%80%e6%9c%af%e7%bf%bb%e8%af%91" title="技术翻译">技术翻译<sup>1</sup></a></li>
     
@@ -253,6 +253,8 @@ xhr.send(null);
       
 			<li><a href="https://bivectorfoil.github.io/tags/notes" title="notes">notes<sup>3</sup></a></li>
       
+			<li><a href="https://bivectorfoil.github.io/tags/python" title="python">python<sup>1</sup></a></li>
+      
 			<li><a href="https://bivectorfoil.github.io/tags/script" title="script">script<sup>1</sup></a></li>
       
 			<li><a href="https://bivectorfoil.github.io/tags/shell" title="shell">shell<sup>2</sup></a></li>
@@ -280,6 +282,11 @@ xhr.send(null);
   <div class="archiveslist">
     <p class="asidetitle">归档</p>
     <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://bivectorfoil.github.io/post/#2018-12">2018年12月</a><span class="archive-list-count">1</span>
+      </li>
       
       
       <li class="archive-list-item">
@@ -354,6 +361,8 @@ xhr.send(null);
     <a href="https://bivectorfoil.github.io/tags/nginx" style="font-size: 12px;">nginx</a>
     
     <a href="https://bivectorfoil.github.io/tags/notes" style="font-size: 12px;">notes</a>
+    
+    <a href="https://bivectorfoil.github.io/tags/python" style="font-size: 12px;">python</a>
     
     <a href="https://bivectorfoil.github.io/tags/script" style="font-size: 12px;">script</a>
     

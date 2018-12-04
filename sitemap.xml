@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/</loc>
+    <lastmod>2018-12-04T09:50:02+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://bivectorfoil.github.io/post/docker-nginx-gunicorn/</loc>
     <lastmod>2018-11-15T21:15:33+08:00</lastmod>
   </url>
@@ -178,7 +183,13 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/post/</loc>
-    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
+    <lastmod>2018-12-04T09:50:02+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/python/</loc>
+    <lastmod>2018-12-04T09:50:02+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -244,13 +255,13 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/index.xml</loc>
-    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
+    <lastmod>2018-12-04T09:50:02+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
-    <lastmod>2018-11-15T21:15:33+08:00</lastmod>
+    <lastmod>2018-12-04T09:50:02+08:00</lastmod>
     <priority>0</priority>
   </url>
   

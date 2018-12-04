@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Posts - Zvector &amp; Blog</title>
+  <title>Python List 方法中 append 与 extend 的区别 - Zvector &amp; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="Posts">
+  <meta name="description" content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻">
   <meta name="author" content="zvector">
-  <meta itemprop="name" content="Posts - Zvector &amp; Blog">
-  <meta itemprop="description" content="Posts">
+  <meta itemprop="name" content="Python List 方法中 append 与 extend 的区别 - Zvector &amp; Blog">
+  <meta itemprop="description" content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻">
   <meta itemprop="image" content="https://bivectorfoil.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://bivectorfoil.github.io/feed.xml" title="Zvector &amp; Blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://bivectorfoil.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://bivectorfoil.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://bivectorfoil.github.io/apple-touch-icon.png" />
@@ -57,186 +57,278 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2018-12">2018-12</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/" title="Python List 方法中 append 与 extend 的区别" itemprop="url">
-    <h1 itemprop="name">Python List 方法中 append 与 extend 的区别</h1>
-    <p itemprop="description">最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻</p>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/" title="Python List 方法中 append 与 extend 的区别" itemprop="url">Python List 方法中 append 与 extend 的区别</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://bivectorfoil.github.io/" title="zvector">zvector</a>
+    
+  </p>
+  <p class="article-time">
     <time datetime="2018-12-04 09:50:02 &#43;0800 CST" itemprop="datePublished">2018年12月04日</time>
-  </a>
-</section>
+  </p>
+</header>
 
-      
-      
-      <h2 id="2018-11">2018-11</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/docker-nginx-gunicorn/" title="Docker Nginx Gunicorn" itemprop="url">
-    <h1 itemprop="name">Docker Nginx Gunicorn</h1>
-    <p itemprop="description">记一次 Dockerize Flask Web App 的踩坑之旅 当我们的 Flask Web App 开发完毕，要部署上线时，有多种方案可供我们选择，传统的有如远程服务器部署，便利点的有云部署（PaaS，</p>
-    <time datetime="2018-11-15 21:15:33 &#43;0800 CST" itemprop="datePublished">2018年11月15日</time>
-  </a>
-</section>
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#list-方法-append-和-extend-有哪些不同点"><strong>List 方法 append 和 extend 有哪些不同点？</strong></a>
+<ul>
+<li><a href="#append"><strong><code>append</code></strong></a></li>
+<li><a href="#extend"><strong><code>extend</code></strong></a></li>
+</ul></li>
+<li><a href="#操作符重载-add-和-iadd"><strong>操作符重载，<code>__add__</code>(+) 和 <code>__iadd__</code>(+=)</strong></a></li>
+<li><a href="#时间复杂度"><strong>时间复杂度</strong></a></li>
+<li><a href="#性能对比"><strong>性能对比</strong></a>
+<ul>
+<li><a href="#就时间测量问题多说一句"><strong>就时间测量问题多说一句</strong></a></li>
+</ul></li>
+<li><a href="#结论"><strong>结论</strong></a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+		</div>
+    
+    
 
-      
-      
-      <h2 id="2018-10">2018-10</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/foucs-power/" title="专注的力量" itemprop="url">
-    <h1 itemprop="name">专注的力量</h1>
-    <p itemprop="description">Pyhton 开发者中很少有人没听过 Kenneth Reitz 的名号，Requests ( HTTP for Human), Pipenv (Pip and Virtulenv) 等库均是由他主持开发的。其余闪闪发光的事迹不必赘述，今天我想扯些闲篇，谈</p>
-    <time datetime="2018-10-14 10:09:51 &#43;0800 CST" itemprop="datePublished">2018年10月14日</time>
-  </a>
-</section>
+<p>最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻译一下，以兹学习。</p>
 
-      
-      
-      <h2 id="2018-06">2018-06</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/" title="如何重置MySQL的root密码" itemprop="url">
-    <h1 itemprop="name">如何重置MySQL的root密码</h1>
-    <p itemprop="description">适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连接</p>
-    <time datetime="2018-06-02 12:47:10 &#43;0800 CST" itemprop="datePublished">2018年06月02日</time>
-  </a>
-</section>
+<blockquote>
+<p>原答案地址为：<a href="https://stackoverflow.com/a/28119966">What is the difference between the list methods append and extend?</a> Plain address: <a href="https://stackoverflow.com/a/28119966">https://stackoverflow.com/a/28119966</a></p>
 
-      
-      
-      <h2 id="2018-04">2018-04</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/tmux-most-useage/" title="Tmux的快速操作入门" itemprop="url">
-    <h1 itemprop="name">Tmux的快速操作入门</h1>
-    <p itemprop="description">什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端</p>
-    <time datetime="2018-04-29 15:25:02 &#43;0800 CST" itemprop="datePublished">2018年04月29日</time>
-  </a>
-</section>
+<p>以下为原回答：</p>
+</blockquote>
 
-      
-      
-      <h2 id="2018-03">2018-03</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/write-a-shell-in-c/" title="[译］教程 - 用C实现一个Shell" itemprop="url">
-    <h1 itemprop="name">[译］教程 - 用C实现一个Shell</h1>
-    <p itemprop="description">原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得</p>
-    <time datetime="2018-03-31 21:52:55 &#43;0800 CST" itemprop="datePublished">2018年03月31日</time>
-  </a>
-</section>
+<h3 id="list-方法-append-和-extend-有哪些不同点"><strong>List 方法 append 和 extend 有哪些不同点？</strong></h3>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/useful-vim-command/" title="一个批处理缩进的VIM技巧" itemprop="url">
-    <h1 itemprop="name">一个批处理缩进的VIM技巧</h1>
-    <p itemprop="description">灌水预警！ 今天处理文本时遇到一个很常见的问题，我在~/src/projects/目录下有一大堆C文件，需要对这些文件执行一个相同的命令，如何</p>
-    <time datetime="2018-03-05 11:07:06 &#43;0800 CST" itemprop="datePublished">2018年03月05日</time>
-  </a>
-</section>
+<ul>
+<li><code>append</code> 将其参数视为单一元素地添加到列表之后。列表的长度自增一。</li>
+<li><code>extend</code> <strong>逐一地</strong>将其参数添加到列表之后，扩展了列表。列表的长度变化取决于可迭代的参数中有多少元素。</li>
+</ul>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/getting-started-with-machine-learning/" title="机器学习入坑记录" itemprop="url">
-    <h1 itemprop="name">机器学习入坑记录</h1>
-    <p itemprop="description">跳坑前的废话 今天偶然看到了谷歌的机器学习速成课程，地址在这。兴趣浓厚，虽说是“速成”，但所要学习的东西也不少。很长一段时间以来，我对机器学习</p>
-    <time datetime="2018-03-02 12:32:53 &#43;0800 CST" itemprop="datePublished">2018年03月02日</time>
-  </a>
-</section>
+<h4 id="append"><strong><code>append</code></strong></h4>
 
-      
-      
-      <h2 id="2017-12">2017-12</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/rm-or-trash-on-linux/" title="浅谈Linux命令rm及回收站" itemprop="url">
-    <h1 itemprop="name">浅谈Linux命令rm及回收站</h1>
-    <p itemprop="description">灌水预警 很久没有写博客了，今天在整理硬盘空间时发现一个小常识，惊异于自己居然没想过这个问题，特此记录。 安全的rm命令 在谈到那个小常识前，我想</p>
-    <time datetime="2017-12-22 21:34:12 &#43;0800 CST" itemprop="datePublished">2017年12月22日</time>
-  </a>
-</section>
+<p><code>list.append</code> 方法将对象附加到列表的末尾。</p>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/illustration-http-1/" title="《图解HTTP》读书笔记（一）" itemprop="url">
-    <h1 itemprop="name">《图解HTTP》读书笔记（一）</h1>
-    <p itemprop="description">前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要</p>
-    <time datetime="2017-12-18 20:43:28 &#43;0800 CST" itemprop="datePublished">2017年12月18日</time>
-  </a>
-</section>
+<pre><code class="language-python">my_list.append(object)
+</code></pre>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/illustration-http-0/" title="《图解HTTP》读书笔记（零）" itemprop="url">
-    <h1 itemprop="name">《图解HTTP》读书笔记（零）</h1>
-    <p itemprop="description">前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。</p>
-    <time datetime="2017-12-15 18:55:02 &#43;0800 CST" itemprop="datePublished">2017年12月15日</time>
-  </a>
-</section>
+<p>无论对象是数字，字符串，另一个列表，或者其他的对象，它都将作为一个单一元素添加到列表末尾。</p>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/ssserver-on-vps/" title="在VPS上搭建绿色上网工具" itemprop="url">
-    <h1 itemprop="name">在VPS上搭建绿色上网工具</h1>
-    <p itemprop="description">服务端搭建 以下以SS指代Shadowsocks。SS分为服务器端和客户端，安装时两个都会安装上，配置文件也相同，区分服务端和客户端的是运行程</p>
-    <time datetime="2017-12-02 15:25:11 &#43;0800 CST" itemprop="datePublished">2017年12月02日</time>
-  </a>
-</section>
+<pre><code class="language-bash">&gt;&gt;&gt; my_list
+['foo', 'bar']
+&gt;&gt;&gt; my_list.append('baz')
+&gt;&gt;&gt; my_list
+['foo', 'bar', 'baz']
+</code></pre>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/" title="使用Git部署Hugo静态博客到VPS上" itemprop="url">
-    <h1 itemprop="name">使用Git部署Hugo静态博客到VPS上</h1>
-    <p itemprop="description">预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简</p>
-    <time datetime="2017-12-02 11:07:44 &#43;0800 CST" itemprop="datePublished">2017年12月02日</time>
-  </a>
-</section>
+<p>所以请牢记在心，一个列表就是一个对象。如果你将一个列表添加到另一个列表中，前者将作为一个单一元素，添加到被添加列表的末尾（也许和你预期的不一样）：</p>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/how-to-get-a-domain-name/" title="如何拥有一个域名" itemprop="url">
-    <h1 itemprop="name">如何拥有一个域名</h1>
-    <p itemprop="description">前言 本篇是我当初搭建个人博客时所经历的步骤，在此记录。话不多说，让我们先看看什么是域名： 域名（英语：Domain Name），简称域名、网域，</p>
-    <time datetime="2017-12-01 21:46:44 &#43;0800 CST" itemprop="datePublished">2017年12月01日</time>
-  </a>
-</section>
+<pre><code class="language-bash">&gt;&gt;&gt; another_list = [1, 2, 3]
+&gt;&gt;&gt; my_list.append(another_list)
+&gt;&gt;&gt; my_list
+['foo', 'bar', 'baz', [1, 2, 3]]
+                     #^^^^^^^^^--- 列表末尾的单一元素
+</code></pre>
 
-      
-      
-      <h2 id="2017-11">2017-11</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/" title="极简Hugo搭建个人博客笔记" itemprop="url">
-    <h1 itemprop="name">极简Hugo搭建个人博客笔记</h1>
-    <p itemprop="description">前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主</p>
-    <time datetime="2017-11-28 13:50:09 &#43;0800 CST" itemprop="datePublished">2017年11月28日</time>
-  </a>
-</section>
+<h4 id="extend"><strong><code>extend</code></strong></h4>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/" title="Install Nginx on Ubuntu16.04" itemprop="url">
-    <h1 itemprop="name">Install Nginx on Ubuntu16.04</h1>
-    <p itemprop="description">如何在Ubuntu16.04上安装Nginx 简介 Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTT</p>
-    <time datetime="2017-11-27 20:26:31 &#43;0800 CST" itemprop="datePublished">2017年11月27日</time>
-  </a>
-</section>
+<p><code>list.extend</code> 方法通过从可迭代对象中添加元素到列表中来扩展列表：</p>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://bivectorfoil.github.io/post/how-to-buy-vps-and-security-setting/" title="如何购买VPS及购买后的安全措施" itemprop="url">
-    <h1 itemprop="name">如何购买VPS及购买后的安全措施</h1>
-    <p itemprop="description">如何购买VPS及购买后的安全措施 先备知识&ndash;什么是VPS 虚拟专用服务器（英语：Virtual private server，缩写为 VPS），是将一</p>
-    <time datetime="2017-11-24 22:46:36 &#43;0800 CST" itemprop="datePublished">2017年11月24日</time>
-  </a>
-</section>
+<pre><code class="language-python">my_list.extend(iterable)
+</code></pre>
 
-      
-      
+<p>所以使用 extend 方法时，可迭代对象中的每一个元素都被添加到列表中。举个栗子：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; my_list
+['foo', 'bar']
+&gt;&gt;&gt; another_list = [1, 2, 3]
+&gt;&gt;&gt; my_list.extend(another_list)
+&gt;&gt;&gt; my_list
+['foo', 'bar', 1, 2, 3]
+</code></pre>
+
+<p>请牢记在心，字符串同样也是可迭代对象，所以如果你用字符串来扩展列表，你将把字符串中的每一个字符都（单独地）添加到列表中了（也许和你预期的不一样）：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; my_list.extend('baz')
+&gt;&gt;&gt; my_list
+['foo', 'bar', 1, 2, 3, 'b', 'a', 'z']
+</code></pre>
+
+<h3 id="操作符重载-add-和-iadd"><strong>操作符重载，<code>__add__</code>(+) 和 <code>__iadd__</code>(+=)</strong></h3>
+
+<p><code>+</code> 和 <code>+=</code> 操作符均定义在了 <code>列表</code> 中。它们在语义上类似于扩展。</p>
+
+<p><code>my_list + another_list</code> 在内存中创建了第三个列表对象，所以你可以将其结果返回，但它要求第二个迭代对象为列表。</p>
+
+<p><code>my_list += another_list</code> 原地修改了列表（它 <em>是</em>  原地操作符，并且列表是可变对象，正如我们所看到的那样）所以它不会创建一个新列表对象。它运行得如 extend 一样，所以第二个可迭代对象可以是任意可迭代对象。</p>
+
+<p>不要混淆了 <code>my_list = my_list + another_list</code> 和 <code>+=</code> 操作 &ndash; 前者将一个新列表赋值到 <code>my_list</code> 。</p>
+
+<h3 id="时间复杂度"><strong>时间复杂度</strong></h3>
+
+<p><code>Append</code> 为常数时间复杂度，O(1)。</p>
+
+<p><code>Extend</code> 为线性时间复杂度，O(k)。</p>
+
+<p>多次重复地调用 <code>append</code> 会增加其复杂度，使得 <code>append</code> 的时间复杂度与 <code>extend</code> 相同，并且，由于 <code>extend</code> 是 C 实现的，当你需要重复地将可迭代对象添加到列表中时，使用 <code>extend</code> 方法总是更快的。</p>
+
+<h3 id="性能对比"><strong>性能对比</strong></h3>
+
+<p>既然 <code>append</code> 可以实现和 <code>extend</code> 的同等效果，你可能想知道谁的性能更好。下列函数的效果相同：</p>
+
+<pre><code class="language-python">def append(alist, iterable):
+    for item in iterable:
+        alist.append(item)
+
+def extend(alist, iterable):
+    alist.extend(iterable)
+</code></pre>
+
+<p>测试一下：</p>
+
+<pre><code class="language-bash">import timeit
+
+&gt;&gt;&gt; min(timeit.repeat(lambda: append([], &quot;abcdefghijklmnopqrstuvwxyz&quot;)))
+2.867846965789795
+&gt;&gt;&gt; min(timeit.repeat(lambda: extend([], &quot;abcdefghijklmnopqrstuvwxyz&quot;)))
+0.8060121536254883
+</code></pre>
+
+<h4 id="就时间测量问题多说一句"><strong>就时间测量问题多说一句</strong></h4>
+
+<p>有评论说到：</p>
+
+<blockquote>
+<p>==完美的答案，我还想知道仅仅添加一个元素时的性能对比==</p>
+</blockquote>
+
+<p>充分遵循语义行事。如果你想将一个可迭代对象的所有元素都添加到列表中，使用 <code>extend</code> 方法。如果你只是想添加一个元素，使用 <code>append</code> 方法。</p>
+
+<p>让我们设计一个实验看看：</p>
+
+<pre><code class="language-python">def append_one(a_list, element):
+    a_list.append(element)
+
+def extend_one(a_list, element):
+    &quot;&quot;&quot;creating a new list is semantically the most direct
+    way to create an iterable to give to extend&quot;&quot;&quot;
+    a_list.extend([element])
+
+import timeit
+</code></pre>
+
+<p>我们会看到，不遗余力地使用 <code>extend</code> 去创建一个可迭代对象是在浪费时间：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; min(timeit.repeat(lambda: append_one([], 0)))
+0.2082819009956438
+&gt;&gt;&gt; min(timeit.repeat(lambda: extend_one([], 0)))
+0.2397019260097295
+</code></pre>
+
+<p>我们学到的是，仅当我们需要添加一个元素时，使用 <code>extend</code> 方法并无更多的好处。</p>
+
+<p>同样地，上述的具体时间测量值并不是关键，关键是，在 Python 中，正确地遵循语义就是在 *做正确的事*。</p>
+
+<p>可以想见，你可能会测试两个类似操作的所需时长并获得模糊或相反的结果。但我们只要关注于做语义正确的事情就好了。</p>
+
+<h3 id="结论"><strong>结论</strong></h3>
+
+<p>我们可以看到 <code>extend</code> 方法语义上更为简洁，并且它比 <code>append</code> 方法运行得更快，<u>当你打算将一个可迭代对象的每一个元素都添加到列表中时。</u></p>
+
+<p>如果你只有一个单一的元素（而不是一个可迭代对象）需要添加到列表时，使用 <code>append</code> 方法。</p>
+
+    
+    <div class="creative-commons">
+        <a rel="license"
+           href="https://creativecommons.org/licenses/by-sa/4.0/"><img
+           alt="知识共享许可协议" style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+        </a><br />
     </div>
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://bivectorfoil.github.io/tags/python">Python</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95">技术备忘录</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/" data-title="Python List 方法中 append 与 extend 的区别" data-tsina="" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+<section class="comment">
+<div id="disqus_thread"></div>
+</section>
+<script>
+  <!-- detect whether Disuqs can load -->
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '//disqus.com/next/config.json?' + new Date().getTime(), true);
+  xhr.timeout = 3000; 
+
+  xhr.onload = function() { 
+
+
+var disqus_config = function () {
+this.page.url = "https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/";
+this.page.identifier = "https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/";
+};
+(function() { 
+var d = document, s = d.createElement('script');
+
+s.src = '//zvector.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+}
+  xhr.ontimeout = function() {
+  <!-- cannot load Disqus, skip it. -->
+  return;
+}
+xhr.send(null);
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -429,10 +521,6 @@
 
 
   
-<div class="rsspart">
-  <a rel="nofollow" href="https://bivectorfoil.github.io/feed.xml" type="application/rss+xml" target="_blank"></a>
-</div>
-
 
 </aside>
 </div>
