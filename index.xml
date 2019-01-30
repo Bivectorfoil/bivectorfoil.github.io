@@ -2,10 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zvector &amp; Blog</title>
-    <link>https://bivectorfoil.github.io/index.xml</link>
+    <link>https://bivectorfoil.github.io/</link>
     <description>Recent content on Zvector &amp; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
     <lastBuildDate>Tue, 04 Dec 2018 09:50:02 +0800</lastBuildDate>
     
 	<atom:link href="https://bivectorfoil.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -44,7 +45,7 @@
       <pubDate>Sat, 02 Jun 2018 12:47:10 +0800</pubDate>
       
       <guid>https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/</guid>
-      <description>适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连接</description>
+      <description>适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 1 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连</description>
     </item>
     
     <item>

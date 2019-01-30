@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Memo on Zvector &amp; Blog</title>
+    <title>memo on Zvector &amp; Blog</title>
     <link>https://bivectorfoil.github.io/tags/memo/</link>
-    <description>Recent content in Memo on Zvector &amp; Blog</description>
+    <description>Recent content in memo on Zvector &amp; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
     <lastBuildDate>Sat, 02 Dec 2017 11:07:44 +0800</lastBuildDate>
     
 	<atom:link href="https://bivectorfoil.github.io/tags/memo/index.xml" rel="self" type="application/rss+xml" />

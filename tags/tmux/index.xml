@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tmux on Zvector &amp; Blog</title>
+    <title>tmux on Zvector &amp; Blog</title>
     <link>https://bivectorfoil.github.io/tags/tmux/</link>
-    <description>Recent content in Tmux on Zvector &amp; Blog</description>
+    <description>Recent content in tmux on Zvector &amp; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
     <lastBuildDate>Sun, 29 Apr 2018 15:25:02 +0800</lastBuildDate>
     
 	<atom:link href="https://bivectorfoil.github.io/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
