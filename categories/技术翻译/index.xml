@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>zvector</copyright>
-    <lastBuildDate>Thu, 21 Mar 2019 22:27:55 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 Dec 2020 17:26:29 +0800</lastBuildDate>
     
 	<atom:link href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Ruby 自制 Web 服务器</title>
+      <link>https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/</link>
+      <pubDate>Sun, 27 Dec 2020 17:26:29 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/</guid>
+      <description>原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是</description>
+    </item>
     
     <item>
       <title>分分钟学会使用Python编写玩具数据库</title>
