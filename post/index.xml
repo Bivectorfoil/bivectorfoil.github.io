@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>zvector</copyright>
-    <lastBuildDate>Sun, 27 Dec 2020 17:26:29 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Nov 2021 21:39:54 +0800</lastBuildDate>
     
 	<atom:link href="https://bivectorfoil.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Learn or Quit</title>
+      <link>https://bivectorfoil.github.io/post/learn-or-quit/</link>
+      <pubDate>Sat, 06 Nov 2021 21:39:54 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/learn-or-quit/</guid>
+      <description>摘录自《程序员的呐喊》 时间从哪来？ 经常有人问我怎么有时间学新东西。我在这里统一回答一下：时间是挤出来的。 这个答案没人会喜欢，但你我都知道这是</description>
+    </item>
     
     <item>
       <title>使用 Ruby 自制 Web 服务器</title>

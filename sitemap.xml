@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bivectorfoil.github.io/post/learn-or-quit/</loc>
+    <lastmod>2021-11-06T21:39:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/</loc>
     <lastmod>2020-12-27T17:26:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -143,6 +150,13 @@
   </url>
   
   <url>
+    <loc>https://bivectorfoil.github.io/categories/</loc>
+    <lastmod>2021-11-06T21:39:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://bivectorfoil.github.io/tags/blog/</loc>
     <lastmod>2017-11-28T13:50:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -158,6 +172,7 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/categories/</loc>
+    <lastmod>2021-11-06T21:39:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -206,7 +221,7 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/post/</loc>
-    <lastmod>2020-12-27T17:26:29+08:00</lastmod>
+    <lastmod>2021-11-06T21:39:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -262,7 +277,7 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/</loc>
-    <lastmod>2020-12-27T17:26:29+08:00</lastmod>
+    <lastmod>2021-11-06T21:39:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -354,6 +369,13 @@
   <url>
     <loc>https://bivectorfoil.github.io/tags/ssserver/</loc>
     <lastmod>2017-12-02T15:25:11+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/think/</loc>
+    <lastmod>2021-11-06T21:39:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
