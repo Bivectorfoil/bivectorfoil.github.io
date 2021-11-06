@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>zvector</copyright>
-    <lastBuildDate>Mon, 18 Dec 2017 20:43:28 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Nov 2021 21:39:54 +0800</lastBuildDate>
     
 	<atom:link href="https://bivectorfoil.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Learn or Quit</title>
+      <link>https://bivectorfoil.github.io/post/learn-or-quit/</link>
+      <pubDate>Sat, 06 Nov 2021 21:39:54 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/learn-or-quit/</guid>
+      <description>摘录自《程序员的呐喊》 时间从哪来？ 经常有人问我怎么有时间学新东西。我在这里统一回答一下：时间是挤出来的。 这个答案没人会喜欢，但你我都知道这是</description>
+    </item>
     
     <item>
       <title>《图解HTTP》读书笔记（一）</title>
