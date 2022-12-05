@@ -1,498 +1,397 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+<!doctype html><html lang=zh-cn>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Python List 方法中 append 与 extend 的区别 - Zvector &amp; Blog</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="zvector" /><meta name="description" content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
-
-
-<link rel="canonical" href="https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="Python List 方法中 append 与 extend 的区别" />
-<meta property="og:description" content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/" /><meta property="article:published_time" content="2018-12-04T09:50:02&#43;08:00"/>
-<meta property="article:modified_time" content="2018-12-04T09:50:02&#43;08:00"/>
-
-<meta itemprop="name" content="Python List 方法中 append 与 extend 的区别">
-<meta itemprop="description" content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻">
-
-
-<meta itemprop="datePublished" content="2018-12-04T09:50:02&#43;08:00" />
-<meta itemprop="dateModified" content="2018-12-04T09:50:02&#43;08:00" />
-<meta itemprop="wordCount" content="1383">
-
-
-
-<meta itemprop="keywords" content="Python," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Python List 方法中 append 与 extend 的区别"/>
-<meta name="twitter:description" content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Python List 方法中 append 与 extend 的区别 - Zvector & Blog</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="zvector"><meta name=description content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻">
+<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
+<link rel=canonical href=https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Python List 方法中 append 与 extend 的区别">
+<meta property="og:description" content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2018-12-04T09:50:02+08:00">
+<meta property="article:modified_time" content="2018-12-04T09:50:02+08:00">
+<meta itemprop=name content="Python List 方法中 append 与 extend 的区别">
+<meta itemprop=description content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻"><meta itemprop=datePublished content="2018-12-04T09:50:02+08:00">
+<meta itemprop=dateModified content="2018-12-04T09:50:02+08:00">
+<meta itemprop=wordCount content="1381">
+<meta itemprop=keywords content="Python,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Python List 方法中 append 与 extend 的区别">
+<meta name=twitter:description content="最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Zvector &amp; Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>Zvector & Blog</a>
 </div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">主页</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">归档</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">标签</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">分类</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">关于</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Zvector &amp; Blog</a>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
 </div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">主页</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Python List 方法中 append 与 extend 的区别</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2018-12-04 </span>
-        <div class="post-category">
-            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/"> 技术备忘录 </a>
-            </div>
-          <span class="more-meta"> 约 1383 字 </span>
-          <span class="more-meta"> 预计阅读 3 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#list-方法-append-和-extend-有哪些不同点"><strong>List 方法 append 和 extend 有哪些不同点？</strong></a>
-<ul>
-<li><a href="#append"><strong><code>append</code></strong></a></li>
-<li><a href="#extend"><strong><code>extend</code></strong></a></li>
-</ul></li>
-<li><a href="#操作符重载-add-和-iadd"><strong>操作符重载，<code>__add__</code>(+) 和 <code>__iadd__</code>(+=)</strong></a></li>
-<li><a href="#时间复杂度"><strong>时间复杂度</strong></a></li>
-<li><a href="#性能对比"><strong>性能对比</strong></a>
-<ul>
-<li><a href="#就时间测量问题多说一句"><strong>就时间测量问题多说一句</strong></a></li>
-</ul></li>
-<li><a href="#结论"><strong>结论</strong></a></li>
-</ul></li>
-</ul></li>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>主页</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>归档</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>标签</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>分类</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>关于</li>
+</a>
 </ul>
 </nav>
-  </div>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>Zvector & Blog</a>
 </div>
-    <div class="post-content">
-      
-
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>主页</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>归档</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>标签</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>分类</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>关于</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Python List 方法中 append 与 extend 的区别</h1>
+<div class=post-meta>
+<span class=post-time> 2018-12-04 </span>
+<div class=post-category>
+<a href=/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/> 技术备忘录 </a>
+</div>
+<span class=more-meta> 约 1381 字 </span>
+<span class=more-meta> 预计阅读 3 分钟 </span>
+<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#list-方法-append-和-extend-有哪些不同点><strong>List 方法 append 和 extend 有哪些不同点？</strong></a></li>
+<li><a href=#操作符重载__add__-和-__iadd__><strong>操作符重载，<code>__add__</code>(+) 和 <code>__iadd__</code>(+=)</strong></a></li>
+<li><a href=#时间复杂度><strong>时间复杂度</strong></a></li>
+<li><a href=#性能对比><strong>性能对比</strong></a></li>
+<li><a href=#结论><strong>结论</strong></a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
 <p>最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻译一下，以兹学习。</p>
-
 <blockquote>
-<p>原答案地址为：<a href="https://stackoverflow.com/a/28119966">What is the difference between the list methods append and extend?</a> Plain address: <a href="https://stackoverflow.com/a/28119966">https://stackoverflow.com/a/28119966</a></p>
-
+<p>原答案地址为：<a href=https://stackoverflow.com/a/28119966>What is the difference between the list methods append and extend?</a> Plain address: <a href=https://stackoverflow.com/a/28119966>https://stackoverflow.com/a/28119966</a></p>
+</blockquote>
+<blockquote>
 <p>以下为原回答：</p>
 </blockquote>
-
-<h3 id="list-方法-append-和-extend-有哪些不同点"><strong>List 方法 append 和 extend 有哪些不同点？</strong></h3>
-
+<h3 id=list-方法-append-和-extend-有哪些不同点><strong>List 方法 append 和 extend 有哪些不同点？</strong></h3>
 <ul>
 <li><code>append</code> 将其参数视为单一元素地添加到列表之后。列表的长度自增一。</li>
 <li><code>extend</code> <strong>逐一地</strong>将其参数添加到列表之后，扩展了列表。列表的长度变化取决于可迭代的参数中有多少元素。</li>
 </ul>
-
-<h4 id="append"><strong><code>append</code></strong></h4>
-
+<h4 id=append><strong><code>append</code></strong></h4>
 <p><code>list.append</code> 方法将对象附加到列表的末尾。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">my_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span></code></pre></td></tr></table>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=n>my_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>object</span><span class=p>)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>无论对象是数字，字符串，另一个列表，或者其他的对象，它都将作为一个单一元素添加到列表末尾。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
+</div><p>无论对象是数字，字符串，另一个列表，或者其他的对象，它都将作为一个单一元素添加到列表末尾。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt;&gt;&gt; my_list
-<span class="o">[</span><span class="s1">&#39;foo&#39;</span>, <span class="s1">&#39;bar&#39;</span><span class="o">]</span>
-&gt;&gt;&gt; my_list.append<span class="o">(</span><span class="s1">&#39;baz&#39;</span><span class="o">)</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>&gt;&gt;&gt; my_list
+<span class=o>[</span><span class=s1>&#39;foo&#39;</span>, <span class=s1>&#39;bar&#39;</span><span class=o>]</span>
+&gt;&gt;&gt; my_list.append<span class=o>(</span><span class=s1>&#39;baz&#39;</span><span class=o>)</span>
 &gt;&gt;&gt; my_list
-<span class="o">[</span><span class="s1">&#39;foo&#39;</span>, <span class="s1">&#39;bar&#39;</span>, <span class="s1">&#39;baz&#39;</span><span class="o">]</span></code></pre></td></tr></table>
+<span class=o>[</span><span class=s1>&#39;foo&#39;</span>, <span class=s1>&#39;bar&#39;</span>, <span class=s1>&#39;baz&#39;</span><span class=o>]</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>所以请牢记在心，一个列表就是一个对象。如果你将一个列表添加到另一个列表中，前者将作为一个单一元素，添加到被添加列表的末尾（也许和你预期的不一样）：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
+</div><p>所以请牢记在心，一个列表就是一个对象。如果你将一个列表添加到另一个列表中，前者将作为一个单一元素，添加到被添加列表的末尾（也许和你预期的不一样）：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt;&gt;&gt; <span class="nv">another_list</span> <span class="o">=</span> <span class="o">[</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span><span class="o">]</span>
-&gt;&gt;&gt; my_list.append<span class="o">(</span>another_list<span class="o">)</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>&gt;&gt;&gt; <span class=nv>another_list</span> <span class=o>=</span> <span class=o>[</span>1, 2, 3<span class=o>]</span>
+&gt;&gt;&gt; my_list.append<span class=o>(</span>another_list<span class=o>)</span>
 &gt;&gt;&gt; my_list
-<span class="o">[</span><span class="s1">&#39;foo&#39;</span>, <span class="s1">&#39;bar&#39;</span>, <span class="s1">&#39;baz&#39;</span>, <span class="o">[</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span><span class="o">]]</span>
-                     <span class="c1">#^^^^^^^^^--- 列表末尾的单一元素</span></code></pre></td></tr></table>
+<span class=o>[</span><span class=s1>&#39;foo&#39;</span>, <span class=s1>&#39;bar&#39;</span>, <span class=s1>&#39;baz&#39;</span>, <span class=o>[</span>1, 2, 3<span class=o>]]</span>
+                     <span class=c1>#^^^^^^^^^--- 列表末尾的单一元素</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h4 id="extend"><strong><code>extend</code></strong></h4>
-
+</div><h4 id=extend><strong><code>extend</code></strong></h4>
 <p><code>list.extend</code> 方法通过从可迭代对象中添加元素到列表中来扩展列表：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">my_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span></code></pre></td></tr></table>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=n>my_list</span><span class=o>.</span><span class=n>extend</span><span class=p>(</span><span class=n>iterable</span><span class=p>)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>所以使用 extend 方法时，可迭代对象中的每一个元素都被添加到列表中。举个栗子：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
+</div><p>所以使用 extend 方法时，可迭代对象中的每一个元素都被添加到列表中。举个栗子：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt;&gt;&gt; my_list
-<span class="o">[</span><span class="s1">&#39;foo&#39;</span>, <span class="s1">&#39;bar&#39;</span><span class="o">]</span>
-&gt;&gt;&gt; <span class="nv">another_list</span> <span class="o">=</span> <span class="o">[</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span><span class="o">]</span>
-&gt;&gt;&gt; my_list.extend<span class="o">(</span>another_list<span class="o">)</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>&gt;&gt;&gt; my_list
+<span class=o>[</span><span class=s1>&#39;foo&#39;</span>, <span class=s1>&#39;bar&#39;</span><span class=o>]</span>
+&gt;&gt;&gt; <span class=nv>another_list</span> <span class=o>=</span> <span class=o>[</span>1, 2, 3<span class=o>]</span>
+&gt;&gt;&gt; my_list.extend<span class=o>(</span>another_list<span class=o>)</span>
 &gt;&gt;&gt; my_list
-<span class="o">[</span><span class="s1">&#39;foo&#39;</span>, <span class="s1">&#39;bar&#39;</span>, <span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span><span class="o">]</span></code></pre></td></tr></table>
+<span class=o>[</span><span class=s1>&#39;foo&#39;</span>, <span class=s1>&#39;bar&#39;</span>, 1, 2, 3<span class=o>]</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>请牢记在心，字符串同样也是可迭代对象，所以如果你用字符串来扩展列表，你将把字符串中的每一个字符都（单独地）添加到列表中了（也许和你预期的不一样）：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
+</div><p>请牢记在心，字符串同样也是可迭代对象，所以如果你用字符串来扩展列表，你将把字符串中的每一个字符都（单独地）添加到列表中了（也许和你预期的不一样）：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt;&gt;&gt; my_list.extend<span class="o">(</span><span class="s1">&#39;baz&#39;</span><span class="o">)</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>&gt;&gt;&gt; my_list.extend<span class=o>(</span><span class=s1>&#39;baz&#39;</span><span class=o>)</span>
 &gt;&gt;&gt; my_list
-<span class="o">[</span><span class="s1">&#39;foo&#39;</span>, <span class="s1">&#39;bar&#39;</span>, <span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="s1">&#39;b&#39;</span>, <span class="s1">&#39;a&#39;</span>, <span class="s1">&#39;z&#39;</span><span class="o">]</span></code></pre></td></tr></table>
+<span class=o>[</span><span class=s1>&#39;foo&#39;</span>, <span class=s1>&#39;bar&#39;</span>, 1, 2, 3, <span class=s1>&#39;b&#39;</span>, <span class=s1>&#39;a&#39;</span>, <span class=s1>&#39;z&#39;</span><span class=o>]</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="操作符重载-add-和-iadd"><strong>操作符重载，<code>__add__</code>(+) 和 <code>__iadd__</code>(+=)</strong></h3>
-
+</div><h3 id=操作符重载__add__-和-__iadd__><strong>操作符重载，<code>__add__</code>(+) 和 <code>__iadd__</code>(+=)</strong></h3>
 <p><code>+</code> 和 <code>+=</code> 操作符均定义在了 <code>列表</code> 中。它们在语义上类似于扩展。</p>
-
 <p><code>my_list + another_list</code> 在内存中创建了第三个列表对象，所以你可以将其结果返回，但它要求第二个迭代对象为列表。</p>
-
-<p><code>my_list += another_list</code> 原地修改了列表（它 <em>是</em>  原地操作符，并且列表是可变对象，正如我们所看到的那样）所以它不会创建一个新列表对象。它运行得如 extend 一样，所以第二个可迭代对象可以是任意可迭代对象。</p>
-
+<p><code>my_list += another_list</code> 原地修改了列表（它 <em>是</em> 原地操作符，并且列表是可变对象，正如我们所看到的那样）所以它不会创建一个新列表对象。它运行得如 extend 一样，所以第二个可迭代对象可以是任意可迭代对象。</p>
 <p>不要混淆了 <code>my_list = my_list + another_list</code> 和 <code>+=</code> 操作 &ndash; 前者将一个新列表赋值到 <code>my_list</code> 。</p>
-
-<h3 id="时间复杂度"><strong>时间复杂度</strong></h3>
-
+<h3 id=时间复杂度><strong>时间复杂度</strong></h3>
 <p><code>Append</code> 为常数时间复杂度，O(1)。</p>
-
 <p><code>Extend</code> 为线性时间复杂度，O(k)。</p>
-
 <p>多次重复地调用 <code>append</code> 会增加其复杂度，使得 <code>append</code> 的时间复杂度与 <code>extend</code> 相同，并且，由于 <code>extend</code> 是 C 实现的，当你需要重复地将可迭代对象添加到列表中时，使用 <code>extend</code> 方法总是更快的。</p>
-
-<h3 id="性能对比"><strong>性能对比</strong></h3>
-
+<h3 id=性能对比><strong>性能对比</strong></h3>
 <p>既然 <code>append</code> 可以实现和 <code>extend</code> 的同等效果，你可能想知道谁的性能更好。下列函数的效果相同：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span> <span class="n">iterable</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
-        <span class="n">alist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>append</span><span class=p>(</span><span class=n>alist</span><span class=p>,</span> <span class=n>iterable</span><span class=p>):</span>
+    <span class=k>for</span> <span class=n>item</span> <span class=ow>in</span> <span class=n>iterable</span><span class=p>:</span>
+        <span class=n>alist</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>item</span><span class=p>)</span>
 
-<span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span> <span class="n">iterable</span><span class="p">):</span>
-    <span class="n">alist</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span></code></pre></td></tr></table>
+<span class=k>def</span> <span class=nf>extend</span><span class=p>(</span><span class=n>alist</span><span class=p>,</span> <span class=n>iterable</span><span class=p>):</span>
+    <span class=n>alist</span><span class=o>.</span><span class=n>extend</span><span class=p>(</span><span class=n>iterable</span><span class=p>)</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>测试一下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
+</div><p>测试一下：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">import timeit
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>import timeit
 
-&gt;&gt;&gt; min<span class="o">(</span>timeit.repeat<span class="o">(</span>lambda: append<span class="o">([]</span>, <span class="s2">&#34;abcdefghijklmnopqrstuvwxyz&#34;</span><span class="o">)))</span>
-<span class="m">2</span>.867846965789795
-&gt;&gt;&gt; min<span class="o">(</span>timeit.repeat<span class="o">(</span>lambda: extend<span class="o">([]</span>, <span class="s2">&#34;abcdefghijklmnopqrstuvwxyz&#34;</span><span class="o">)))</span>
-<span class="m">0</span>.8060121536254883</code></pre></td></tr></table>
+&gt;&gt;&gt; min<span class=o>(</span>timeit.repeat<span class=o>(</span>lambda: append<span class=o>([]</span>, <span class=s2>&#34;abcdefghijklmnopqrstuvwxyz&#34;</span><span class=o>)))</span>
+2.867846965789795
+&gt;&gt;&gt; min<span class=o>(</span>timeit.repeat<span class=o>(</span>lambda: extend<span class=o>([]</span>, <span class=s2>&#34;abcdefghijklmnopqrstuvwxyz&#34;</span><span class=o>)))</span>
+0.8060121536254883
+</code></pre></td></tr></table>
 </div>
-</div>
-<h4 id="就时间测量问题多说一句"><strong>就时间测量问题多说一句</strong></h4>
-
+</div><h4 id=就时间测量问题多说一句><strong>就时间测量问题多说一句</strong></h4>
 <p>有评论说到：</p>
-
 <blockquote>
 <p>==完美的答案，我还想知道仅仅添加一个元素时的性能对比==</p>
 </blockquote>
-
 <p>充分遵循语义行事。如果你想将一个可迭代对象的所有元素都添加到列表中，使用 <code>extend</code> 方法。如果你只是想添加一个元素，使用 <code>append</code> 方法。</p>
-
 <p>让我们设计一个实验看看：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">append_one</span><span class="p">(</span><span class="n">a_list</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
-    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>append_one</span><span class=p>(</span><span class=n>a_list</span><span class=p>,</span> <span class=n>element</span><span class=p>):</span>
+    <span class=n>a_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>element</span><span class=p>)</span>
 
-<span class="k">def</span> <span class="nf">extend_one</span><span class="p">(</span><span class="n">a_list</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
-    <span class="s2">&#34;&#34;&#34;creating a new list is semantically the most direct
-</span><span class="s2">    way to create an iterable to give to extend&#34;&#34;&#34;</span>
-    <span class="n">a_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">element</span><span class="p">])</span>
+<span class=k>def</span> <span class=nf>extend_one</span><span class=p>(</span><span class=n>a_list</span><span class=p>,</span> <span class=n>element</span><span class=p>):</span>
+    <span class=s2>&#34;&#34;&#34;creating a new list is semantically the most direct
+</span><span class=s2>    way to create an iterable to give to extend&#34;&#34;&#34;</span>
+    <span class=n>a_list</span><span class=o>.</span><span class=n>extend</span><span class=p>([</span><span class=n>element</span><span class=p>])</span>
 
-<span class="kn">import</span> <span class="nn">timeit</span></code></pre></td></tr></table>
+<span class=kn>import</span> <span class=nn>timeit</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>我们会看到，不遗余力地使用 <code>extend</code> 去创建一个可迭代对象是在浪费时间：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
+</div><p>我们会看到，不遗余力地使用 <code>extend</code> 去创建一个可迭代对象是在浪费时间：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt;&gt;&gt; min<span class="o">(</span>timeit.repeat<span class="o">(</span>lambda: append_one<span class="o">([]</span>, <span class="m">0</span><span class="o">)))</span>
-<span class="m">0</span>.2082819009956438
-&gt;&gt;&gt; min<span class="o">(</span>timeit.repeat<span class="o">(</span>lambda: extend_one<span class="o">([]</span>, <span class="m">0</span><span class="o">)))</span>
-<span class="m">0</span>.2397019260097295</code></pre></td></tr></table>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>&gt;&gt;&gt; min<span class=o>(</span>timeit.repeat<span class=o>(</span>lambda: append_one<span class=o>([]</span>, 0<span class=o>)))</span>
+0.2082819009956438
+&gt;&gt;&gt; min<span class=o>(</span>timeit.repeat<span class=o>(</span>lambda: extend_one<span class=o>([]</span>, 0<span class=o>)))</span>
+0.2397019260097295
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>我们学到的是，仅当我们需要添加一个元素时，使用 <code>extend</code> 方法并无更多的好处。</p>
-
-<p>同样地，上述的具体时间测量值并不是关键，关键是，在 Python 中，正确地遵循语义就是在 *做正确的事*。</p>
-
+</div><p>我们学到的是，仅当我们需要添加一个元素时，使用 <code>extend</code> 方法并无更多的好处。</p>
+<p>同样地，上述的具体时间测量值并不是关键，关键是，在 Python 中，正确地遵循语义就是在 <em>做正确的事</em>。</p>
 <p>可以想见，你可能会测试两个类似操作的所需时长并获得模糊或相反的结果。但我们只要关注于做语义正确的事情就好了。</p>
-
-<h3 id="结论"><strong>结论</strong></h3>
-
-<p>我们可以看到 <code>extend</code> 方法语义上更为简洁，并且它比 <code>append</code> 方法运行得更快，<u>当你打算将一个可迭代对象的每一个元素都添加到列表中时。</u></p>
-
+<h3 id=结论><strong>结论</strong></h3>
+<p>我们可以看到 <code>extend</code> 方法语义上更为简洁，并且它比 <code>append</code> 方法运行得更快，当你打算将一个可迭代对象的每一个元素都添加到列表中时。</p>
 <p>如果你只有一个单一的元素（而不是一个可迭代对象）需要添加到列表时，使用 <code>append</code> 方法。</p>
-
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">zvector</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2018-12-04</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-  </p>
-</div><footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/python/">Python</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/toy-database-in-python/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">分分钟学会使用Python编写玩具数据库</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/docker-nginx-gunicorn/">
-            <span class="next-text nav-default">Docker Nginx Gunicorn</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'zvector';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
-  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
-  </div>
-
-  <span class="copyright-year">
-    &copy; 
-    2018 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">zvector</span>
-  </span>
+<div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>zvector</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>2018-12-04</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>许可协议</span>
+<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+</p>
+</div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/python/>Python</a>
 </div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-
-
-
-
-
-
-
-
+<nav class=post-nav>
+<a class=prev href=/post/toy-database-in-python/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">分分钟学会使用Python编写玩具数据库</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/docker-nginx-gunicorn/>
+<span class="next-text nav-default">Docker Nginx Gunicorn</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
+<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<div class=busuanzi-footer>
+<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
+</div>
+<span class=copyright-year>
+&copy;
+2018 -
+2022
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>zvector</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/dist/even.26188efa.min.js></script>
 </body>
 </html>

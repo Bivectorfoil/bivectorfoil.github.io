@@ -1,554 +1,464 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+<!doctype html><html lang=zh-cn>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>分分钟学会使用Python编写玩具数据库 - Zvector &amp; Blog</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="zvector" /><meta name="description" content="译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
-
-
-<link rel="canonical" href="https://bivectorfoil.github.io/post/toy-database-in-python/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="分分钟学会使用Python编写玩具数据库" />
-<meta property="og:description" content="译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://bivectorfoil.github.io/post/toy-database-in-python/" /><meta property="article:published_time" content="2019-03-21T22:27:55&#43;08:00"/>
-<meta property="article:modified_time" content="2019-03-21T22:27:55&#43;08:00"/>
-
-<meta itemprop="name" content="分分钟学会使用Python编写玩具数据库">
-<meta itemprop="description" content="译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write">
-
-
-<meta itemprop="datePublished" content="2019-03-21T22:27:55&#43;08:00" />
-<meta itemprop="dateModified" content="2019-03-21T22:27:55&#43;08:00" />
-<meta itemprop="wordCount" content="1700">
-
-
-
-<meta itemprop="keywords" content="Database," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="分分钟学会使用Python编写玩具数据库"/>
-<meta name="twitter:description" content="译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>分分钟学会使用Python编写玩具数据库 - Zvector & Blog</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="zvector"><meta name=description content="译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write">
+<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
+<link rel=canonical href=https://bivectorfoil.github.io/post/toy-database-in-python/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="分分钟学会使用Python编写玩具数据库">
+<meta property="og:description" content="译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bivectorfoil.github.io/post/toy-database-in-python/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2019-03-21T22:27:55+08:00">
+<meta property="article:modified_time" content="2019-03-21T22:27:55+08:00">
+<meta itemprop=name content="分分钟学会使用Python编写玩具数据库">
+<meta itemprop=description content="译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write"><meta itemprop=datePublished content="2019-03-21T22:27:55+08:00">
+<meta itemprop=dateModified content="2019-03-21T22:27:55+08:00">
+<meta itemprop=wordCount content="1699">
+<meta itemprop=keywords content="Database,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="分分钟学会使用Python编写玩具数据库">
+<meta name=twitter:description content="译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Zvector &amp; Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>Zvector & Blog</a>
 </div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">主页</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">归档</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">标签</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">分类</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">关于</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Zvector &amp; Blog</a>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
 </div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">主页</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">分分钟学会使用Python编写玩具数据库</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2019-03-21 </span>
-        <div class="post-category">
-            <a href="/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/"> 技术翻译 </a>
-            </div>
-          <span class="more-meta"> 约 1700 字 </span>
-          <span class="more-meta"> 预计阅读 4 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#开始-coding-吧">开始 Coding 吧。。。</a></li>
-<li><a href="#让它更具实用性">让它更具实用性。。。😉</a></li>
-<li><a href="#最后">最后。。。🎉</a></li>
-</ul></li>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>主页</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>归档</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>标签</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>分类</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>关于</li>
+</a>
 </ul>
 </nav>
-  </div>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>Zvector & Blog</a>
 </div>
-    <div class="post-content">
-      
-
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>主页</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>归档</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>标签</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>分类</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>关于</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>分分钟学会使用Python编写玩具数据库</h1>
+<div class=post-meta>
+<span class=post-time> 2019-03-21 </span>
+<div class=post-category>
+<a href=/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/> 技术翻译 </a>
+</div>
+<span class=more-meta> 约 1699 字 </span>
+<span class=more-meta> 预计阅读 4 分钟 </span>
+<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#开始-coding-吧>开始 Coding 吧。。。</a></li>
+<li><a href=#让它更具实用性>让它更具实用性。。。😉</a></li>
+<li><a href=#最后>最后。。。🎉</a></li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
 <blockquote>
-<p>译自 <a href="https://medium.freecodecamp.org/@bauripalash">Palash Bauri</a> 的文章：<a href="https://medium.freecodecamp.org/how-to-write-a-simple-toy-database-in-python-within-minutes-51ff49f47f1">How to write a simple toy database in Python within minutes</a></p>
-
-<p>文章地址：<a href="https://medium.freecodecamp.org/how-to-write-a-simple-toy-database-in-python-within-minutes-51ff49f47f1">https://medium.freecodecamp.org/how-to-write-a-simple-toy-database-in-python-within-minutes-51ff49f47f1</a></p>
+<p>译自 <a href=https://medium.freecodecamp.org/@bauripalash>Palash Bauri</a> 的文章：<a href=https://medium.freecodecamp.org/how-to-write-a-simple-toy-database-in-python-within-minutes-51ff49f47f1>How to write a simple toy database in Python within minutes</a></p>
+<p>文章地址：https://medium.freecodecamp.org/how-to-write-a-simple-toy-database-in-python-within-minutes-51ff49f47f1</p>
 </blockquote>
-
 <p>MySQL，PostgreSQL，Oracle，Redis 或任何其他你能想到的数据库名称&ndash;数据库是人类文明进程中十分重要的部分科技技术。在今日，数据的重要性不言而喻，因此，数据库成了保证数据的安全和稳定性的重要手段。</p>
-
 <p>可以看到数据库也是同等重要的。曾好几次，我希望为了理解，把玩而创造属于我自己的玩具数据库。正如理查德 · 费曼所说：</p>
-
 <blockquote>
 <p>我无法理解我所不可创造之物</p>
 </blockquote>
-
 <p>废话不多说，让我们进入正题：Coding！</p>
-
-<h2 id="开始-coding-吧">开始 Coding 吧。。。</h2>
-
-<p>我选用 <strong>Python</strong> （我的最爱  ❤️）来创建这个玩具数据库，命名为 <strong>FooBarDB</strong> (应该没有更适合的名字了 😉 )，不过你可以随意起个喜欢的名字。</p>
-
+<h2 id=开始-coding-吧>开始 Coding 吧。。。</h2>
+<p>我选用 <strong>Python</strong> （我的最爱 ❤️）来创建这个玩具数据库，命名为 <strong>FooBarDB</strong> (应该没有更适合的名字了 😉 )，不过你可以随意起个喜欢的名字。</p>
 <p>首先引入一些已经在 Python 标准库里的重要库：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="lnt">1
-</span><span class="lnt">2
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">os</span></code></pre></td></tr></table>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-Python data-lang=Python><span class=kn>import</span> <span class=nn>json</span>
+<span class=kn>import</span> <span class=nn>os</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>没错，我们只需要这两个库！<code>json</code> 库是因为我们的数据库基于 JSON，<code>os</code> 库是用于处理路径问题。</p>
-
+</div><p>没错，我们只需要这两个库！<code>json</code> 库是因为我们的数据库基于 JSON，<code>os</code> 库是用于处理路径问题。</p>
 <p>下面开始定义基本的类库 <code>FoobarDB</code>，还有一些基本功能，后面会逐一解释。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">FoobarDB</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">location</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>class</span> <span class=nc>FoobarDB</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
+    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span> <span class=p>,</span> <span class=n>location</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>location</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>expanduser</span><span class=p>(</span><span class=n>location</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>load</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>location</span><span class=p>)</span>
 
-    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">location</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">location</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">return</span> <span class="bp">True</span>
+    <span class=k>def</span> <span class=nf>load</span><span class=p>(</span><span class=bp>self</span> <span class=p>,</span> <span class=n>location</span><span class=p>):</span>
+        <span class=k>if</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>exists</span><span class=p>(</span><span class=n>location</span><span class=p>):</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_load</span><span class=p>()</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>db</span> <span class=o>=</span> <span class=p>{}</span>
+        <span class=k>return</span> <span class=kc>True</span>
 
-    <span class="k">def</span> <span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">))</span>
+    <span class=k>def</span> <span class=nf>_load</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>db</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>load</span><span class=p>(</span><span class=nb>open</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>location</span> <span class=p>,</span> <span class=s2>&#34;r&#34;</span><span class=p>))</span>
 
-    <span class="k">def</span> <span class="nf">dumpdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="s2">&#34;w+&#34;</span><span class="p">))</span>
-            <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span></code></pre></td></tr></table>
+    <span class=k>def</span> <span class=nf>dumpdb</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>json</span><span class=o>.</span><span class=n>dump</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>db</span> <span class=p>,</span> <span class=nb>open</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>location</span><span class=p>,</span> <span class=s2>&#34;w+&#34;</span><span class=p>))</span>
+            <span class=k>return</span> <span class=kc>True</span>
+        <span class=k>except</span><span class=p>:</span>
+            <span class=k>return</span> <span class=kc>False</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>我们使用 __init__ 函数定义主类。创建一个 Foobar 数据库只需要传入数据库的位置。在 __init__ 函数中传入 <code>location</code> 参数，并使用用户的家目录替换 <code>~</code> 和 <code>~user</code> 。然后，使用 <code>self.location</code> 变量接受 <code>location</code> 参数，并在稍后的函数中使用它。最后，将 <code>self.location</code> 传入 <code>load</code> 函数。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
+</div><p>我们使用 __init__ 函数定义主类。创建一个 Foobar 数据库只需要传入数据库的位置。在 __init__ 函数中传入 <code>location</code> 参数，并使用用户的家目录替换 <code>~</code> 和 <code>~user</code> 。然后，使用 <code>self.location</code> 变量接受 <code>location</code> 参数，并在稍后的函数中使用它。最后，将 <code>self.location</code> 传入 <code>load</code> 函数。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">location</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">location</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">return</span> <span class="bp">True</span>
-<span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span></code></pre></td></tr></table>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+    <span class=k>def</span> <span class=nf>load</span><span class=p>(</span><span class=bp>self</span> <span class=p>,</span> <span class=n>location</span><span class=p>):</span>
+        <span class=k>if</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>exists</span><span class=p>(</span><span class=n>location</span><span class=p>):</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_load</span><span class=p>()</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>db</span> <span class=o>=</span> <span class=p>{}</span>
+        <span class=k>return</span> <span class=kc>True</span>
+<span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><code>load</code> 函数接受数据库位置参数，并检查数据库文件是否存在。如果存在，调用 <code>_load()</code> 函数（稍后解释）。否则，在内存中创建空的 JSON 对象。最后，返回 True 表示成功。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
+</div><p><code>load</code> 函数接受数据库位置参数，并检查数据库文件是否存在。如果存在，调用 <code>_load()</code> 函数（稍后解释）。否则，在内存中创建空的 JSON 对象。最后，返回 True 表示成功。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> 
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-Python data-lang=Python><span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span> 
 
-    <span class="k">def</span> <span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">))</span>
-<span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span></code></pre></td></tr></table>
+    <span class=k>def</span> <span class=nf>_load</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>db</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>load</span><span class=p>(</span><span class=nb>open</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>location</span> <span class=p>,</span> <span class=s2>&#34;r&#34;</span><span class=p>))</span>
+<span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>调用 <code>_load()</code> 函数，从存储在 <code>self.location</code> 变量中的数据库位置打开数据库文件，将其转换为 JSON 对象，并载入 <code>self.db</code> 变量。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
+</div><p>调用 <code>_load()</code> 函数，从存储在 <code>self.location</code> 变量中的数据库位置打开数据库文件，将其转换为 JSON 对象，并载入 <code>self.db</code> 变量。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-    <span class="k">def</span> <span class="nf">dumpdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="s2">&#34;w+&#34;</span><span class="p">))</span>
-            <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+    <span class=k>def</span> <span class=nf>dumpdb</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>json</span><span class=o>.</span><span class=n>dump</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>db</span> <span class=p>,</span> <span class=nb>open</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>location</span><span class=p>,</span> <span class=s2>&#34;w+&#34;</span><span class=p>))</span>
+            <span class=k>return</span> <span class=kc>True</span>
+        <span class=k>except</span><span class=p>:</span>
+            <span class=k>return</span> <span class=kc>False</span>
 
-<span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span></code></pre></td></tr></table>
+<span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>最后，显而易见的，函数 <code>dumpdb</code> 从变量 <code>self.db</code> 接受内存中的数据库（实际上为 JSON 对象），并将其保存在数据库文件中。若成功，返回 <strong>True</strong>，否则，返回 <strong>False</strong>。</p>
-
-<h2 id="让它更具实用性">让它更具实用性。。。😉</h2>
-
+</div><p>最后，显而易见的，函数 <code>dumpdb</code> 从变量 <code>self.db</code> 接受内存中的数据库（实际上为 JSON 对象），并将其保存在数据库文件中。若成功，返回 <strong>True</strong>，否则，返回 <strong>False</strong>。</p>
+<h2 id=让它更具实用性>让它更具实用性。。。😉</h2>
 <p>我们说了一大通，但是一个不能存储和读取的数据库应该没啥用吧，不是吗？😑 那就让我们把这些功能加上吧！😎</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">key</span> <span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dumpdb</span><span class="p">()</span>
-            <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&#34;[X] Error Saving Values to Database : &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-            <span class="k">return</span> <span class="bp">False</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+    <span class=k>def</span> <span class=nf>set</span><span class=p>(</span><span class=bp>self</span> <span class=p>,</span> <span class=n>key</span> <span class=p>,</span> <span class=n>value</span><span class=p>):</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>db</span><span class=p>[</span><span class=nb>str</span><span class=p>(</span><span class=n>key</span><span class=p>)]</span> <span class=o>=</span> <span class=n>value</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>dumpdb</span><span class=p>()</span>
+            <span class=k>return</span> <span class=kc>True</span>
+        <span class=k>except</span> <span class=ne>Exception</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+            <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[X] Error Saving Values to Database : &#34;</span> <span class=o>+</span> <span class=nb>str</span><span class=p>(</span><span class=n>e</span><span class=p>))</span>
+            <span class=k>return</span> <span class=kc>False</span>
 
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&#34;No Value Can Be Found for &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>  
-            <span class="k">return</span> <span class="bp">False</span>
+    <span class=k>def</span> <span class=nf>get</span><span class=p>(</span><span class=bp>self</span> <span class=p>,</span> <span class=n>key</span><span class=p>):</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>db</span><span class=p>[</span><span class=n>key</span><span class=p>]</span>
+        <span class=k>except</span> <span class=ne>KeyError</span><span class=p>:</span>
+            <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;No Value Can Be Found for &#34;</span> <span class=o>+</span> <span class=nb>str</span><span class=p>(</span><span class=n>key</span><span class=p>))</span>  
+            <span class=k>return</span> <span class=kc>False</span>
 
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dumpdb</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">True</span>
-<span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span></code></pre></td></tr></table>
+    <span class=k>def</span> <span class=nf>delete</span><span class=p>(</span><span class=bp>self</span> <span class=p>,</span> <span class=n>key</span><span class=p>):</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=n>key</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>db</span><span class=p>:</span>
+            <span class=k>return</span> <span class=kc>False</span>
+        <span class=k>del</span> <span class=bp>self</span><span class=o>.</span><span class=n>db</span><span class=p>[</span><span class=n>key</span><span class=p>]</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>dumpdb</span><span class=p>()</span>
+        <span class=k>return</span> <span class=kc>True</span>
+<span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><code>set</code> 函数负责添加数据。因为我们的数据库属于键-值数据库，所以只需要接收 <code>key</code> 和 <code>value</code> 参数即可。</p>
-
+</div><p><code>set</code> 函数负责添加数据。因为我们的数据库属于键-值数据库，所以只需要接收 <code>key</code> 和 <code>value</code> 参数即可。</p>
 <p>首先，我们尝试将键-值对添加到数据库中并保存。如果进展顺利便返回 True。否则，打印错误信息并返回 False。（我们可不想一发生错误整个程序就崩溃）</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
-<span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span></code></pre></td></tr></table>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+    <span class=k>def</span> <span class=nf>get</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>key</span><span class=p>):</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>db</span><span class=p>[</span><span class=n>key</span><span class=p>]</span>
+        <span class=k>except</span> <span class=ne>KeyError</span><span class=p>:</span>
+            <span class=k>return</span> <span class=kc>False</span>
+<span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><code>get</code> 是个简单函数，接受 <code>key</code> 参数并从数据库中返回关联的值。否则返回带有错误信息的 False。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
+</div><p><code>get</code> 是个简单函数，接受 <code>key</code> 参数并从数据库中返回关联的值。否则返回带有错误信息的 False。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dumpdb</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">True</span>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+    <span class=k>def</span> <span class=nf>delete</span><span class=p>(</span><span class=bp>self</span> <span class=p>,</span> <span class=n>key</span><span class=p>):</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=n>key</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>db</span><span class=p>:</span>
+            <span class=k>return</span> <span class=kc>False</span>
+        <span class=k>del</span> <span class=bp>self</span><span class=o>.</span><span class=n>db</span><span class=p>[</span><span class=n>key</span><span class=p>]</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>dumpdb</span><span class=p>()</span>
+        <span class=k>return</span> <span class=kc>True</span>
 
-<span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span></code></pre></td></tr></table>
+<span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><code>delete</code> 函数用于从数据库中删除键-值对。首先，确保键-值对存在于数据库中，否则返回 False。然后，我们使用 Python 的内置功能 <code>del</code> 来删除键，同时与之关联的值也会自动删除。最后，保存数据库并返回 True。</p>
-
-<p>你也许会想到，万一我创建的数据库规模很大，那么该怎么重置数据库呢？理论上，我们可以用 <code>delete</code> 函数，但是这并不可取且十分费时。⌛️ 我们需要一个新函数来完成这项工作。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
+</div><p><code>delete</code> 函数用于从数据库中删除键-值对。首先，确保键-值对存在于数据库中，否则返回 False。然后，我们使用 Python 的内置功能 <code>del</code> 来删除键，同时与之关联的值也会自动删除。最后，保存数据库并返回 True。</p>
+<p>你也许会想到，万一我创建的数据库规模很大，那么该怎么重置数据库呢？理论上，我们可以用 <code>delete</code> 函数，但是这并不可取且十分费时。⌛ 我们需要一个新函数来完成这项工作。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> 
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span> 
 
-    <span class="k">def</span> <span class="nf">resetdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">=</span><span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dumpdb</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">True</span>
-<span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span></code></pre></td></tr></table>
+    <span class=k>def</span> <span class=nf>resetdb</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>db</span><span class=o>=</span><span class=p>{}</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>dumpdb</span><span class=p>()</span>
+        <span class=k>return</span> <span class=kc>True</span>
+<span class=o>.</span> <span class=o>.</span> <span class=o>.</span> <span class=o>.</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><code>resetdb</code> 函数闪亮登场！它很简单：首先，在内存中重新创建一个 JSON 对象，然后，保存它！没了！我们的数据库现在焕然一新。</p>
-
-<h2 id="最后">最后。。。🎉</h2>
-
+</div><p><code>resetdb</code> 函数闪亮登场！它很简单：首先，在内存中重新创建一个 JSON 对象，然后，保存它！没了！我们的数据库现在焕然一新。</p>
+<h2 id=最后>最后。。。🎉</h2>
 <p>我们完成啦朋友们！我们创造了自己的玩具数据库！🎉 🎉 事实上，<strong>FoobarDB</strong> 仅仅只是一个数据库的雏形。它就像一件简陋的DIY：你可以根据自身需要，自由再创作。</p>
-
-<p>完整代码在这里 👉  <a href="https://github.com/bauripalash/foobardb">bauripalash/foobardb</a></p>
-
+<p>完整代码在这里 👉 <a href=https://github.com/bauripalash/foobardb>bauripalash/foobardb</a></p>
 <p>我希望你能享受这个过程。在下方的评论区留下你的建议，意见或是勘误吧！👇</p>
-
-<p>你还可以在这些地方找到我 👉 <a href="https://facebook.com/bauripalash">Facebook</a>, <a href="https://twitter.com/bauripalash">Twitter</a>, <a href="https://instagram.com/bauripalash">Instagram</a></p>
-
+<p>你还可以在这些地方找到我 👉 <a href=https://facebook.com/bauripalash>Facebook</a>, <a href=https://twitter.com/bauripalash>Twitter</a>, <a href=https://instagram.com/bauripalash>Instagram</a></p>
 <p>期待我们能再次相见！</p>
-
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">zvector</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2019-03-21</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-  </p>
-</div><footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/database/">Database</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/build-your-own-web-server-with-ruby/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">使用 Ruby 自制 Web 服务器</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/what-is-the-difference-between-the-list-methods-append-and-extend/">
-            <span class="next-text nav-default">Python List 方法中 append 与 extend 的区别</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'zvector';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
-  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
-  </div>
-
-  <span class="copyright-year">
-    &copy; 
-    2018 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">zvector</span>
-  </span>
+<div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>zvector</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>2019-03-21</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>许可协议</span>
+<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+</p>
+</div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/database/>Database</a>
 </div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-
-
-
-
-
-
-
-
+<nav class=post-nav>
+<a class=prev href=/post/build-your-own-web-server-with-ruby/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">使用 Ruby 自制 Web 服务器</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/what-is-the-difference-between-the-list-methods-append-and-extend/>
+<span class="next-text nav-default">Python List 方法中 append 与 extend 的区别</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
+<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<div class=busuanzi-footer>
+<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
+</div>
+<span class=copyright-year>
+&copy;
+2018 -
+2022
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>zvector</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/dist/even.26188efa.min.js></script>
 </body>
 </html>

@@ -1,394 +1,251 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+<!doctype html><html lang=zh-cn>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>《图解HTTP》读书笔记（零） - Zvector &amp; Blog</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="zvector" /><meta name="description" content="前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
-
-
-<link rel="canonical" href="https://bivectorfoil.github.io/post/illustration-http-0/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="《图解HTTP》读书笔记（零）" />
-<meta property="og:description" content="前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://bivectorfoil.github.io/post/illustration-http-0/" /><meta property="article:published_time" content="2017-12-15T18:55:02&#43;08:00"/>
-<meta property="article:modified_time" content="2017-12-15T18:55:02&#43;08:00"/>
-
-<meta itemprop="name" content="《图解HTTP》读书笔记（零）">
-<meta itemprop="description" content="前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。">
-
-
-<meta itemprop="datePublished" content="2017-12-15T18:55:02&#43;08:00" />
-<meta itemprop="dateModified" content="2017-12-15T18:55:02&#43;08:00" />
-<meta itemprop="wordCount" content="2254">
-
-
-
-<meta itemprop="keywords" content="HTTP,NOTES," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="《图解HTTP》读书笔记（零）"/>
-<meta name="twitter:description" content="前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>《图解HTTP》读书笔记（零） - Zvector & Blog</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="zvector"><meta name=description content="前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。">
+<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
+<link rel=canonical href=https://bivectorfoil.github.io/post/illustration-http-0/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="《图解HTTP》读书笔记（零）">
+<meta property="og:description" content="前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bivectorfoil.github.io/post/illustration-http-0/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2017-12-15T18:55:02+08:00">
+<meta property="article:modified_time" content="2017-12-15T18:55:02+08:00">
+<meta itemprop=name content="《图解HTTP》读书笔记（零）">
+<meta itemprop=description content="前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。"><meta itemprop=datePublished content="2017-12-15T18:55:02+08:00">
+<meta itemprop=dateModified content="2017-12-15T18:55:02+08:00">
+<meta itemprop=wordCount content="2254">
+<meta itemprop=keywords content="HTTP,NOTES,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="《图解HTTP》读书笔记（零）">
+<meta name=twitter:description content="前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Zvector &amp; Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>Zvector & Blog</a>
 </div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">主页</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">归档</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">标签</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">分类</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">关于</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Zvector &amp; Blog</a>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
 </div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">主页</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">《图解HTTP》读书笔记（零）</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2017-12-15 </span>
-        <div class="post-category">
-            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"> 读书笔记 </a>
-            </div>
-          <span class="more-meta"> 约 2254 字 </span>
-          <span class="more-meta"> 预计阅读 5 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#web及http概览">Web及HTTP概览</a>
-<ul>
-<li><a href="#网络基础tcp-ip">网络基础TCP/IP</a>
-<ul>
-<li><a href="#tcp-ip协议族">TCP/IP协议族</a></li>
-<li><a href="#tcp-ip的分层">TCP/IP的分层</a>
-<ul>
-<li><a href="#应用层">应用层</a></li>
-<li><a href="#传输层">传输层</a></li>
-<li><a href="#网络层">网络层</a></li>
-<li><a href="#链路层">链路层</a></li>
-</ul></li>
-<li><a href="#tcp-ip通信传输流">TCP/IP通信传输流</a></li>
-</ul></li>
-<li><a href="#http相关协议-ip-tcp和dns">HTTP相关协议：IP、TCP和DNS</a>
-<ul>
-<li><a href="#负责传输的ip协议-网络层">负责传输的IP协议（网络层）</a>
-<ul>
-<li><a href="#使用arp协议凭借mac地址通信">使用ARP协议凭借MAC地址通信</a></li>
-<li><a href="#路由选择">路由选择</a></li>
-</ul></li>
-<li><a href="#确保可靠性的tcp协议">确保可靠性的TCP协议</a>
-<ul>
-<li><a href="#首先确保能到达目的地">首先确保能到达目的地</a></li>
-</ul></li>
-<li><a href="#负责域名解析的dns服务">负责域名解析的DNS服务</a></li>
-<li><a href="#各协议和http协议的关系">各协议和HTTP协议的关系</a></li>
-<li><a href="#url和uri">URL和URI</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>主页</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>归档</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>标签</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>分类</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>关于</li>
+</a>
 </ul>
 </nav>
-  </div>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>Zvector & Blog</a>
 </div>
-    <div class="post-content">
-      
-
-<h2 id="前言">前言</h2>
-
-<p>本文是<a href="https://book.douban.com/subject/25863515/">《图解HTTP》</a>读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。话不多说，下面开始。</p>
-
-<h2 id="web及http概览">Web及HTTP概览</h2>
-
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>主页</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>归档</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>标签</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>分类</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>关于</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>《图解HTTP》读书笔记（零）</h1>
+<div class=post-meta>
+<span class=post-time> 2017-12-15 </span>
+<div class=post-category>
+<a href=/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/> 读书笔记 </a>
+</div>
+<span class=more-meta> 约 2254 字 </span>
+<span class=more-meta> 预计阅读 5 分钟 </span>
+<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#前言>前言</a></li>
+<li><a href=#web及http概览>Web及HTTP概览</a>
+<ul>
+<li><a href=#网络基础tcpip>网络基础TCP/IP</a></li>
+<li><a href=#http相关协议iptcp和dns>HTTP相关协议：IP、TCP和DNS</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<h2 id=前言>前言</h2>
+<p>本文是<a href=https://book.douban.com/subject/25863515/>《图解HTTP》</a>读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。话不多说，下面开始。</p>
+<h2 id=web及http概览>Web及HTTP概览</h2>
 <p>HTTP协议及其他的一系列协议，如TCP/IP协议，都从一个问题出发，相隔遥远的我们如何交流知识？众所周知的WWW技术最初由CERN的Tim Berners Lee博士提出。即：</p>
-
 <blockquote>
 <p>借助多文档之间相互关联形成的超文本（HyperText），连成可相互参阅的WWW（World Wide Web，万维网）</p>
 </blockquote>
-
 <p>Web借助HTTP（HyperText Transfer Protocol）协议作为规范，完成从客户端（Client）到服务端（Server）的信息传递，故说Web是建立在HTTP协议之上的。</p>
-
-<h3 id="网络基础tcp-ip">网络基础TCP/IP</h3>
-
+<h3 id=网络基础tcpip>网络基础TCP/IP</h3>
 <p>在了解什么是HTTP之前，我们需要先了解什么是TCP/IP协议，从集合角度来说，HTTP是TCP/IP的一个子集，下面具体来看看TCP/IP协议。</p>
-
-<h4 id="tcp-ip协议族">TCP/IP协议族</h4>
-
+<h4 id=tcpip协议族>TCP/IP协议族</h4>
 <p>计算机及网络设备的相互通信需要依据于一系列的事先定义好的协议（Protocol），这样的协议有很多，如ICMP，HTTP，FTP，SNMP，PPPoE，TCP，IP等，类似把互联网相关连的协议统称为TCP/IP协议，因为TCP/IP协议是其中应用最广泛的两种。</p>
-
-<p><img src="http://www.ituring.com.cn/figures/2014/PIC%20HTTP/05.d01z.005.png" alt="" /></p>
-
-<h4 id="tcp-ip的分层">TCP/IP的分层</h4>
-
+<p><img src=http://www.ituring.com.cn/figures/2014/PIC%20HTTP/05.d01z.005.png alt></p>
+<h4 id=tcpip的分层>TCP/IP的分层</h4>
 <p>TCP/IP按层次分为：应用层，传输层，网络层和数据链路层。主要作用如下：</p>
-
-<h5 id="应用层">应用层</h5>
-
+<h5 id=应用层>应用层</h5>
 <p>应用层决定了向用户提供应用服务时通信的活动，例如，FTP和DNS服务，HTTP协议也位于其中。</p>
-
-<h5 id="传输层">传输层</h5>
-
+<h5 id=传输层>传输层</h5>
 <p>传输层对上层应用层，提供处于网络连接中两台计算机之间的数据传输，例如，TCP和UDP协议。</p>
-
-<h5 id="网络层">网络层</h5>
-
+<h5 id=网络层>网络层</h5>
 <p>网络层用来处理在网络上流动的数据包（网络传输的最小数据单位）。</p>
-
-<h5 id="链路层">链路层</h5>
-
+<h5 id=链路层>链路层</h5>
 <p>用来处理连接网络的硬件部分。包括控制操作系统，硬件的设备驱动，网卡及光纤等物理设备。主要处理硬件上的范畴。</p>
-
-<h4 id="tcp-ip通信传输流">TCP/IP通信传输流</h4>
-
+<h4 id=tcpip通信传输流>TCP/IP通信传输流</h4>
 <p>一言以蔽之，利用TCP/IP协议族通信时，数据流是按照层次一级一级走的，客户端从应用层一直到链路层，服务端反之。并在每经过一层时，在数据报文上封装上该层的首部信息（客户端），或消去首部信息（服务端）。</p>
-
-<p><img src="http://www.ituring.com.cn/download/021jVNia3uoL" alt="" /></p>
-
-<h3 id="http相关协议-ip-tcp和dns">HTTP相关协议：IP、TCP和DNS</h3>
-
-<h4 id="负责传输的ip协议-网络层">负责传输的IP协议（网络层）</h4>
-
+<p><img src=http://www.ituring.com.cn/download/021jVNia3uoL alt></p>
+<h3 id=http相关协议iptcp和dns>HTTP相关协议：IP、TCP和DNS</h3>
+<h4 id=负责传输的ip协议网络层>负责传输的IP协议（网络层）</h4>
 <p>IP协议（Internet Protocol）和IP地址虽然相似但是并不相同，IP协议负责将数据包发送给想要通信的对象。怎么知道要发送给谁呢？需要IP地址和MAC地址（Media Access Control Address)的帮忙。IP地址指明节点被分配到的地址。MAC地址指网卡所属固件的地址，暂时可以理解为设备本身的硬件指纹。一般来说，IP地址可变换，MAC地址不可变换，但也可人为改变。</p>
-
-<h5 id="使用arp协议凭借mac地址通信">使用ARP协议凭借MAC地址通信</h5>
-
+<h5 id=使用arp协议凭借mac地址通信>使用ARP协议凭借MAC地址通信</h5>
 <p>前面说道，IP间通信依赖于MAC地址，而设备之间处于同一局域网（LAN）的情况很少。大多数时候需要多台设备和路由的跳转。这个时候，我们就需要根据ARP协议（Address Resolution Protocol），根据通信方的IP地址，反查对应的MAC地址，从而达到设备的中转。</p>
-
-<h5 id="路由选择">路由选择</h5>
-
+<h5 id=路由选择>路由选择</h5>
 <p>由前面所述可知，数据的通信需要经过多级中转，如何知道在岔路口该怎么选择？需要借助路由器（Router）来判断这一部分，那一部分的数据该往哪传递。</p>
-
-<p><img src="http://www.ituring.com.cn/figures/2014/PIC%20HTTP/05.d01z.008.png" alt="" /></p>
-
-<h4 id="确保可靠性的tcp协议">确保可靠性的TCP协议</h4>
-
+<p><img src=http://www.ituring.com.cn/figures/2014/PIC%20HTTP/05.d01z.008.png alt></p>
+<h4 id=确保可靠性的tcp协议>确保可靠性的TCP协议</h4>
 <p>TCP位于传输层，提供可靠的字节流服务。什么是字节流（Byte Stream）呢？比如我们想要传输1G大的数据，不可能一次性发送这么多，需要切割成以报文段（segment）为单位的数据包。这么多块数据包，如何保证完整的传输呢？</p>
-
-<h5 id="首先确保能到达目的地">首先确保能到达目的地</h5>
-
+<h5 id=首先确保能到达目的地>首先确保能到达目的地</h5>
 <p>TCP协议采用了三次握手策略（three-way handshaking）来保证这一点。发送数据包后，三次握手过程中使用TCP标志（flag）&mdash;-SYN（synchronize）和ACK（acknowledgement)。举个栗子：</p>
-
 <blockquote>
 <p>小明：嗨，服务器能听到么？（先发送一个带SYN标志的数据包）</p>
-
 <p>服务器：嗨，我听到了。（回传一个带SYN/ACK标志的数据包表示收到信息）</p>
-
 <p>小明：OK，我知道你能听到我说话了。（再回传一个带ACK标志的数据包，代表握手结束）</p>
 </blockquote>
-
 <p>这样，就保证这条通信线路是可靠的，可以开始发送数据了。如果三次握手不能完成，TCP协议会再次按相同顺序发送相同的数据包。除了三次握手策略，TCP协议还有其他保证通信可靠性的方法。</p>
-
-<h4 id="负责域名解析的dns服务">负责域名解析的DNS服务</h4>
-
+<h4 id=负责域名解析的dns服务>负责域名解析的DNS服务</h4>
 <p>DNS（Domain Name System）和HTTP协议一样，同样位于应用层。提供域名和IP地址之间的解析工作。IP地址（仅就IPv4来说），格式形如xxx.xxx.xxx.xxx，xxx为0~255的数字。难以记忆，域名（eg:www.baidu.com)相对来说方便记忆。故我们使用了DNS协议，来通过域名解析出真正的IP地址，或由IP地址反查域名。</p>
-
-<h4 id="各协议和http协议的关系">各协议和HTTP协议的关系</h4>
-
+<h4 id=各协议和http协议的关系>各协议和HTTP协议的关系</h4>
 <p>当我们在浏览器地址栏输入网址时，发生了什么呢？如下所示：</p>
-
-<p><img src="http://www.ituring.com.cn/figures/2014/PIC%20HTTP/05.d01z.011.png" alt="" /></p>
-
-<h4 id="url和uri">URL和URI</h4>
-
+<p><img src=http://www.ituring.com.cn/figures/2014/PIC%20HTTP/05.d01z.011.png alt></p>
+<h4 id=url和uri>URL和URI</h4>
 <p>关于URL和URI的区别经常让人头大，因为这两个概念太相像了。</p>
-
 <p>URI (Uniform Resource Identifier)，统一资源标识符。简而言之，是标识某一互联网资源身份的一串字符。它可以描述这个资源是什么，获取它的方法是什么等等。</p>
-
 <p>URL（Uniform Resource Locator），统一资源定位符。URL是URI的一个子集，也就是说，所有的URL都是URI，而不是所有的URI都是URL，也可能是URN（Uniform Resource Name），统一资源名称，在此不深入了。URL标识如何（How-to）获取某一互联网上的资源，故说所有的URL都是URI。</p>
-
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">zvector</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2017-12-15</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-  </p>
-</div><footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/http/">HTTP</a>
-          <a href="/tags/notes/">NOTES</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/illustration-http-1/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">《图解HTTP》读书笔记（一）</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/ssserver-on-vps/">
-            <span class="next-text nav-default">在VPS上搭建绿色上网工具</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    (function() {
-      
-      
-      if (window.location.hostname === 'localhost') return;
-
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      var disqus_shortname = 'zvector';
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
-  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
-  </div>
-
-  <span class="copyright-year">
-    &copy; 
-    2018 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">zvector</span>
-  </span>
+<div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>zvector</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>2017-12-15</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>许可协议</span>
+<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+</p>
+</div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/http/>HTTP</a>
+<a href=/tags/notes/>NOTES</a>
 </div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-
-
-
-
-
-
-
-
+<nav class=post-nav>
+<a class=prev href=/post/illustration-http-1/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">《图解HTTP》读书笔记（一）</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/ssserver-on-vps/>
+<span class="next-text nav-default">在VPS上搭建绿色上网工具</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
+<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<div class=busuanzi-footer>
+<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
+</div>
+<span class=copyright-year>
+&copy;
+2018 -
+2022
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>zvector</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/dist/even.26188efa.min.js></script>
 </body>
 </html>
