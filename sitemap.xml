@@ -3,20 +3,55 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/categories/</loc>
-    <lastmod>2022-12-04T20:43:42+08:00</lastmod>
+    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://bivectorfoil.github.io/tags/linux/</loc>
-    <lastmod>2022-12-04T20:43:42+08:00</lastmod>
+    <loc>https://bivectorfoil.github.io/tags/hugo/</loc>
+    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://bivectorfoil.github.io/post/</loc>
+    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/</loc>
+    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/use-github-action-to-publish-blog/</loc>
+    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/</loc>
+    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
+    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/linux/</loc>
     <lastmod>2022-12-04T20:43:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -31,27 +66,6 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</loc>
-    <lastmod>2022-12-04T20:43:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/tags/</loc>
-    <lastmod>2022-12-04T20:43:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/</loc>
-    <lastmod>2022-12-04T20:43:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
     <lastmod>2022-12-04T20:43:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -311,13 +325,6 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/tags/blog/</loc>
-    <lastmod>2017-12-02T11:07:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/tags/hugo/</loc>
     <lastmod>2017-12-02T11:07:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

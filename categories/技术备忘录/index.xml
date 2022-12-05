@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>zvector</copyright>
-    <lastBuildDate>Sun, 04 Dec 2022 20:43:42 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Dec 2022 22:38:50 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use Github Action to Publish Blog</title>
+      <link>https://bivectorfoil.github.io/post/use-github-action-to-publish-blog/</link>
+      <pubDate>Mon, 05 Dec 2022 22:38:50 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/use-github-action-to-publish-blog/</guid>
+      <description>Github Action 实现博客自动发布部署 这是一篇测试文档，验证 GitHub Action 的自动部署效果。</description>
+    </item>
+    
     <item>
       <title>ssh 免密钥登录提示 permission denied 的问题</title>
       <link>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</link>
