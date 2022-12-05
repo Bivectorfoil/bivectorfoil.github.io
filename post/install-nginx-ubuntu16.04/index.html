@@ -1,0 +1,409 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Install Nginx on Ubuntu16.04 - Zvector & Blog</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="zvector"><meta name=description content="如何在Ubuntu16.04上安装Nginx 简介 Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTT">
+<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
+<link rel=canonical href=https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Install Nginx on Ubuntu16.04">
+<meta property="og:description" content="如何在Ubuntu16.04上安装Nginx 简介 Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTT">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2017-11-27T20:26:31+08:00">
+<meta property="article:modified_time" content="2017-11-27T20:26:31+08:00">
+<meta itemprop=name content="Install Nginx on Ubuntu16.04">
+<meta itemprop=description content="如何在Ubuntu16.04上安装Nginx 简介 Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTT"><meta itemprop=datePublished content="2017-11-27T20:26:31+08:00">
+<meta itemprop=dateModified content="2017-11-27T20:26:31+08:00">
+<meta itemprop=wordCount content="1651">
+<meta itemprop=keywords content="Nginx,Ubuntu16.04,memo,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Install Nginx on Ubuntu16.04">
+<meta name=twitter:description content="如何在Ubuntu16.04上安装Nginx 简介 Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTT"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>Zvector & Blog</a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>主页</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>归档</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>标签</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>分类</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>关于</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>Zvector & Blog</a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>主页</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>归档</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>标签</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>分类</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>关于</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Install Nginx on Ubuntu16.04</h1>
+<div class=post-meta>
+<span class=post-time> 2017-11-27 </span>
+<div class=post-category>
+<a href=/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/> 技术备忘录 </a>
+</div>
+<span class=more-meta> 约 1651 字 </span>
+<span class=more-meta> 预计阅读 4 分钟 </span>
+<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#简介>简介</a></li>
+<li><a href=#预备条件>预备条件</a>
+<ul>
+<li><a href=#第一步-安装nginx>第一步： 安装Nginx</a></li>
+<li><a href=#第二步调整设置防火墙>第二步：调整设置防火墙</a></li>
+<li><a href=#第三步检查web服务>第三步：检查Web服务</a></li>
+<li><a href=#第四步管理nginx>第四步：管理Nginx</a></li>
+<li><a href=#第五步熟悉几个重要的nginx文件和目录>第五步：熟悉几个重要的Nginx文件和目录</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<h1 id=如何在ubuntu1604上安装nginx>如何在Ubuntu16.04上安装Nginx</h1>
+<h2 id=简介>简介</h2>
+<blockquote>
+<p><strong>Nginx</strong>（发音同engine x）是一个 <a href=https://zh.wikipedia.org/wiki/%E7%B6%B2%E9%A0%81%E4%BC%BA%E6%9C%8D%E5%99%A8>Web服务器</a>，也可以用作<a href=https://zh.wikipedia.org/wiki/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86>反向代理</a>，<a href=https://zh.wikipedia.org/wiki/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1>负载平衡器</a>和 <a href="https://zh.wikipedia.org/w/index.php?title=HTTP%E7%BC%93%E5%AD%98&action=edit&redlink=1">HTTP缓存</a>。 &mdash;-wikipedia</p>
+<p>本文将大致介绍如何在Ubuntu 16.04服务器上安装Nginx。参考于博文：<a href=https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04>How To Install Nginx on Ubuntu 16.04</a>，感谢博文<a href=https://www.digitalocean.com/community/users/jellingwood>作者</a>的辛勤劳动。</p>
+</blockquote>
+<h2 id=预备条件>预备条件</h2>
+<p>开始安装之前，确保以具有<code>sudo</code>权限的用户身份执行接下来的命令，如果没有的话，这篇博文：<a href=https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04>initial server setup guide for Ubuntu 16.04</a>是一个不错的教程。</p>
+<p>一切就绪以后，以非Root用户身份登录Ubuntu服务器。</p>
+<h3 id=第一步-安装nginx>第一步： 安装Nginx</h3>
+<p>Ubuntu 的官方源已经包含了Nginx，我们可以通过官方源安装它。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo apt-get update
+$ sudo apt-get install nginx
+</code></pre></td></tr></table>
+</div>
+</div><p>不出意外地话，Nginx已经安装完毕。</p>
+<h3 id=第二步调整设置防火墙>第二步：调整设置防火墙</h3>
+<blockquote>
+<p>ufw是一个主机端的iptables类防火墙配置工具。</p>
+</blockquote>
+<p>如果服务器上还没有安装ufw的话，可以通过apt安装它，ufw的一般使用方法可以在<a href=https://wiki.ubuntu.com.cn/UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE>这里</a>查看。</p>
+<blockquote>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo apt-get install ufw
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>通过调整防火墙使得Nginx服务可以正常运行。通过命令</p>
+<blockquote>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo ufw app list
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>可以列出ufw知道如何配置的应用程序，如下：</p>
+<blockquote>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># Output</span>
+Available applications:
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  OpenSSH
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>和Nginx有关的项目解释如下：</p>
+<ul>
+<li>Nginx Full：负责打开80端口（常用的，未加密的网络流量）和443端口（TLS/SSL 加密流量）</li>
+<li>Nginx HTTP： 只打开80端口（常用的，未加密的网络流量）</li>
+<li>Nginx HTTPS ：只打开443端口（TLS/SSL 加密流量）</li>
+</ul>
+<p>安全起见，应该选择配置限制条件最严格的设置，例如：</p>
+<blockquote>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo ufw <span class=nb>enable</span> <span class=c1># 开启ufw</span>
+$ sudo ufw default deny <span class=c1># 阻止一切外部访问</span>
+$ sudo ufw allow server_your_want <span class=c1># 依需要开启服务</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>目前网站还未配置SSL连接，所以我们只打开80端口。</p>
+<blockquote>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo ufw allow <span class=s1>&#39;Nginx HTTP&#39;</span>
+$ sudo ufw status <span class=c1># 查看开启情况</span>
+<span class=c1># Output</span>
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere                  
+Nginx HTTP                 ALLOW       Anywhere                  
+OpenSSH <span class=o>(</span>v6<span class=o>)</span>               ALLOW       Anywhere <span class=o>(</span>v6<span class=o>)</span>             
+Nginx HTTP <span class=o>(</span>v6<span class=o>)</span>            ALLOW       Anywhere <span class=o>(</span>v6<span class=o>)</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h3 id=第三步检查web服务>第三步：检查Web服务</h3>
+<p>经过上面的安装和设置以后，Ubuntu 16.04 应该已经启动了Nginx服务，使用<code>systemd</code>命令查看启动情况。</p>
+<blockquote>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ systemctl status nginx
+<span class=c1># Output</span>
+● nginx.service - A high performance web server and a reverse proxy server
+   Loaded: loaded <span class=o>(</span>/lib/systemd/system/nginx.service<span class=p>;</span> enabled<span class=p>;</span> vendor preset: enab
+   Active: active <span class=o>(</span>running<span class=o>)</span> since Sun 2016-10-12 11:07:55 UTC<span class=p>;</span> <span class=m>1</span> day 2h ago
+  Process: <span class=m>1120</span> <span class=nv>ExecStart</span><span class=o>=</span>/usr/sbin/nginx -g daemon on<span class=p>;</span> master_process on<span class=p>;</span> <span class=o>(</span><span class=nv>code</span><span class=o>=</span>e
+  Process: <span class=m>1083</span> <span class=nv>ExecStartPre</span><span class=o>=</span>/usr/sbin/nginx -t -q -g daemon on<span class=p>;</span> master_process on
+ Main PID: <span class=m>1159</span> <span class=o>(</span>nginx<span class=o>)</span>
+    Tasks: <span class=m>2</span>
+   Memory: 10.7M
+      CPU: 154ms
+   CGroup: /system.slice/nginx.service
+           ├─1159 nginx: master process /usr/sbin/nginx -g daemon on<span class=p>;</span> master_proce
+           └─1161 nginx: worker process 
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>通过标识Active：active(running)可知Nginx服务已经正常运行了。虽然Nginx服务已经启动 ，但是<strong>真正</strong>的通过域名或者IP地址访问服务器能更直观地感受到Nginx的运行状况。关于域名申请，有空的话我会再写一篇博客。</p>
+<p>如果已经有了<strong>能正确解析到服务器</strong>上的域名或者知道服务器的IP地址，在<strong>本地</strong>浏览器地址栏输入：</p>
+<blockquote>
+<p>http://server_domain_or_IP</p>
+</blockquote>
+<p>访问服务器，不出意外地话可以看到Nginx经典的默认欢迎界面了。</p>
+<h3 id=第四步管理nginx>第四步：管理Nginx</h3>
+<p>常用的几个管理Nginx命令。</p>
+<blockquote>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo systemctl stop nginx <span class=c1># 停止Web服务</span>
+$ sudo systemctl start nginx <span class=c1># 开启Web服务</span>
+$ sudo systemctl restart nginx <span class=c1># 重启Web服务</span>
+$ sudo systemctl reload nginx <span class=c1># 修改Nginx配置文件后可以保持连接地重新载入Nginx</span>
+$ sudo systemctl disable nginx <span class=c1># 关闭Nginx的默认自启动</span>
+$ sudo systemctl <span class=nb>enable</span> nginx <span class=c1># 开启Nginx的默认自启动</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h3 id=第五步熟悉几个重要的nginx文件和目录>第五步：熟悉几个重要的Nginx文件和目录</h3>
+<h4 id=网站内容>网站内容</h4>
+<ul>
+<li><code>/var/www/html</code>：默认的网站内容存放目录，先前的Nginx欢迎界面就存放在这。可以通过修改Nginx配置文件更改。</li>
+</ul>
+<h4 id=服务器配置>服务器配置</h4>
+<ul>
+<li><code>/etc/nginx</code>：Nginx配置文件，修改它配置Nginx全局设置。</li>
+<li><code>/etc/nginx/sites-available/</code>：虚拟主机的目录，可在此创建多个虚拟主机。</li>
+<li><code>/etc/nginx/sites-enabled/</code>：Nginx默认站点目录，nginc.conf默认包含的文件夹。在此文件夹建立的站点，需要建立软连接到目录/etc/nginx/sites-enabled/里。</li>
+</ul>
+<blockquote>
+<p>注：此段内容部分来自<a href=http://www.jianshu.com/p/fd25a9c008a0>博文</a></p>
+</blockquote>
+<h4 id=服务日志>服务日志</h4>
+<ul>
+<li><code>/var/log/nginx/access.log</code>：如无其他设置，此文件记录了每一次的网页服务请求。</li>
+<li><code>/var/log/nginx/error.log</code>：Nginx错误请求记录文件。</li>
+</ul>
+<p>That&rsquo;s all！更多的Nginx文档请参阅<a href=https://nginx.org/en/docs/>官方文档</a>。</p>
+</div>
+<div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>zvector</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>2017-11-27</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>许可协议</span>
+<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+</p>
+</div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/nginx/>Nginx</a>
+<a href=/tags/ubuntu16.04/>Ubuntu16.04</a>
+<a href=/tags/memo/>memo</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/minimal-hugo-build-personal-blog-notes/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">极简Hugo搭建个人博客笔记</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/how-to-buy-vps-and-security-setting/>
+<span class="next-text nav-default">如何购买VPS及购买后的安全措施</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
+<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<div class=busuanzi-footer>
+<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
+</div>
+<span class=copyright-year>
+&copy;
+2018 -
+2022
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>zvector</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+</body>
+</html>

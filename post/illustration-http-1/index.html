@@ -1,0 +1,286 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>《图解HTTP》读书笔记（一） - Zvector & Blog</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="zvector"><meta name=description content="前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要">
+<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
+<link rel=canonical href=https://bivectorfoil.github.io/post/illustration-http-1/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="《图解HTTP》读书笔记（一）">
+<meta property="og:description" content="前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bivectorfoil.github.io/post/illustration-http-1/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2017-12-18T20:43:28+08:00">
+<meta property="article:modified_time" content="2017-12-18T20:43:28+08:00">
+<meta itemprop=name content="《图解HTTP》读书笔记（一）">
+<meta itemprop=description content="前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要"><meta itemprop=datePublished content="2017-12-18T20:43:28+08:00">
+<meta itemprop=dateModified content="2017-12-18T20:43:28+08:00">
+<meta itemprop=wordCount content="2030">
+<meta itemprop=keywords content="HTTP,NOTES,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="《图解HTTP》读书笔记（一）">
+<meta name=twitter:description content="前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>Zvector & Blog</a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>主页</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>归档</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>标签</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>分类</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>关于</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>Zvector & Blog</a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>主页</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>归档</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>标签</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>分类</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>关于</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>《图解HTTP》读书笔记（一）</h1>
+<div class=post-meta>
+<span class=post-time> 2017-12-18 </span>
+<div class=post-category>
+<a href=/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/> 读书笔记 </a>
+</div>
+<span class=more-meta> 约 2030 字 </span>
+<span class=more-meta> 预计阅读 5 分钟 </span>
+<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#前言>前言</a></li>
+<li><a href=#http协议的作用>HTTP协议的作用</a>
+<ul>
+<li><a href=#通过请求和响应达成通信>通过请求和响应达成通信</a></li>
+</ul>
+</li>
+<li><a href=#http是无状态协议>HTTP是无状态协议</a></li>
+<li><a href=#uri定位资源>URI定位资源</a></li>
+<li><a href=#http协议的几个方法>HTTP协议的几个方法</a>
+<ul>
+<li><a href=#get获取资源>GET：获取资源</a></li>
+<li><a href=#post传输实体主体>POST：传输实体主体</a></li>
+<li><a href=#put传输文件>PUT：传输文件</a></li>
+<li><a href=#head-获得报文首部>HEAD 获得报文首部</a></li>
+<li><a href=#delet删除文件>DELET：删除文件</a></li>
+<li><a href=#options询问支持的方法>OPTIONS：询问支持的方法</a></li>
+<li><a href=#trace追踪路径>TRACE：追踪路径</a></li>
+<li><a href=#connect使用隧道协议连接代理>CONNECT：使用隧道协议连接代理</a></li>
+</ul>
+</li>
+<li><a href=#如何持久连接>如何持久连接</a></li>
+<li><a href=#管线化>管线化</a></li>
+<li><a href=#cookie--状态管理>Cookie&ndash;状态管理</a></li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<h2 id=前言>前言</h2>
+<p>本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看：</p>
+<blockquote>
+<p><a href=https://bivectorfoil.github.io/post/illustration-http-0/>《图解HTTP》读书笔记（零）</a></p>
+</blockquote>
+<p>本篇简要介绍HTTP协议的大致结构和主要方法，主要使用HTTP/1.1版本，是为简单的HTTP协议基础。</p>
+<h2 id=http协议的作用>HTTP协议的作用</h2>
+<p>HTTP是运用在客户端和服务端的协议内容，在通信的过程中，必定有一方是客户端，发起资源的请求访问，而做出资源响应的是服务端，一般情况下，仅就一条通信线路来说，客户端，服务端的角色不会变动，在客户端不住动发出请求的前提下，服务端不会发送响应。那么，客户端和服务端如何通信呢？</p>
+<h3 id=通过请求和响应达成通信>通过请求和响应达成通信</h3>
+<p>客户端向服务端发出一个请求：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>GET / HTTP/1.1
+HOST: www.baidu.com
+</code></pre></td></tr></table>
+</div>
+</div><p>请求报文（还记得什么是报文吗？）由：方法，URI，协议版本，请求首部字段及内容实体等组成。</p>
+<p>服务端发送响应：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>HTTP/1.1 <span class=m>200</span> OK
+Date: Mon, <span class=m>18</span> Dec <span class=m>2017</span> 13:30:59 GMT
+Content-Type: text/html
+
+&lt;html&gt;
+....
+</code></pre></td></tr></table>
+</div>
+</div><p>响应报文同样以协议版本，状态码（200），原因短语（reason-phrase）等首部字段组成。然后，以一个<strong>空行</strong>分隔，接下来的是报文主体，返回所请求的资源。</p>
+<h2 id=http是无状态协议>HTTP是无状态协议</h2>
+<p>无状态（stateless）协议，是指在每次的请求&ndash;响应结束后，HTTP协议并没有规定客户端或服务端保存上次的通信信息，如此，使得HTTP协议可以快速处理大量请求。但对于需要”记住“上次通信内容的需求来说，可以通过引入Cookie技术来实现。</p>
+<h2 id=uri定位资源>URI定位资源</h2>
+<p>客户端发起请求，请求资源的格式是什么呢？就是先前介绍过的URI（Uniform Resource Indentifier），统一资源定位符。URI格式如下：</p>
+<p>协议方案名+登录信息（可选）+服务器地址+端口号（可选）+文件路径+查询字符串（可选）+标识符（可选）</p>
+<p>eg: <a href="http://user:pass@www.example.com:80/dir/index.html?uid=1#ch1">http://user:pass@www.example.com:80/dir/index.html?uid=1#ch1</a></p>
+<h2 id=http协议的几个方法>HTTP协议的几个方法</h2>
+<p>需要注意，HTTP协议的方法是大小写敏感的，所以方法名不可随便改变大小写。</p>
+<h3 id=get获取资源>GET：获取资源</h3>
+<p>GET方法用来请求被URI标识的服务器上的资源，服务器解析后返回响应内容，若为文本资源，原样返回，若为类似CGI（Common Gateway Interface，通用网关接口）这样的程序，则返回执行后的结果。</p>
+<h3 id=post传输实体主体>POST：传输实体主体</h3>
+<p>与GET方法不同的是，POST方法主要目的是向服务器发送资源。</p>
+<h3 id=put传输文件>PUT：传输文件</h3>
+<p>PUT方法用于传输文件，类似FTP协议的文件上传，在请求报文中包含文件主体，保存至URI指定位置。但鉴于PUT方法不带身份验证，出于安全考虑，一般Web网站不开放该方法，除非引入其他安全机制来保障这一点。</p>
+<h3 id=head-获得报文首部>HEAD 获得报文首部</h3>
+<p>类似GET方法，但仅返回报文主体部分，常用于确认URI正确性和资源更新的日期时间。</p>
+<h3 id=delet删除文件>DELET：删除文件</h3>
+<p>和PUT方法相反，DELET方法向服务器发出请求，删除对于的URI指定的资源。同样的，出于安全考虑，在无身份验证机制的Web网站上不开放该方法。</p>
+<h3 id=options询问支持的方法>OPTIONS：询问支持的方法</h3>
+<p>OPTIONS方法用于询问服务器针对请求URI指定资源的支持的方法。</p>
+<h3 id=trace追踪路径>TRACE：追踪路径</h3>
+<p>TRACE方法要求服务器将先前的请求通信环回给客户端，什么意思呢？客户端指定一个追踪的”长度“数值，要求所经过的每一个服务器节点，将这个数值减一后发送到下一个服务器节点，当次数值为0时，停止传输，最后一个服务器返回200 OK状态码。</p>
+<p>TRACE方法主要用于查看客户端与服务端之间的请求操作，但因为不常用，且容易引起XST（Cross-Site Tracing，跨站追踪）攻击，一般不会用到</p>
+<h3 id=connect使用隧道协议连接代理>CONNECT：使用隧道协议连接代理</h3>
+<p>CONNECT方法指定客户端与服务端之间通信建立隧道。用于TCP通信，主要由SSL（Secure SocketLayer，安全套接字）和TLS（Transport Layer Secure，传输层安全）协议把通信内容加密后经隧道传输，相当于在客户端和服务端之间建立了一个隧道了。</p>
+<h2 id=如何持久连接>如何持久连接</h2>
+<p>在第一篇<a href>《图解HTTP》读书笔记中</a>中，我们提到，TCP协议通过三次握手策略保证通信可靠。原先的HTTP协议版本，每进行一次HTTP请求&ndash;响应通信后就断开TCP连接，再进行下一次HTTP通信又进行一次TCP连接，如此这般，会极大增加通信开销。后续的HTTP/1.1协议和一部分HTTP/1.0协议提出了持久连接（HTTP Persistent Connection或HTTP keep-alive）方法，主要内容即为，建立连接以后，若通信双方没有主动提出断开连接，则保持TCP连接状态。</p>
+<h2 id=管线化>管线化</h2>
+<p>持久连接是管线化（pipelining）方法的前提，使得并行发送请求成为可能，而不必等着上一个请求得到响应才能发送下一个请求。能实现比持久化连接更快的速度。</p>
+<h2 id=cookie--状态管理>Cookie&ndash;状态管理</h2>
+<p>前面说道，HTTP是无状态的连接，那么如何是服务端”记住“客户端呢？这就是Cookie技术引进的原因。简单来说，通过在服务端的HTTP响应报文首部添加一个Set-Cookie字段，通知客户端保存Cookie信息，如此，客户端在下一次请求中添加上Cookie信息，服务端便知道是谁发送的请求。在后续的笔记中会详细解释。</p>
+</div>
+<div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>zvector</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>2017-12-18</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>许可协议</span>
+<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+</p>
+</div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/http/>HTTP</a>
+<a href=/tags/notes/>NOTES</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/rm-or-trash-on-linux/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">浅谈Linux命令rm及回收站</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/illustration-http-0/>
+<span class="next-text nav-default">《图解HTTP》读书笔记（零）</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
+<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<div class=busuanzi-footer>
+<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
+</div>
+<span class=copyright-year>
+&copy;
+2018 -
+2022
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>zvector</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+</body>
+</html>

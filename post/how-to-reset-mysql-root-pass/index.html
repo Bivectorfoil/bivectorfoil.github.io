@@ -1,0 +1,299 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>如何重置MySQL的root密码 - Zvector & Blog</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="zvector"><meta name=description content="适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 1 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连">
+<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
+<link rel=canonical href=https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="如何重置MySQL的root密码">
+<meta property="og:description" content="适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 1 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2018-06-02T12:47:10+08:00">
+<meta property="article:modified_time" content="2018-06-02T12:47:10+08:00">
+<meta itemprop=name content="如何重置MySQL的root密码">
+<meta itemprop=description content="适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 1 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连"><meta itemprop=datePublished content="2018-06-02T12:47:10+08:00">
+<meta itemprop=dateModified content="2018-06-02T12:47:10+08:00">
+<meta itemprop=wordCount content="445">
+<meta itemprop=keywords content="mysql,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="如何重置MySQL的root密码">
+<meta name=twitter:description content="适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 1 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>Zvector & Blog</a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>主页</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>归档</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>标签</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>分类</li>
+</a><a href=/about/>
+<li class=mobile-menu-item>关于</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>Zvector & Blog</a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>主页</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>归档</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>标签</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>分类</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about/>关于</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>如何重置MySQL的root密码</h1>
+<div class=post-meta>
+<span class=post-time> 2018-06-02 </span>
+<div class=post-category>
+<a href=/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/> 技术备忘录 </a>
+</div>
+<span class=more-meta> 约 445 字 </span>
+<span class=more-meta> 预计阅读 1 分钟 </span>
+<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2>
+<div class=post-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#step-1---停止数据库服务>Step 1 - 停止数据库服务</a></li>
+<li><a href=#step-2---绕过授权检查重置密码>Step 2 - 绕过授权检查重置密码</a></li>
+<li><a href=#step-3---用客户端连接到mysql>Step 3 - 用客户端连接到mysql</a></li>
+<li><a href=#step-4---重置root密码>Step 4 - 重置Root密码</a></li>
+<li><a href=#step-5---停止mysql服务并重启>Step 5 - 停止MySQL服务，并重启</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>适用于mysql 5.7.8及以上版本。</p>
+<h3 id=step-1---停止数据库服务>Step 1 - 停止数据库服务</h3>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo systemctl stop mysql
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=step-2---绕过授权检查重置密码>Step 2 - 绕过授权检查重置密码</h3>
+<p>停止加载用户权限信息的授权表，以及停用网络连接，防止其他用户登录。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo mysqld_safe --skip-grant-tables --skip-networking <span class=p>&amp;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>之后切换到其他终端，若上一步有报错提示：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>mysqld_safe Directory ‘/var/run/mysqld’ <span class=k>for</span> UNIX socket file don’t exists
+</code></pre></td></tr></table>
+</div>
+</div><p>解决方案如下：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo mkdir /var/run/mysqld
+$ sudo chown mysql:mysql /var/run/mysqld
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=step-3---用客户端连接到mysql>Step 3 - 用客户端连接到mysql</h3>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ mysql -u root
+</code></pre></td></tr></table>
+</div>
+</div><p>若之前的步骤不出问题的话，接下来应该就能看到mysql 的提示符了</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>...
+mysql &gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=step-4---重置root密码>Step 4 - 重置Root密码</h3>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>mysql &gt; use mysql<span class=p>;</span>
+mysql &gt; update user <span class=nb>set</span> <span class=nv>authentication_string</span><span class=o>=</span>password<span class=o>(</span><span class=s1>&#39;new_password&#39;</span><span class=o>)</span> where <span class=nv>user</span><span class=o>=</span><span class=s1>&#39;root&#39;</span> <span class=p>;</span>
+mysql &gt; flush privileges<span class=p>;</span>
+mysql &gt; quit
+</code></pre></td></tr></table>
+</div>
+</div><p>注意每条命令后以";&ldquo;结尾（quit除外），另外，在旧版的MySQL（mysql 5.7.6及以下）中，<code>authentication_string</code>字段可能为<code>password</code>，要注意区别。</p>
+<h3 id=step-5---停止mysql服务并重启>Step 5 - 停止MySQL服务，并重启</h3>
+<p>停止先前创建的<code>mysqld_safe</code>服务，重新打开<code>mysql</code>服务并检验密码更改是否成功。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo systemctl start mysql
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ mysql -u root -p
+</code></pre></td></tr></table>
+</div>
+</div><p>输入新设置的密码后登录。</p>
+<h4 id=参考来源>参考来源</h4>
+<ol>
+<li><a href=https://www.cyberciti.biz/tips/recover-mysql-root-password.html>来源1</a></li>
+<li><a href=https://blog.csdn.net/csdnones/article/details/53706762>来源2</a></li>
+</ol>
+</div>
+<div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>zvector</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>2018-06-02</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>许可协议</span>
+<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+</p>
+</div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/mysql/>mysql</a>
+</div>
+<nav class=post-nav>
+<a class=prev href=/post/foucs-power/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">专注的力量</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/tmux-most-useage/>
+<span class="next-text nav-default">Tmux的快速操作入门</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
+<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<div class=busuanzi-footer>
+<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
+</div>
+<span class=copyright-year>
+&copy;
+2018 -
+2022
+<span class=heart>
+<i class="iconfont icon-heart"></i>
+</span>
+<span class=author>zvector</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+</body>
+</html>
