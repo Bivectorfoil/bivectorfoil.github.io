@@ -1,1 +1,201 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Zvector &amp; Blog</title><link>https://bivectorfoil.github.io/post/</link><description>Recent content in Posts on Zvector &amp; Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>zvector</copyright><lastBuildDate>Sun, 04 Dec 2022 20:43:42 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>ssh 免密钥登录提示 permission denied 的问题</title><link>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</link><pubDate>Sun, 04 Dec 2022 20:43:42 +0800</pubDate><guid>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</guid><description>ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh</description></item><item><title>Learn or Quit</title><link>https://bivectorfoil.github.io/post/learn-or-quit/</link><pubDate>Sat, 06 Nov 2021 21:39:54 +0800</pubDate><guid>https://bivectorfoil.github.io/post/learn-or-quit/</guid><description>摘录自《程序员的呐喊》 时间从哪来？ 经常有人问我怎么有时间学新东西。我在这里统一回答一下：时间是挤出来的。 这个答案没人会喜欢，但你我都知道这是</description></item><item><title>使用 Ruby 自制 Web 服务器</title><link>https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/</link><pubDate>Sun, 27 Dec 2020 17:26:29 +0800</pubDate><guid>https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/</guid><description>原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是</description></item><item><title>分分钟学会使用Python编写玩具数据库</title><link>https://bivectorfoil.github.io/post/toy-database-in-python/</link><pubDate>Thu, 21 Mar 2019 22:27:55 +0800</pubDate><guid>https://bivectorfoil.github.io/post/toy-database-in-python/</guid><description>译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write</description></item><item><title>Python List 方法中 append 与 extend 的区别</title><link>https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/</link><pubDate>Tue, 04 Dec 2018 09:50:02 +0800</pubDate><guid>https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/</guid><description>最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻</description></item><item><title>Docker Nginx Gunicorn</title><link>https://bivectorfoil.github.io/post/docker-nginx-gunicorn/</link><pubDate>Thu, 15 Nov 2018 21:15:33 +0800</pubDate><guid>https://bivectorfoil.github.io/post/docker-nginx-gunicorn/</guid><description>记一次 Dockerize Flask Web App 的踩坑之旅 当我们的 Flask Web App 开发完毕，要部署上线时，有多种方案可供我们选择，传统的有如远程服务器部署，便利点的有云部署（PaaS，</description></item><item><title>专注的力量</title><link>https://bivectorfoil.github.io/post/foucs-power/</link><pubDate>Sun, 14 Oct 2018 10:09:51 +0800</pubDate><guid>https://bivectorfoil.github.io/post/foucs-power/</guid><description>Pyhton 开发者中很少有人没听过 Kenneth Reitz 的名号，Requests ( HTTP for Human), Pipenv (Pip and Virtulenv) 等库均是由他主持开发的。其余闪闪发光的事迹不必赘述，今天我想扯些闲篇，谈</description></item><item><title>如何重置MySQL的root密码</title><link>https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/</link><pubDate>Sat, 02 Jun 2018 12:47:10 +0800</pubDate><guid>https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/</guid><description>适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 1 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连</description></item><item><title>Tmux的快速操作入门</title><link>https://bivectorfoil.github.io/post/tmux-most-useage/</link><pubDate>Sun, 29 Apr 2018 15:25:02 +0800</pubDate><guid>https://bivectorfoil.github.io/post/tmux-most-useage/</guid><description>什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端</description></item><item><title>[译］教程 - 用C实现一个Shell</title><link>https://bivectorfoil.github.io/post/write-a-shell-in-c/</link><pubDate>Sat, 31 Mar 2018 21:52:55 +0800</pubDate><guid>https://bivectorfoil.github.io/post/write-a-shell-in-c/</guid><description>原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得</description></item><item><title>一个批处理缩进的VIM技巧</title><link>https://bivectorfoil.github.io/post/useful-vim-command/</link><pubDate>Mon, 05 Mar 2018 11:07:06 +0800</pubDate><guid>https://bivectorfoil.github.io/post/useful-vim-command/</guid><description>灌水预警！ 今天处理文本时遇到一个很常见的问题，我在~/src/projects/目录下有一大堆C文件，需要对这些文件执行一个相同的命令，如何</description></item><item><title>机器学习入坑记录</title><link>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</link><pubDate>Fri, 02 Mar 2018 12:32:53 +0800</pubDate><guid>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</guid><description>跳坑前的废话 今天偶然看到了谷歌的机器学习速成课程，地址在这。兴趣浓厚，虽说是“速成”，但所要学习的东西也不少。很长一段时间以来，我对机器学习</description></item><item><title>浅谈Linux命令rm及回收站</title><link>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</link><pubDate>Fri, 22 Dec 2017 21:34:12 +0800</pubDate><guid>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</guid><description>灌水预警 很久没有写博客了，今天在整理硬盘空间时发现一个小常识，惊异于自己居然没想过这个问题，特此记录。 安全的rm命令 在谈到那个小常识前，我想</description></item><item><title>《图解HTTP》读书笔记（一）</title><link>https://bivectorfoil.github.io/post/illustration-http-1/</link><pubDate>Mon, 18 Dec 2017 20:43:28 +0800</pubDate><guid>https://bivectorfoil.github.io/post/illustration-http-1/</guid><description>前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要</description></item><item><title>《图解HTTP》读书笔记（零）</title><link>https://bivectorfoil.github.io/post/illustration-http-0/</link><pubDate>Fri, 15 Dec 2017 18:55:02 +0800</pubDate><guid>https://bivectorfoil.github.io/post/illustration-http-0/</guid><description>前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。</description></item><item><title>在VPS上搭建绿色上网工具</title><link>https://bivectorfoil.github.io/post/ssserver-on-vps/</link><pubDate>Sat, 02 Dec 2017 15:25:11 +0800</pubDate><guid>https://bivectorfoil.github.io/post/ssserver-on-vps/</guid><description>服务端搭建 以下以SS指代Shadowsocks。SS分为服务器端和客户端，安装时两个都会安装上，配置文件也相同，区分服务端和客户端的是运行程</description></item><item><title>使用Git部署Hugo静态博客到VPS上</title><link>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</link><pubDate>Sat, 02 Dec 2017 11:07:44 +0800</pubDate><guid>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</guid><description>预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简</description></item><item><title>如何拥有一个域名</title><link>https://bivectorfoil.github.io/post/how-to-get-a-domain-name/</link><pubDate>Fri, 01 Dec 2017 21:46:44 +0800</pubDate><guid>https://bivectorfoil.github.io/post/how-to-get-a-domain-name/</guid><description>前言 本篇是我当初搭建个人博客时所经历的步骤，在此记录。话不多说，让我们先看看什么是域名： 域名（英语：Domain Name），简称域名、网域，</description></item><item><title>极简Hugo搭建个人博客笔记</title><link>https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/</link><pubDate>Tue, 28 Nov 2017 13:50:09 +0800</pubDate><guid>https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/</guid><description>前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主</description></item><item><title>Install Nginx on Ubuntu16.04</title><link>https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/</link><pubDate>Mon, 27 Nov 2017 20:26:31 +0800</pubDate><guid>https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/</guid><description>如何在Ubuntu16.04上安装Nginx 简介 Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTT</description></item><item><title>如何购买VPS及购买后的安全措施</title><link>https://bivectorfoil.github.io/post/how-to-buy-vps-and-security-setting/</link><pubDate>Fri, 24 Nov 2017 22:46:36 +0800</pubDate><guid>https://bivectorfoil.github.io/post/how-to-buy-vps-and-security-setting/</guid><description>如何购买VPS及购买后的安全措施 先备知识&amp;ndash;什么是VPS 虚拟专用服务器（英语：Virtual private server，缩写为 VPS），是将一</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Zvector &amp; Blog</title>
+    <link>https://bivectorfoil.github.io/post/</link>
+    <description>Recent content in Posts on Zvector &amp; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
+    <lastBuildDate>Sun, 04 Dec 2022 20:43:42 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ssh 免密钥登录提示 permission denied 的问题</title>
+      <link>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</link>
+      <pubDate>Sun, 04 Dec 2022 20:43:42 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</guid>
+      <description>ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh</description>
+    </item>
+    
+    <item>
+      <title>Learn or Quit</title>
+      <link>https://bivectorfoil.github.io/post/learn-or-quit/</link>
+      <pubDate>Sat, 06 Nov 2021 21:39:54 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/learn-or-quit/</guid>
+      <description>摘录自《程序员的呐喊》 时间从哪来？ 经常有人问我怎么有时间学新东西。我在这里统一回答一下：时间是挤出来的。 这个答案没人会喜欢，但你我都知道这是</description>
+    </item>
+    
+    <item>
+      <title>使用 Ruby 自制 Web 服务器</title>
+      <link>https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/</link>
+      <pubDate>Sun, 27 Dec 2020 17:26:29 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/</guid>
+      <description>原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是</description>
+    </item>
+    
+    <item>
+      <title>分分钟学会使用Python编写玩具数据库</title>
+      <link>https://bivectorfoil.github.io/post/toy-database-in-python/</link>
+      <pubDate>Thu, 21 Mar 2019 22:27:55 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/toy-database-in-python/</guid>
+      <description>译自 Palash Bauri 的文章：How to write a simple toy database in Python within minutes 文章地址：https://medium.freecodecamp.org/how-to-write</description>
+    </item>
+    
+    <item>
+      <title>Python List 方法中 append 与 extend 的区别</title>
+      <link>https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/</link>
+      <pubDate>Tue, 04 Dec 2018 09:50:02 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/what-is-the-difference-between-the-list-methods-append-and-extend/</guid>
+      <description>最近在处理列表中的字符串添加的问题时，发现 Python 中 append 和 extend 两种方法的表现有点出乎我的意料，一番搜索后，找到了一篇十分精彩的回答，如下，我尝试将其翻</description>
+    </item>
+    
+    <item>
+      <title>Docker Nginx Gunicorn</title>
+      <link>https://bivectorfoil.github.io/post/docker-nginx-gunicorn/</link>
+      <pubDate>Thu, 15 Nov 2018 21:15:33 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/docker-nginx-gunicorn/</guid>
+      <description>记一次 Dockerize Flask Web App 的踩坑之旅 当我们的 Flask Web App 开发完毕，要部署上线时，有多种方案可供我们选择，传统的有如远程服务器部署，便利点的有云部署（PaaS，</description>
+    </item>
+    
+    <item>
+      <title>专注的力量</title>
+      <link>https://bivectorfoil.github.io/post/foucs-power/</link>
+      <pubDate>Sun, 14 Oct 2018 10:09:51 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/foucs-power/</guid>
+      <description>Pyhton 开发者中很少有人没听过 Kenneth Reitz 的名号，Requests ( HTTP for Human), Pipenv (Pip and Virtulenv) 等库均是由他主持开发的。其余闪闪发光的事迹不必赘述，今天我想扯些闲篇，谈</description>
+    </item>
+    
+    <item>
+      <title>如何重置MySQL的root密码</title>
+      <link>https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/</link>
+      <pubDate>Sat, 02 Jun 2018 12:47:10 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/how-to-reset-mysql-root-pass/</guid>
+      <description>适用于mysql 5.7.8及以上版本。 Step 1 - 停止数据库服务 1 $ sudo systemctl stop mysql Step 2 - 绕过授权检查重置密码 停止加载用户权限信息的授权表，以及停用网络连</description>
+    </item>
+    
+    <item>
+      <title>Tmux的快速操作入门</title>
+      <link>https://bivectorfoil.github.io/post/tmux-most-useage/</link>
+      <pubDate>Sun, 29 Apr 2018 15:25:02 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/tmux-most-useage/</guid>
+      <description>什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端</description>
+    </item>
+    
+    <item>
+      <title>[译］教程 - 用C实现一个Shell</title>
+      <link>https://bivectorfoil.github.io/post/write-a-shell-in-c/</link>
+      <pubDate>Sat, 31 Mar 2018 21:52:55 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/write-a-shell-in-c/</guid>
+      <description>原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得</description>
+    </item>
+    
+    <item>
+      <title>一个批处理缩进的VIM技巧</title>
+      <link>https://bivectorfoil.github.io/post/useful-vim-command/</link>
+      <pubDate>Mon, 05 Mar 2018 11:07:06 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/useful-vim-command/</guid>
+      <description>灌水预警！ 今天处理文本时遇到一个很常见的问题，我在~/src/projects/目录下有一大堆C文件，需要对这些文件执行一个相同的命令，如何</description>
+    </item>
+    
+    <item>
+      <title>机器学习入坑记录</title>
+      <link>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</link>
+      <pubDate>Fri, 02 Mar 2018 12:32:53 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</guid>
+      <description>跳坑前的废话 今天偶然看到了谷歌的机器学习速成课程，地址在这。兴趣浓厚，虽说是“速成”，但所要学习的东西也不少。很长一段时间以来，我对机器学习</description>
+    </item>
+    
+    <item>
+      <title>浅谈Linux命令rm及回收站</title>
+      <link>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</link>
+      <pubDate>Fri, 22 Dec 2017 21:34:12 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</guid>
+      <description>灌水预警 很久没有写博客了，今天在整理硬盘空间时发现一个小常识，惊异于自己居然没想过这个问题，特此记录。 安全的rm命令 在谈到那个小常识前，我想</description>
+    </item>
+    
+    <item>
+      <title>《图解HTTP》读书笔记（一）</title>
+      <link>https://bivectorfoil.github.io/post/illustration-http-1/</link>
+      <pubDate>Mon, 18 Dec 2017 20:43:28 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/illustration-http-1/</guid>
+      <description>前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要</description>
+    </item>
+    
+    <item>
+      <title>《图解HTTP》读书笔记（零）</title>
+      <link>https://bivectorfoil.github.io/post/illustration-http-0/</link>
+      <pubDate>Fri, 15 Dec 2017 18:55:02 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/illustration-http-0/</guid>
+      <description>前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。</description>
+    </item>
+    
+    <item>
+      <title>在VPS上搭建绿色上网工具</title>
+      <link>https://bivectorfoil.github.io/post/ssserver-on-vps/</link>
+      <pubDate>Sat, 02 Dec 2017 15:25:11 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/ssserver-on-vps/</guid>
+      <description>服务端搭建 以下以SS指代Shadowsocks。SS分为服务器端和客户端，安装时两个都会安装上，配置文件也相同，区分服务端和客户端的是运行程</description>
+    </item>
+    
+    <item>
+      <title>使用Git部署Hugo静态博客到VPS上</title>
+      <link>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</link>
+      <pubDate>Sat, 02 Dec 2017 11:07:44 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</guid>
+      <description>预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简</description>
+    </item>
+    
+    <item>
+      <title>如何拥有一个域名</title>
+      <link>https://bivectorfoil.github.io/post/how-to-get-a-domain-name/</link>
+      <pubDate>Fri, 01 Dec 2017 21:46:44 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/how-to-get-a-domain-name/</guid>
+      <description>前言 本篇是我当初搭建个人博客时所经历的步骤，在此记录。话不多说，让我们先看看什么是域名： 域名（英语：Domain Name），简称域名、网域，</description>
+    </item>
+    
+    <item>
+      <title>极简Hugo搭建个人博客笔记</title>
+      <link>https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/</link>
+      <pubDate>Tue, 28 Nov 2017 13:50:09 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/</guid>
+      <description>前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主</description>
+    </item>
+    
+    <item>
+      <title>Install Nginx on Ubuntu16.04</title>
+      <link>https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/</link>
+      <pubDate>Mon, 27 Nov 2017 20:26:31 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/</guid>
+      <description>如何在Ubuntu16.04上安装Nginx 简介 Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTT</description>
+    </item>
+    
+    <item>
+      <title>如何购买VPS及购买后的安全措施</title>
+      <link>https://bivectorfoil.github.io/post/how-to-buy-vps-and-security-setting/</link>
+      <pubDate>Fri, 24 Nov 2017 22:46:36 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/how-to-buy-vps-and-security-setting/</guid>
+      <description>如何购买VPS及购买后的安全措施 先备知识&amp;ndash;什么是VPS 虚拟专用服务器（英语：Virtual private server，缩写为 VPS），是将一</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,1 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shell on Zvector &amp; Blog</title><link>https://bivectorfoil.github.io/tags/shell/</link><description>Recent content in shell on Zvector &amp; Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>zvector</copyright><lastBuildDate>Sat, 31 Mar 2018 21:52:55 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>[译］教程 - 用C实现一个Shell</title><link>https://bivectorfoil.github.io/post/write-a-shell-in-c/</link><pubDate>Sat, 31 Mar 2018 21:52:55 +0800</pubDate><guid>https://bivectorfoil.github.io/post/write-a-shell-in-c/</guid><description>原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得</description></item><item><title>浅谈Linux命令rm及回收站</title><link>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</link><pubDate>Fri, 22 Dec 2017 21:34:12 +0800</pubDate><guid>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</guid><description>灌水预警 很久没有写博客了，今天在整理硬盘空间时发现一个小常识，惊异于自己居然没想过这个问题，特此记录。 安全的rm命令 在谈到那个小常识前，我想</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shell on Zvector &amp; Blog</title>
+    <link>https://bivectorfoil.github.io/tags/shell/</link>
+    <description>Recent content in shell on Zvector &amp; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
+    <lastBuildDate>Sat, 31 Mar 2018 21:52:55 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[译］教程 - 用C实现一个Shell</title>
+      <link>https://bivectorfoil.github.io/post/write-a-shell-in-c/</link>
+      <pubDate>Sat, 31 Mar 2018 21:52:55 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/write-a-shell-in-c/</guid>
+      <description>原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得</description>
+    </item>
+    
+    <item>
+      <title>浅谈Linux命令rm及回收站</title>
+      <link>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</link>
+      <pubDate>Fri, 22 Dec 2017 21:34:12 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</guid>
+      <description>灌水预警 很久没有写博客了，今天在整理硬盘空间时发现一个小常识，惊异于自己居然没想过这个问题，特此记录。 安全的rm命令 在谈到那个小常识前，我想</description>
+    </item>
+    
+  </channel>
+</rss>

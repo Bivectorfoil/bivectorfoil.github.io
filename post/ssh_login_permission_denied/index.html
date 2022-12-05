@@ -1,190 +1,251 @@
-<!doctype html><html lang=zh-cn>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>ssh 免密钥登录提示 permission denied 的问题 - Zvector & Blog</title>
-<meta name=renderer content="webkit">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta http-equiv=cache-control content="no-transform">
-<meta http-equiv=cache-control content="no-siteapp">
-<meta name=theme-color content="#f8f5ec">
-<meta name=msapplication-navbutton-color content="#f8f5ec">
-<meta name=apple-mobile-web-app-capable content="yes">
-<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="zvector"><meta name=description content="ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh">
-<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
-<link rel=canonical href=https://bivectorfoil.github.io/post/ssh_login_permission_denied/>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/manifest.json>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
-<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="ssh 免密钥登录提示 permission denied 的问题">
-<meta property="og:description" content="ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://bivectorfoil.github.io/post/ssh_login_permission_denied/"><meta property="article:section" content="post">
-<meta property="article:published_time" content="2022-12-04T20:43:42+08:00">
-<meta property="article:modified_time" content="2022-12-04T20:43:42+08:00">
-<meta itemprop=name content="ssh 免密钥登录提示 permission denied 的问题">
-<meta itemprop=description content="ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh"><meta itemprop=datePublished content="2022-12-04T20:43:42+08:00">
-<meta itemprop=dateModified content="2022-12-04T20:43:42+08:00">
-<meta itemprop=wordCount content="218">
-<meta itemprop=keywords content="linux,ssh,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="ssh 免密钥登录提示 permission denied 的问题">
-<meta name=twitter:description content="ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ssh 免密钥登录提示 permission denied 的问题 - Zvector &amp; Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zvector" /><meta name="description" content="ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://bivectorfoil.github.io/post/ssh_login_permission_denied/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="ssh 免密钥登录提示 permission denied 的问题" />
+<meta property="og:description" content="ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bivectorfoil.github.io/post/ssh_login_permission_denied/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-04T20:43:42+08:00" />
+<meta property="article:modified_time" content="2022-12-04T20:43:42+08:00" />
+
+<meta itemprop="name" content="ssh 免密钥登录提示 permission denied 的问题">
+<meta itemprop="description" content="ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh"><meta itemprop="datePublished" content="2022-12-04T20:43:42+08:00" />
+<meta itemprop="dateModified" content="2022-12-04T20:43:42+08:00" />
+<meta itemprop="wordCount" content="218">
+<meta itemprop="keywords" content="linux,ssh," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ssh 免密钥登录提示 permission denied 的问题"/>
+<meta name="twitter:description" content="ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
 </head>
 <body>
-<div id=mobile-navbar class=mobile-navbar>
-<div class=mobile-header-logo>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zvector &amp; Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </div>
-<div class=mobile-navbar-icon>
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-<nav id=mobile-menu class="mobile-menu slideout-menu">
-<ul class=mobile-menu-list>
-<a href=/>
-<li class=mobile-menu-item>主页</li>
-</a><a href=/post/>
-<li class=mobile-menu-item>归档</li>
-</a><a href=/tags/>
-<li class=mobile-menu-item>标签</li>
-</a><a href=/categories/>
-<li class=mobile-menu-item>分类</li>
-</a><a href=/about/>
-<li class=mobile-menu-item>关于</li>
-</a>
-</ul>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
 </nav>
-<div class=container id=mobile-panel>
-<header id=header class=header>
-<div class=logo-wrapper>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zvector &amp; Blog</a>
 </div>
-<nav class=site-navbar>
-<ul id=menu class=menu>
-<li class=menu-item>
-<a class=menu-item-link href=/>主页</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/post/>归档</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/tags/>标签</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/categories/>分类</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/about/>关于</a>
-</li>
-</ul>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
 </nav>
-</header>
-<main id=main class=main>
-<div class=content-wrapper>
-<div id=content class=content>
-<article class=post>
-<header class=post-header>
-<h1 class=post-title>ssh 免密钥登录提示 permission denied 的问题</h1>
-<div class=post-meta>
-<span class=post-time> 2022-12-04 </span>
-<div class=post-category>
-<a href=/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/> 技术备忘录 </a>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ssh 免密钥登录提示 permission denied 的问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-12-04 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/"> 技术备忘录 </a>
+            </div>
+          <span class="more-meta"> 约 218 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents"></nav>
+  </div>
 </div>
-<span class=more-meta> 约 218 字 </span>
-<span class=more-meta> 预计阅读 1 分钟 </span>
-<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
-</div>
-</header>
-<div class=post-toc id=post-toc>
-<h2 class=post-toc-title>文章目录</h2>
-<div class=post-toc-content>
-<nav id=TableOfContents></nav>
-</div>
-</div>
-<div class=post-content>
-<p>ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
+    <div class="post-content">
+      <p>ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 的解决办法（之一）：</p>
 <p>远程服务器更换镜像之后，ssh 使用配置项登录提示如下：</p>
 <blockquote>
 <p>Permission denied (publickey,gssapi-keyex,gssapi-with-mic)</p>
 </blockquote>
-<p>一番搜索之后，原因是 ssh 尝试登录非 root 用户，比如 A 用户：<code> ssh -i &lt;path_to_your_prikey> A@your_remote_ip_addr</code> 。提示：Permission denied (publickey,gssapi-keyex,gssapi-with-mic)。有可能是在远程服务器上，A用户目录下：/home/A 没有相关的 .ssh 目录和 <code>.ssh/authorized_keys</code> 公钥文件。按常规的服务器配置密钥登录步骤，在 A 用户家目录下配置好密钥即可。</p>
+<p>一番搜索之后，原因是 ssh 尝试登录非 root 用户，比如 A 用户：<code> ssh -i &lt;path_to_your_prikey&gt; A@your_remote_ip_addr</code> 。提示：Permission denied (publickey,gssapi-keyex,gssapi-with-mic)。有可能是在远程服务器上，A用户目录下：/home/A 没有相关的 .ssh 目录和 <code>.ssh/authorized_keys</code> 公钥文件。按常规的服务器配置密钥登录步骤，在 A 用户家目录下配置好密钥即可。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">zvector</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2022-12-04</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/ssh/">ssh</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/learn-or-quit/">
+            <span class="next-text nav-default">Learn or Quit</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'zvector';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
+  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-<div class=post-copyright>
-<p class=copyright-item>
-<span class=item-title>文章作者</span>
-<span class=item-content>zvector</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>上次更新</span>
-<span class=item-content>2022-12-04</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>许可协议</span>
-<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-</p>
-</div><footer class=post-footer>
-<div class=post-tags>
-<a href=/tags/linux/>linux</a>
-<a href=/tags/ssh/>ssh</a>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zvector</span>
+  </span>
 </div>
-<nav class=post-nav>
-<a class=next href=/post/learn-or-quit/>
-<span class="next-text nav-default">Learn or Quit</span>
-<span class="next-text nav-mobile">下一篇</span>
-<i class="iconfont icon-right"></i>
-</a>
-</nav>
-</footer>
-</article>
-</div>
-<div id=disqus_thread></div>
-<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-</div>
-</main>
-<footer id=footer class=footer>
-<div class=social-links>
-<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
-<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
-</div>
-<div class=copyright>
-<span class=power-by>
-由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
-</span>
-<span class=division>|</span>
-<span class=theme-info>
-主题 -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
-</span>
-<div class=busuanzi-footer>
-<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
-</div>
-<span class=copyright-year>
-&copy;
-2018 -
-2022
-<span class=heart>
-<i class="iconfont icon-heart"></i>
-</span>
-<span class=author>zvector</span>
-</span>
-</div>
-</footer>
-<div class=back-to-top id=back-to-top>
-<i class="iconfont icon-up"></i>
-</div>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
-<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
 </body>
 </html>

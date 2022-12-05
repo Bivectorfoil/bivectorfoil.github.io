@@ -1,131 +1,162 @@
-<!doctype html><html lang=zh-cn>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>[译］教程 - 用C实现一个Shell - Zvector & Blog</title>
-<meta name=renderer content="webkit">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta http-equiv=cache-control content="no-transform">
-<meta http-equiv=cache-control content="no-siteapp">
-<meta name=theme-color content="#f8f5ec">
-<meta name=msapplication-navbutton-color content="#f8f5ec">
-<meta name=apple-mobile-web-app-capable content="yes">
-<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="zvector"><meta name=description content="原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得">
-<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
-<link rel=canonical href=https://bivectorfoil.github.io/post/write-a-shell-in-c/>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/manifest.json>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
-<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="[译］教程 - 用C实现一个Shell">
-<meta property="og:description" content="原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://bivectorfoil.github.io/post/write-a-shell-in-c/"><meta property="article:section" content="post">
-<meta property="article:published_time" content="2018-03-31T21:52:55+08:00">
-<meta property="article:modified_time" content="2018-03-31T21:52:55+08:00">
-<meta itemprop=name content="[译］教程 - 用C实现一个Shell">
-<meta itemprop=description content="原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得"><meta itemprop=datePublished content="2018-03-31T21:52:55+08:00">
-<meta itemprop=dateModified content="2018-03-31T21:52:55+08:00">
-<meta itemprop=wordCount content="6904">
-<meta itemprop=keywords content="shell,C,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="[译］教程 - 用C实现一个Shell">
-<meta name=twitter:description content="原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[译］教程 - 用C实现一个Shell - Zvector &amp; Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zvector" /><meta name="description" content="原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://bivectorfoil.github.io/post/write-a-shell-in-c/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="[译］教程 - 用C实现一个Shell" />
+<meta property="og:description" content="原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bivectorfoil.github.io/post/write-a-shell-in-c/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-03-31T21:52:55+08:00" />
+<meta property="article:modified_time" content="2018-03-31T21:52:55+08:00" />
+
+<meta itemprop="name" content="[译］教程 - 用C实现一个Shell">
+<meta itemprop="description" content="原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得"><meta itemprop="datePublished" content="2018-03-31T21:52:55+08:00" />
+<meta itemprop="dateModified" content="2018-03-31T21:52:55+08:00" />
+<meta itemprop="wordCount" content="6904">
+<meta itemprop="keywords" content="shell,C," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[译］教程 - 用C实现一个Shell"/>
+<meta name="twitter:description" content="原文链接：Tutorial - Write a Shell in C，作者：Stepthen Brennan 16 January 2015 我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
 </head>
 <body>
-<div id=mobile-navbar class=mobile-navbar>
-<div class=mobile-header-logo>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zvector &amp; Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </div>
-<div class=mobile-navbar-icon>
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-<nav id=mobile-menu class="mobile-menu slideout-menu">
-<ul class=mobile-menu-list>
-<a href=/>
-<li class=mobile-menu-item>主页</li>
-</a><a href=/post/>
-<li class=mobile-menu-item>归档</li>
-</a><a href=/tags/>
-<li class=mobile-menu-item>标签</li>
-</a><a href=/categories/>
-<li class=mobile-menu-item>分类</li>
-</a><a href=/about/>
-<li class=mobile-menu-item>关于</li>
-</a>
-</ul>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
 </nav>
-<div class=container id=mobile-panel>
-<header id=header class=header>
-<div class=logo-wrapper>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zvector &amp; Blog</a>
 </div>
-<nav class=site-navbar>
-<ul id=menu class=menu>
-<li class=menu-item>
-<a class=menu-item-link href=/>主页</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/post/>归档</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/tags/>标签</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/categories/>分类</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/about/>关于</a>
-</li>
-</ul>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
 </nav>
-</header>
-<main id=main class=main>
-<div class=content-wrapper>
-<div id=content class=content>
-<article class=post>
-<header class=post-header>
-<h1 class=post-title>[译］教程 - 用C实现一个Shell</h1>
-<div class=post-meta>
-<span class=post-time> 2018-03-31 </span>
-<div class=post-category>
-<a href=/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/> 技术翻译 </a>
-</div>
-<span class=more-meta> 约 6904 字 </span>
-<span class=more-meta> 预计阅读 14 分钟 </span>
-<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
-</div>
-</header>
-<div class=post-toc id=post-toc>
-<h2 class=post-toc-title>文章目录</h2>
-<div class=post-toc-content>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#shell的基本生命周期>Shell的基本生命周期</a></li>
-<li><a href=#shell的基本循环>Shell的基本循环</a></li>
-<li><a href=#读取输入>读取输入</a></li>
-<li><a href=#解析输入>解析输入</a></li>
-<li><a href=#shell如何启动进程>Shell如何启动进程</a></li>
-<li><a href=#shell内置函数>Shell内置函数</a></li>
-<li><a href=#将内置函数和进程整合起来>将内置函数和进程整合起来</a></li>
-<li><a href=#组织代码>组织代码</a></li>
-<li><a href=#总结>总结</a></li>
-</ul>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[译］教程 - 用C实现一个Shell</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-03-31 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/"> 技术翻译 </a>
+            </div>
+          <span class="more-meta"> 约 6904 字 </span>
+          <span class="more-meta"> 预计阅读 14 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#shell的基本生命周期">Shell的基本生命周期</a></li>
+    <li><a href="#shell的基本循环">Shell的基本循环</a></li>
+    <li><a href="#读取输入">读取输入</a></li>
+    <li><a href="#解析输入">解析输入</a></li>
+    <li><a href="#shell如何启动进程">Shell如何启动进程</a></li>
+    <li><a href="#shell内置函数">Shell内置函数</a></li>
+    <li><a href="#将内置函数和进程整合起来">将内置函数和进程整合起来</a></li>
+    <li><a href="#组织代码">组织代码</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
 </nav>
+  </div>
 </div>
-</div>
-<div class=post-content>
-<blockquote>
-<p>原文链接：<a href=https://brennan.io/2015/01/16/write-a-shell-in-c/>Tutorial - Write a Shell in C</a>，作者：<a href=https://brennan.io/>Stepthen Brennan</a> 16 January 2015</p>
+    <div class="post-content">
+      <blockquote>
+<p>原文链接：<a href="https://brennan.io/2015/01/16/write-a-shell-in-c/">Tutorial - Write a Shell in C</a>，作者：<a href="https://brennan.io/">Stepthen Brennan</a> 16 January 2015</p>
 </blockquote>
 <p>我们很容易自视为”不是一个真正的程序员“。存在那些人尽皆知的程序，使得其中相关的研发者很容易地被推上神坛。尽管研发大型软件项目并不容易，但很多时候这些软件的基本思想是十分简单的。亲自去实现是学习如何成为一个真正的程序员的有趣方法。本文就是关于我如何用C实现简易的Unix Shell的演练，希望其他人也能从中体会到同样的乐趣。</p>
-<p>本文所描述的Shell名为：lsh, 可以在<a href=https://github.com/brenns10/lsh>Github</a>上找到它。</p>
-<p>**大学生注意告示！**很多课程会要求你们实现一个Shell，一些教师也知道本文及其代码。如果你是这些课程的其中一员，你不应未经允许地复制这些代码（或复制后修改）。即使如此，我强烈建议不要过度依赖本教程。（关于本段，参考作者的另一篇<a href=https://brennan.io/2016/03/29/dishonesty/>博文</a>，译者注）</p>
-<h2 id=shell的基本生命周期>Shell的基本生命周期</h2>
+<p>本文所描述的Shell名为：lsh, 可以在<a href="https://github.com/brenns10/lsh">Github</a>上找到它。</p>
+<p>**大学生注意告示！**很多课程会要求你们实现一个Shell，一些教师也知道本文及其代码。如果你是这些课程的其中一员，你不应未经允许地复制这些代码（或复制后修改）。即使如此，我强烈建议不要过度依赖本教程。（关于本段，参考作者的另一篇<a href="https://brennan.io/2016/03/29/dishonesty/">博文</a>，译者注）</p>
+<h2 id="shell的基本生命周期">Shell的基本生命周期</h2>
 <p>让我们宏观地了解下Shell。一个Shell在它的生命周期中主要做三件事情。</p>
 <ul>
 <li>初始化：在这一步，Shell会读取并执行自身的配置文件。这些配置文件改变了Shell的操作特性。</li>
@@ -133,36 +164,36 @@
 <li>终止：在其命令执行后，Shell执行任意关机命令，释放内存并终止。</li>
 </ul>
 <p>上述流程是如此普遍以至于可以应用到很多程序中去，我们将在自己的Shell中实现这些流程。我们的Shell是十分简单的，以至于它不需要任何的配置文件，也不会有任何的关机命令。所以，我们只需要调用循环函数然后终止就好。但在架构方面，需要时刻注意程序的生命周期远不止循环。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>**</span><span class=n>argv</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=c1>// Load config files, if any.
-</span><span class=c1></span>  
-  <span class=c1>// Run command loop.
-</span><span class=c1></span>  <span class=n>lsh_loop</span><span class=p>();</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Load config files, if any.
+</span><span class="c1"></span>  
+  <span class="c1">// Run command loop.
+</span><span class="c1"></span>  <span class="n">lsh_loop</span><span class="p">();</span>
   
-  <span class=c1>// Perform any shutdown/cleanup.
-</span><span class=c1></span>  
-  <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
-<span class=p>}</span>
+  <span class="c1">// Perform any shutdown/cleanup.
+</span><span class="c1"></span>  
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>在这你可以看到我刚刚用到的函数，<code>lsh_loop()</code>，将会开始循环，解释命令。接下来我们将看到其具体实现。</p>
-<h2 id=shell的基本循环>Shell的基本循环</h2>
+<h2 id="shell的基本循环">Shell的基本循环</h2>
 <p>我们已经知道到程序应该如何启动了。现在，就程序基本逻辑来说：shell在循环中该怎么做？简单来说，处理命令有三个步骤：</p>
 <ul>
 <li>读取：从标准输入中读取命令。</li>
@@ -170,288 +201,288 @@
 <li>执行：运行解析后的命令。</li>
 </ul>
 <p>将上述步骤写成<code>lsh_loop()</code>代码:</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=kt>void</span> <span class=nf>lsh_loop</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=kt>char</span> <span class=o>*</span><span class=n>line</span><span class=p>;</span>
-  <span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>;</span>
-  <span class=kt>int</span> <span class=n>status</span><span class=p>;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">lsh_loop</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">line</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
   
-  <span class=k>do</span> <span class=p>{</span>
-    <span class=n>printf</span><span class=p>(</span><span class=s>&#34;&gt; &#34;</span><span class=p>);</span>
-    <span class=n>line</span> <span class=o>=</span> <span class=n>lsh_read_line</span><span class=p>();</span>
-    <span class=n>args</span> <span class=o>=</span> <span class=n>lsh_split_line</span><span class=p>(</span><span class=n>line</span><span class=p>);</span>
-    <span class=n>status</span> <span class=o>=</span> <span class=n>lsh_execute</span><span class=p>(</span><span class=n>args</span><span class=p>);</span>
+  <span class="k">do</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;&gt; &#34;</span><span class="p">);</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">lsh_read_line</span><span class="p">();</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">lsh_split_line</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">lsh_execute</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
     
-    <span class=n>free</span><span class=p>(</span><span class=n>line</span><span class=p>);</span>
-    <span class=n>free</span><span class=p>(</span><span class=n>args</span><span class=p>);</span>
-  <span class=p>}</span> <span class=k>while</span> <span class=p>(</span><span class=n>status</span><span class=p>);</span>
-<span class=p>}</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">status</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>让我们过一遍代码。前几行是声明。do-while循环更适合用于检查<code>status</code>，因为它在检查前会执行一次命令。在本循环中，我们打印一个命令提示符，调用函数读取输入，调用函数将输入分割进<code>args</code>， 并执行<code>args</code>。最后释放原先创建的参数空间。注意，我们使用由<code>lsh_execute()</code>返回的变量<code>status</code>来决定何时退出程序。</p>
-<h2 id=读取输入>读取输入</h2>
+<h2 id="读取输入">读取输入</h2>
 <p>读取标准输入听上去似乎很简单，但在C中有点麻烦。棘手的是，你无法提前知道用户会在Shell中输入多少内容。你不能只是简单地分配一块空间，然后希望用户不要超量使用它。因此，你需要从一块空间开始，一旦用户使用量超过了它，立马重新分配更多的空间。这在C中是一个常用策略，我们依据这个想法来实现<code>lsh_read_line()</code>。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span><span class=lnt>30
-</span><span class=lnt>31
-</span><span class=lnt>32
-</span><span class=lnt>33
-</span><span class=lnt>34
-</span><span class=lnt>35
-</span><span class=lnt>36
-</span><span class=lnt>37
-</span><span class=lnt>38
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=cp>#define LSH_RL_BUFSIZE 1024
-</span><span class=cp></span><span class=kt>char</span> <span class=o>*</span><span class=nf>lsh_read_line</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=kt>int</span> <span class=n>bufsize</span> <span class=o>=</span> <span class=n>LSH_RL_BUFSIZE</span><span class=p>;</span>
-  <span class=kt>int</span> <span class=n>position</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-  <span class=kt>char</span> <span class=o>*</span><span class=n>buffer</span> <span class=o>=</span> <span class=n>malloc</span><span class=p>(</span><span class=k>sizeof</span><span class=p>(</span><span class=kt>char</span><span class=p>)</span> <span class=o>*</span> <span class=n>bufsize</span><span class=p>);</span>
-  <span class=kt>int</span> <span class=n>c</span><span class=p>;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define LSH_RL_BUFSIZE 1024
+</span><span class="cp"></span><span class="kt">char</span> <span class="o">*</span><span class="nf">lsh_read_line</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">bufsize</span> <span class="o">=</span> <span class="n">LSH_RL_BUFSIZE</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">bufsize</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
 
-  <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>buffer</span><span class=p>)</span> <span class=p>{</span>
-    <span class=n>fprintf</span><span class=p>(</span><span class=n>stderr</span><span class=p>,</span> <span class=s>&#34;lsh: allocation error</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
-    <span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span>
-  <span class=p>}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">buffer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;lsh: allocation error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  <span class=k>while</span> <span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
-    <span class=c1>// Read a character
-</span><span class=c1></span>    <span class=n>c</span> <span class=o>=</span> <span class=n>getchar</span><span class=p>();</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Read a character
+</span><span class="c1"></span>    <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
 
-    <span class=c1>// If we hit EOF, replace it with a null character and return.
-</span><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=n>c</span> <span class=o>==</span> <span class=n>EOF</span> <span class=o>||</span> <span class=n>c</span> <span class=o>==</span> <span class=sc>&#39;\n&#39;</span><span class=p>)</span> <span class=p>{</span>
-      <span class=n>buffer</span><span class=p>[</span><span class=n>position</span><span class=p>]</span> <span class=o>=</span> <span class=sc>&#39;\0&#39;</span><span class=p>;</span>
-      <span class=k>return</span> <span class=n>buffer</span><span class=p>;</span>
-    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-      <span class=n>buffer</span><span class=p>[</span><span class=n>position</span><span class=p>]</span> <span class=o>=</span> <span class=n>c</span><span class=p>;</span>
-    <span class=p>}</span>
-    <span class=n>position</span><span class=o>++</span><span class=p>;</span>
+    <span class="c1">// If we hit EOF, replace it with a null character and return.
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">EOF</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">buffer</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">buffer</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">buffer</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">position</span><span class="o">++</span><span class="p">;</span>
 
-    <span class=c1>// If we have exceeded the buffer, reallocate.
-</span><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=n>position</span> <span class=o>&gt;=</span> <span class=n>bufsize</span><span class=p>)</span> <span class=p>{</span>
-      <span class=n>bufsize</span> <span class=o>+=</span> <span class=n>LSH_RL_BUFSIZE</span><span class=p>;</span>
-      <span class=n>buffer</span> <span class=o>=</span> <span class=n>realloc</span><span class=p>(</span><span class=n>buffer</span><span class=p>,</span> <span class=n>bufsize</span><span class=p>);</span>
-      <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>buffer</span><span class=p>)</span> <span class=p>{</span>
-        <span class=n>fprintf</span><span class=p>(</span><span class=n>stderr</span><span class=p>,</span> <span class=s>&#34;lsh: allocation error</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
-        <span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span>
-      <span class=p>}</span>
-    <span class=p>}</span>
-  <span class=p>}</span>
+    <span class="c1">// If we have exceeded the buffer, reallocate.
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">position</span> <span class="o">&gt;=</span> <span class="n">bufsize</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">bufsize</span> <span class="o">+=</span> <span class="n">LSH_RL_BUFSIZE</span><span class="p">;</span>
+      <span class="n">buffer</span> <span class="o">=</span> <span class="n">realloc</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">bufsize</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">buffer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;lsh: allocation error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
   
-<span class=p>}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>第一部分是一堆声明。如果你没注意到的话，我建议在接下来的代码中保留旧版C标准风格声明变量的方式。函数主体是一个（无限循环的）<code>while(1)</code>循环。在循环中，我们每次读取一个字符（并将其存储为<code>int</code>，而不是<code>char</code>， 这非常重要！EOF是整数型，而不是字符型，如果你想要将读取的字符与EOF做对比检查，你应该使用<code>int</code>。这是C新手常犯的一个错误。）。如果它是换行符，或EOF，我们终止当前字符串并返回它。不然，就将其添加到已存在的字符串中。</p>
 <p>接下来，我们检查下一个输入字符是否超出了当前的缓冲区。如果是，我们在继续之前重新分配缓冲区（检查分配错误）。整个流程就是如此了。</p>
 <p>对熟悉新版C标准库的人来说，可能会注意到在<code>stdio.h</code>头文件中有一个函数<code>getline()</code>，它可以提供大部分我们才刚刚实现的功能。坦诚来说，我在完成这份代码之前并不知道有这个函数的存在。这个GUN拓展函数在2008年时被添加到C标准库规范之中，所以大多数的现代Unix系统应该都已配备了。我将保留原来的代码实现，并且鼓励你们应首先学习这样的实现而不是一开始就使用<code>getline</code>。若不如此的话，你就是剥夺了自己一次学习的机会了。不管怎样，使用<code>getline</code>的话，<code>lsh_read_line()</code>函数可改写为如下：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=kt>char</span> <span class=o>*</span><span class=nf>lsh_read_line</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=kt>char</span> <span class=o>*</span><span class=n>line</span> <span class=o>=</span> <span class=nb>NULL</span><span class=p>;</span>
-  <span class=n>ssize_t</span> <span class=n>bufsize</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=c1>// have getline allocate a buffer for us
-</span><span class=c1></span>  <span class=n>getline</span><span class=p>(</span><span class=o>&amp;</span><span class=n>line</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>bufsize</span><span class=p>,</span> <span class=n>stdin</span><span class=p>);</span>
-  <span class=k>return</span> <span class=n>line</span><span class=p>;</span>
-<span class=p>}</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="o">*</span><span class="nf">lsh_read_line</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">line</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">ssize_t</span> <span class="n">bufsize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// have getline allocate a buffer for us
+</span><span class="c1"></span>  <span class="n">getline</span><span class="p">(</span><span class="o">&amp;</span><span class="n">line</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">bufsize</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">line</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id=解析输入>解析输入</h2>
-<p>好了，如果我们回顾一下loop循环，可以看到我们已经实现了<code>lsh_read_line()</code>，也有了输入流。现在，我们需要将输入解析为参数列表。在这里我要做一个简化，在我们的命令行参数中并不支持引号或反斜杠。作为替代，我们使用空格来作为参数间的分割符。所以形如命令 ：<code>echo "this message"</code>并不会直接将参数<code>this message</code>给传递到<code>echo</code>中，而是分为两个参数：<code>"this"</code>和<code>"message"</code>。</p>
+</div><h2 id="解析输入">解析输入</h2>
+<p>好了，如果我们回顾一下loop循环，可以看到我们已经实现了<code>lsh_read_line()</code>，也有了输入流。现在，我们需要将输入解析为参数列表。在这里我要做一个简化，在我们的命令行参数中并不支持引号或反斜杠。作为替代，我们使用空格来作为参数间的分割符。所以形如命令 ：<code>echo &quot;this message&quot;</code>并不会直接将参数<code>this message</code>给传递到<code>echo</code>中，而是分为两个参数：<code>&quot;this&quot;</code>和<code>&quot;message&quot;</code>。</p>
 <p>在这样的简化下，我们所需要做的就是使用空格作为分隔符来”解析标记“输入字符串。如此一来我们就可以利用库函数<code>strtok</code>来完成一些繁杂的工作。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span><span class=lnt>30
-</span><span class=lnt>31
-</span><span class=lnt>32
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=cp>#define LSH_TOK_BUFSIZE 64
-</span><span class=cp>#define LSH_TOK_DELIM &#34; \t\r\n\a&#34;
-</span><span class=cp></span><span class=kt>char</span> <span class=o>**</span><span class=nf>lsh_split_line</span><span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=n>line</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=kt>int</span> <span class=n>bufsize</span> <span class=o>=</span> <span class=n>LSH_TOK_BUFSIZE</span><span class=p>,</span> <span class=n>position</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-  <span class=kt>char</span> <span class=o>**</span><span class=n>tokens</span> <span class=o>=</span> <span class=n>malloc</span><span class=p>(</span><span class=n>bufsize</span> <span class=o>*</span> <span class=k>sizeof</span><span class=p>(</span><span class=kt>char</span><span class=o>*</span><span class=p>));</span>
-  <span class=kt>char</span> <span class=o>*</span><span class=n>token</span><span class=p>;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define LSH_TOK_BUFSIZE 64
+</span><span class="cp">#define LSH_TOK_DELIM &#34; \t\r\n\a&#34;
+</span><span class="cp"></span><span class="kt">char</span> <span class="o">**</span><span class="nf">lsh_split_line</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">line</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">bufsize</span> <span class="o">=</span> <span class="n">LSH_TOK_BUFSIZE</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">**</span><span class="n">tokens</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">bufsize</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">));</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">token</span><span class="p">;</span>
 
-  <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>tokens</span><span class=p>)</span> <span class=p>{</span>
-    <span class=n>fprintf</span><span class=p>(</span><span class=n>stderr</span><span class=p>,</span> <span class=s>&#34;lsh: allocation error</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
-    <span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span>
-  <span class=p>}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tokens</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;lsh: allocation error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  <span class=n>token</span> <span class=o>=</span> <span class=n>strtok</span><span class=p>(</span><span class=n>line</span><span class=p>,</span> <span class=n>LSH_TOK_DELIM</span><span class=p>);</span>
-  <span class=k>while</span> <span class=p>(</span><span class=n>token</span> <span class=o>!=</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
-    <span class=n>tokens</span><span class=p>[</span><span class=n>position</span><span class=p>]</span> <span class=o>=</span> <span class=n>token</span><span class=p>;</span>
-    <span class=n>position</span><span class=o>++</span><span class=p>;</span>
+  <span class="n">token</span> <span class="o">=</span> <span class="n">strtok</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">LSH_TOK_DELIM</span><span class="p">);</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">token</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">tokens</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="n">token</span><span class="p">;</span>
+    <span class="n">position</span><span class="o">++</span><span class="p">;</span>
 
-    <span class=k>if</span> <span class=p>(</span><span class=n>position</span> <span class=o>&gt;=</span> <span class=n>bufsize</span><span class=p>)</span> <span class=p>{</span>
-      <span class=n>bufsize</span> <span class=o>+=</span> <span class=n>LSH_TOK_BUFSIZE</span><span class=p>;</span>
-      <span class=n>tokens</span> <span class=o>=</span> <span class=n>realloc</span><span class=p>(</span><span class=n>tokens</span><span class=p>,</span> <span class=n>bufsize</span> <span class=o>*</span> <span class=k>sizeof</span><span class=p>(</span><span class=kt>char</span><span class=o>*</span><span class=p>));</span>
-      <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>tokens</span><span class=p>)</span> <span class=p>{</span>
-        <span class=n>fprintf</span><span class=p>(</span><span class=n>stderr</span><span class=p>,</span> <span class=s>&#34;lsh: allocation error</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
-        <span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span>
-      <span class=p>}</span>
-    <span class=p>}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">position</span> <span class="o">&gt;=</span> <span class="n">bufsize</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">bufsize</span> <span class="o">+=</span> <span class="n">LSH_TOK_BUFSIZE</span><span class="p">;</span>
+      <span class="n">tokens</span> <span class="o">=</span> <span class="n">realloc</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">bufsize</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">));</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tokens</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;lsh: allocation error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 
-    <span class=n>token</span> <span class=o>=</span> <span class=n>strtok</span><span class=p>(</span><span class=nb>NULL</span><span class=p>,</span> <span class=n>LSH_TOK_DELIM</span><span class=p>);</span>
-  <span class=p>}</span>
-  <span class=n>tokens</span><span class=p>[</span><span class=n>position</span><span class=p>]</span> <span class=o>=</span> <span class=nb>NULL</span><span class=p>;</span>
-  <span class=k>return</span> <span class=n>tokens</span><span class=p>;</span>
-<span class=p>}</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">strtok</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">LSH_TOK_DELIM</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">tokens</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">tokens</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>如果你觉得这段代码看起来和<code>lsh_read_line()</code>十分相似的话，那是因为正是如此！我们采取了同样的策略，使用并动态拓展缓冲区。但这一次，我们用一个以null结尾的指针数组来代替以null结尾的字符数组。</p>
 <p>在函数开头，我们调用<code>strtok</code>来进行解析<code>token</code>。它返回一个指向第一个<code>token</code>的指针。<code>strtok()</code>实际上做的是返回指向你提供给它的字符串的指针，并在每一个<code>token</code>的后面添加<code>\0</code>字符。我们将每个指针存储在字符指针数组（缓冲区）中。</p>
 <p>最后，如果有必要的话，我们重新分配指针数组。这个过程反复进行直到<code>strtok</code>函数不再返回<code>token</code>，此时我们终止<code>tokens</code>列表。</p>
 <p>好了，一旦准备周全后，我们有了一个<code>tokens</code>数组，准备开始执行了。那么问题来了，我们应该怎么做？</p>
-<h2 id=shell如何启动进程>Shell如何启动进程</h2>
+<h2 id="shell如何启动进程">Shell如何启动进程</h2>
 <p>目前，我们开始深入到了Shell工作原理的核心。开启进程是Shell的主要功能。所以编写一个Shell意味着你必须清楚地知道进程中发生了什么，以及它们是如何启动的。正因此，我要稍稍岔开话题，单独地来谈谈Unix中的进程。</p>
 <p>在Unix中启动进程只有两种方法。第一种（基本可以不考虑）是通过初始化。可以想见，当Unix系统启动时，它的内核开始加载。一旦其加载和初始化完成，内核只会开始运行一个进程，即为<code>Init</code>进程。此进程在系统的整个生命周期一直运行，它管理加载你计算机所需要的其他进程。</p>
 <p>既然大多数程序不会是<code>Init</code>进程，对进程启动来说就只剩下唯一一个实际的途径：<code>fork()</code>系统调用。当此函数被调用时，操作系统会复制进程并保持它们同时运行。原先的进程被称为”父进程“，复制出的新进程被称为”子进程“。<code>fork()</code>向子进程返回0，向父进程返回子进程的进程ID（PID）。本质上来说，开启新进程的唯一方法就是从已有的进程上复制一份。</p>
-<p>这听起来似乎有个问题。技术上来说，当你想要启动一个新进程时，你并不是想要一个当前程序的复制品——你想要运行另一个程序。这就是<code>exec()</code>系统调用所要做的事情。（为方便理解，此句与原文有出入，出自<a href=https://zh.wikipedia.org/wiki/Fork_(%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8)>Wikipedia</a>——译者注）用其他程序覆盖自身：停止执行自己之前的程序并执行其他程序。这就意味着当你调用<code>exec()</code>后， 操作系统停止你的进程，加载新的程序，并启动它。一个进程永远不会从<code>exec()</code>调用返回（除非出现了错误）。</p>
+<p>这听起来似乎有个问题。技术上来说，当你想要启动一个新进程时，你并不是想要一个当前程序的复制品——你想要运行另一个程序。这就是<code>exec()</code>系统调用所要做的事情。（为方便理解，此句与原文有出入，出自<a href="https://zh.wikipedia.org/wiki/Fork_(%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8)">Wikipedia</a>——译者注）用其他程序覆盖自身：停止执行自己之前的程序并执行其他程序。这就意味着当你调用<code>exec()</code>后， 操作系统停止你的进程，加载新的程序，并启动它。一个进程永远不会从<code>exec()</code>调用返回（除非出现了错误）。</p>
 <p>通过这两个系统调用，我们大概可以知道在Unix系统上大部分程序的运行方式了。首先，一个已存在的进程调用<code>fork</code>来创建一个自身的副本。然后，子进程调用<code>exec()</code>，用一个新的程序来替代自己。父进程可以继续运行下去，甚至可以通过系统调用<code>wait()</code>，来保持对子进程的跟踪。</p>
 <p>呼！了解了这么多信息，但是根据这些背景知识，也使得接下来这个启动程序的代码是顺理成章的了：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=kt>int</span> <span class=nf>lsh_launch</span><span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=n>pid_t</span> <span class=n>pid</span><span class=p>,</span> <span class=n>wpid</span><span class=p>;</span>
-  <span class=kt>int</span> <span class=n>status</span><span class=p>;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">lsh_launch</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="n">wpid</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
 
-  <span class=n>pid</span> <span class=o>=</span> <span class=n>fork</span><span class=p>();</span>
-  <span class=k>if</span> <span class=p>(</span><span class=n>pid</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
-    <span class=c1>// Child process
-</span><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=n>execvp</span><span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>args</span><span class=p>)</span> <span class=o>==</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
-      <span class=n>perror</span><span class=p>(</span><span class=s>&#34;lsh&#34;</span><span class=p>);</span>
-    <span class=p>}</span>
-    <span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span>
-  <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>pid</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
-    <span class=c1>// Error forking
-</span><span class=c1></span>    <span class=n>perror</span><span class=p>(</span><span class=s>&#34;lsh&#34;</span><span class=p>);</span>
-  <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-    <span class=c1>// Parent process
-</span><span class=c1></span>    <span class=k>do</span> <span class=p>{</span>
-      <span class=n>wpid</span> <span class=o>=</span> <span class=n>waitpid</span><span class=p>(</span><span class=n>pid</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>status</span><span class=p>,</span> <span class=n>WUNTRACED</span><span class=p>);</span>
-    <span class=p>}</span> <span class=k>while</span> <span class=p>(</span><span class=o>!</span><span class=n>WIFEXITED</span><span class=p>(</span><span class=n>status</span><span class=p>)</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=n>WIFSIGNALED</span><span class=p>(</span><span class=n>status</span><span class=p>));</span>
-  <span class=p>}</span>
+  <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Child process
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">execvp</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">perror</span><span class="p">(</span><span class="s">&#34;lsh&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Error forking
+</span><span class="c1"></span>    <span class="n">perror</span><span class="p">(</span><span class="s">&#34;lsh&#34;</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Parent process
+</span><span class="c1"></span>    <span class="k">do</span> <span class="p">{</span>
+      <span class="n">wpid</span> <span class="o">=</span> <span class="n">waitpid</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="n">WUNTRACED</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">WIFSIGNALED</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+  <span class="p">}</span>
 
-  <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
-<span class=p>}</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>好了，此函数接收我们先前创建出的参数列表。然后，它分支出进程，并保存返回值。一旦<code>fork()</code>函数调用返回，我们就有了<em>两个</em>同时运行的进程了。第一个即为子进程如果满足情况（<code>pid</code> == 0）的话。</p>
@@ -459,193 +490,193 @@
 <p>如果<code>execvp</code>命令返回 -1（或者它有返回状态的话），我们就知道有错误出现了。所以，我们使用<code>perror</code>来打印程序名和系统错误信息，这样用户就可以知道是哪儿出了错。然后，程序退出留待Shell继续运行。</p>
 <p>第二种情况（pid &lt; 0）检查<code>fork()</code>是否出现错误。如果出现了，我们将其打印出来并继续——除了告知用户此错误并由他们来决定是否需要退出以外，我们别无他法。</p>
 <p>第三种情况意味着<code>fork()</code>成功执行。父进程将保持不变。我们知道子进程将要开始执行，所以父进程需要等待命令完成运行。我们使用<code>waitped()</code>来等待进程的状态改变。棘手的是，<code>waitpid()</code>有许多选项（正如<code>exec()</code>一样）。进程可能会以多种方式改变状态，并不是所有的方式都表示进程已经结束了。一个进程可能是退出了（普通情况下，或伴随一个错误码），也可能是被信号终止。所以，我们用<code>waitpid()</code>提供的宏来等待进程退出或是终止。然后，函数最终返回1，作为调用此函数的信号，我们应该再次提示输入。</p>
-<h2 id=shell内置函数>Shell内置函数</h2>
+<h2 id="shell内置函数">Shell内置函数</h2>
 <p>你可能已经注意到了，<code>lsh_loop()</code>函数循环中调用的是<code>lsh_execute()</code>函数，而我们却以<code>lsh_launch()</code>命名我们上述实现的函数。这是有意为之的！可以看到，Shell执行的大部分命令都是（外部）程序，但不是全部。其中有一些是Shell的内置函数。</p>
 <p>这样做的理由很简单。（举例来说）如何你想要改变目录，你需要使用<code>chdir()</code>函数。然而，当前所在目录是进程的一个属性。所以，如果你写了一个名为<code>cd</code>的更改目录的程序，它只会改变它自己的目录，然后便终止了。它的父进程的目录并不会改变。然而，shell进程本身需要执行chdir（），以便更新自己的当前目录。这样，当它启动子进程时，子进程也可以继承该目录了。</p>
 <p>类似的，如果有一个名为<code>exit</code>的程序，它理应不会使得调用它的Shell退出。同样的，对大多数的Shell来说，是通过运行类似<code>~/.bashrc</code>的配置脚本来对自身进行配置的。这些脚本使用改变Shell操作方式的命令。要做到这一点，只有在这些命令是Shell的内部实现的前提下才有可能。</p>
 <p>如此一来，添加一些Shell的内置命令也就变得顺理成章了。我为自己的Shell选择的是<code>cd</code>，<code>exit</code>，和<code>help</code>。下面是它们的函数实现：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span><span class=lnt>30
-</span><span class=lnt>31
-</span><span class=lnt>32
-</span><span class=lnt>33
-</span><span class=lnt>34
-</span><span class=lnt>35
-</span><span class=lnt>36
-</span><span class=lnt>37
-</span><span class=lnt>38
-</span><span class=lnt>39
-</span><span class=lnt>40
-</span><span class=lnt>41
-</span><span class=lnt>42
-</span><span class=lnt>43
-</span><span class=lnt>44
-</span><span class=lnt>45
-</span><span class=lnt>46
-</span><span class=lnt>47
-</span><span class=lnt>48
-</span><span class=lnt>49
-</span><span class=lnt>50
-</span><span class=lnt>51
-</span><span class=lnt>52
-</span><span class=lnt>53
-</span><span class=lnt>54
-</span><span class=lnt>55
-</span><span class=lnt>56
-</span><span class=lnt>57
-</span><span class=lnt>58
-</span><span class=lnt>59
-</span><span class=lnt>60
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=cm>/*
-</span><span class=cm>  Function Declarations for builtin shell commands:
-</span><span class=cm> */</span>
-<span class=kt>int</span> <span class=nf>lsh_cd</span><span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>);</span>
-<span class=kt>int</span> <span class=nf>lsh_help</span><span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>);</span>
-<span class=kt>int</span> <span class=nf>lsh_exit</span><span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>);</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+</span><span class="cm">  Function Declarations for builtin shell commands:
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">lsh_cd</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">lsh_help</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">lsh_exit</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">);</span>
 
-<span class=cm>/*
-</span><span class=cm>  List of builtin commands, followed by their corresponding functions.
-</span><span class=cm> */</span>
-<span class=kt>char</span> <span class=o>*</span><span class=n>builtin_str</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span>
-  <span class=s>&#34;cd&#34;</span><span class=p>,</span>
-  <span class=s>&#34;help&#34;</span><span class=p>,</span>
-  <span class=s>&#34;exit&#34;</span>
-<span class=p>};</span>
+<span class="cm">/*
+</span><span class="cm">  List of builtin commands, followed by their corresponding functions.
+</span><span class="cm"> */</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">builtin_str</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">&#34;cd&#34;</span><span class="p">,</span>
+  <span class="s">&#34;help&#34;</span><span class="p">,</span>
+  <span class="s">&#34;exit&#34;</span>
+<span class="p">};</span>
 
-<span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>builtin_func</span><span class=p>[])</span> <span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=p>)</span> <span class=o>=</span> <span class=p>{</span>
-  <span class=o>&amp;</span><span class=n>lsh_cd</span><span class=p>,</span>
-  <span class=o>&amp;</span><span class=n>lsh_help</span><span class=p>,</span>
-  <span class=o>&amp;</span><span class=n>lsh_exit</span>
-<span class=p>};</span>
+<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">builtin_func</span><span class="p">[])</span> <span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="o">&amp;</span><span class="n">lsh_cd</span><span class="p">,</span>
+  <span class="o">&amp;</span><span class="n">lsh_help</span><span class="p">,</span>
+  <span class="o">&amp;</span><span class="n">lsh_exit</span>
+<span class="p">};</span>
 
-<span class=kt>int</span> <span class=nf>lsh_num_builtins</span><span class=p>()</span> <span class=p>{</span>
-  <span class=k>return</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>builtin_str</span><span class=p>)</span> <span class=o>/</span> <span class=k>sizeof</span><span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=p>);</span>
-<span class=p>}</span>
+<span class="kt">int</span> <span class="nf">lsh_num_builtins</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">builtin_str</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class=cm>/*
-</span><span class=cm>  Builtin function implementations.
-</span><span class=cm>*/</span>
-<span class=kt>int</span> <span class=nf>lsh_cd</span><span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=k>if</span> <span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>==</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
-    <span class=n>fprintf</span><span class=p>(</span><span class=n>stderr</span><span class=p>,</span> <span class=s>&#34;lsh: expected argument to </span><span class=se>\&#34;</span><span class=s>cd</span><span class=se>\&#34;\n</span><span class=s>&#34;</span><span class=p>);</span>
-  <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-    <span class=k>if</span> <span class=p>(</span><span class=n>chdir</span><span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
-      <span class=n>perror</span><span class=p>(</span><span class=s>&#34;lsh&#34;</span><span class=p>);</span>
-    <span class=p>}</span>
-  <span class=p>}</span>
-  <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
-<span class=p>}</span>
+<span class="cm">/*
+</span><span class="cm">  Builtin function implementations.
+</span><span class="cm">*/</span>
+<span class="kt">int</span> <span class="nf">lsh_cd</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;lsh: expected argument to </span><span class="se">\&#34;</span><span class="s">cd</span><span class="se">\&#34;\n</span><span class="s">&#34;</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">chdir</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">perror</span><span class="p">(</span><span class="s">&#34;lsh&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class=kt>int</span> <span class=nf>lsh_help</span><span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=kt>int</span> <span class=n>i</span><span class=p>;</span>
-  <span class=n>printf</span><span class=p>(</span><span class=s>&#34;Stephen Brennan&#39;s LSH</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
-  <span class=n>printf</span><span class=p>(</span><span class=s>&#34;Type program names and arguments, and hit enter.</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
-  <span class=n>printf</span><span class=p>(</span><span class=s>&#34;The following are built in:</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
+<span class="kt">int</span> <span class="nf">lsh_help</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Stephen Brennan&#39;s LSH</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Type program names and arguments, and hit enter.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;The following are built in:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 
-  <span class=k>for</span> <span class=p>(</span><span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>lsh_num_builtins</span><span class=p>();</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
-    <span class=n>printf</span><span class=p>(</span><span class=s>&#34;  %s</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=n>builtin_str</span><span class=p>[</span><span class=n>i</span><span class=p>]);</span>
-  <span class=p>}</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lsh_num_builtins</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;  %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">builtin_str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
 
-  <span class=n>printf</span><span class=p>(</span><span class=s>&#34;Use the man command for information on other programs.</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
-  <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
-<span class=p>}</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Use the man command for information on other programs.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class=kt>int</span> <span class=nf>lsh_exit</span><span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
-<span class=p>}</span>
+<span class="kt">int</span> <span class="nf">lsh_exit</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>代码分为三个部分。第一部分包含函数的前置声明。前置声明使得你可以在定义它（而尚未实现时）以前使用它的名字。我这样做的原因是因为<code>lsh_help()</code>函数需要用到内置函数数组，而这个数组包含<code>lsh_help()</code>的函数名。解决这一依赖循环的最简洁办法就是使用前置声明了。</p>
 <p>下一部分是一个包含内置命令名称的数组，及包含其相应函数的数组。这样实现的原因是，在未来，可以简单地通过修改此数组来添加内置命令，而不必通过编辑代码中某处一个大型的”switch“语句段。如果你对<code>builtin_func</code>的声明感到疑惑的话，没关系，我也如此！它是一个函数指针数组（接收字符串并返回一个<code>int</code>）。在C中，任何涉及到函数指针的声明都会引起困惑。我自己仍然在学习函数指针是如何声明的！</p>
 <p>最后，我实现了每一个函数，<code>lsh_cd()</code>首先检查它接收的第二个参数是否存在，若否的话则打印错误信息。然后，它调用<code>chdir()</code>，检查是否有错误，返回。help函数打印帮助信息以及所有内置函数的名字。exit函数返回0，作为<code>loop</code>循环命令终止的信号。</p>
-<h2 id=将内置函数和进程整合起来>将内置函数和进程整合起来</h2>
+<h2 id="将内置函数和进程整合起来">将内置函数和进程整合起来</h2>
 <p>最后一片迷失的拼图就是实现<code>lsh_execute()</code>函数了，它将会启动一个内置函数，或者一个进程。如果你已经读到了这儿的话，你会发现这个函数的实现是十分简单的：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=kt>int</span> <span class=nf>lsh_execute</span><span class=p>(</span><span class=kt>char</span> <span class=o>**</span><span class=n>args</span><span class=p>)</span>
-<span class=p>{</span>
-  <span class=kt>int</span> <span class=n>i</span><span class=p>;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">lsh_execute</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 
-  <span class=k>if</span> <span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>==</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
-    <span class=c1>// An empty command was entered.
-</span><span class=c1></span>    <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
-  <span class=p>}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// An empty command was entered.
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  <span class=k>for</span> <span class=p>(</span><span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>lsh_num_builtins</span><span class=p>();</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
-    <span class=k>if</span> <span class=p>(</span><span class=n>strcmp</span><span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>builtin_str</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
-      <span class=k>return</span> <span class=p>(</span><span class=o>*</span><span class=n>builtin_func</span><span class=p>[</span><span class=n>i</span><span class=p>])(</span><span class=n>args</span><span class=p>);</span>
-    <span class=p>}</span>
-  <span class=p>}</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lsh_num_builtins</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">builtin_str</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">builtin_func</span><span class="p">[</span><span class="n">i</span><span class="p">])(</span><span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  <span class=k>return</span> <span class=n>lsh_launch</span><span class=p>(</span><span class=n>args</span><span class=p>);</span>
-<span class=p>}</span>
+  <span class="k">return</span> <span class="n">lsh_launch</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>它所做的全部事情就是，检查输入命令是否是内置命令，如果是的话，运行它。否则，调用<code>lsh_launch()</code>启动程序进程。值得考虑的一点是，如果用户输入了空字符串，或者空格符，输入参数<code>args</code>就有可能为NULL。所以，我们需要在开头就检查这些情况。</p>
-<h2 id=组织代码>组织代码</h2>
+<h2 id="组织代码">组织代码</h2>
 <p>以上就是Shell中的全部代码了。如果你读到了这里，你应该已经完全明白Shell的工作原理了。为了尝试运行它（在一台Linux机器上），你应该将这些代码整合到一个文件中（<code>main.c</code>)，并且编译它。要注意其中只应包含一个<code>lsh_read_line()</code>函数的实现。你需要在文件顶部包含以下头文件。我添加了注释来帮助你了解每个函数的出处。</p>
 <ul>
 <li>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>#include &lt;sys/wait.h&gt;
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#include &lt;sys/wait.h&gt;
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -653,12 +684,12 @@
 </ul>
 </li>
 <li>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>#include &lt;unistd.h&gt;
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#include &lt;unistd.h&gt;
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -669,12 +700,12 @@
 </ul>
 </li>
 <li>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>#include &lt;stdlib.h&gt;
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#include &lt;stdlib.h&gt;
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -687,12 +718,12 @@
 </ul>
 </li>
 <li>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>#include &lt;stdio.h&gt;
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#include &lt;stdio.h&gt;
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -704,12 +735,12 @@
 </ul>
 </li>
 <li>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>#include &lt;string.h&gt;
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#include &lt;string.h&gt;
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -719,9 +750,9 @@
 </li>
 </ul>
 <p>一旦你已经编写好了代码和头文件，那么只需要运行<code>gcc -o main main.c</code>来编译它，然后使用<code>./main </code>来运行就好了。</p>
-<p>或者，你也可以在<a href=https://github.com/brenns10/lsh/tree/407938170e8b40d231781576e05282a41634848c>Github</a>上找到这些代码。该链接直接指向编写本文时的当前修订版的代码——在未来的某一天我可能会考虑更新它并加上一些新功能。如果我这么做了，我会尽我所能地将这些细节和实现思路更新在文章中的。</p>
-<h2 id=总结>总结</h2>
-<p>如果你已经读到了这里，并且好奇我究竟是怎么知道如何使用这些系统调用函数的，答案十分简单：<code>man</code>手册。在<code>man 3p</code>里，每个系统调用都有详尽的文档。如果你清楚你的需求，并且想知道如果去实现它，<code>man</code>手册将是你的绝佳助手。如果你不清楚C标准库和Unix系统给你提供了哪些接口，我向你推荐<a href=http://pubs.opengroup.org/onlinepubs/9699919799/>POSIX 规范</a>，特别是<strong>13章节</strong>，”Headers“。你可以在那里找到每一个拥有详尽定义的头文件文档。</p>
+<p>或者，你也可以在<a href="https://github.com/brenns10/lsh/tree/407938170e8b40d231781576e05282a41634848c">Github</a>上找到这些代码。该链接直接指向编写本文时的当前修订版的代码——在未来的某一天我可能会考虑更新它并加上一些新功能。如果我这么做了，我会尽我所能地将这些细节和实现思路更新在文章中的。</p>
+<h2 id="总结">总结</h2>
+<p>如果你已经读到了这里，并且好奇我究竟是怎么知道如何使用这些系统调用函数的，答案十分简单：<code>man</code>手册。在<code>man 3p</code>里，每个系统调用都有详尽的文档。如果你清楚你的需求，并且想知道如果去实现它，<code>man</code>手册将是你的绝佳助手。如果你不清楚C标准库和Unix系统给你提供了哪些接口，我向你推荐<a href="http://pubs.opengroup.org/onlinepubs/9699919799/">POSIX  规范</a>，特别是<strong>13章节</strong>，”Headers“。你可以在那里找到每一个拥有详尽定义的头文件文档。</p>
 <p>当然，这个Shell并不是功能完备的。明显的一些缺陷就包括：</p>
 <ul>
 <li>仅允许使用空格分隔参数，不允许使用引用或是反斜杠转义。</li>
@@ -731,84 +762,113 @@
 </ul>
 <p>上述功能的实现是十分有趣的事情，但那样已经远远超出我这篇文章所能容纳的内容范围了。如果我有机会去实现其中之一的话，我会写一篇后续文章的。但是我鼓励我的读者们去亲自实现这些功能。如果你成功了的话，请在评论区留言，我十分乐于见到这些代码。</p>
 <p>最后，感谢阅读本篇教程（如果有人这么做了的话）。我享受写作本文的过程，希望你们能同样享受阅读它的过程。在评论区留下你们的想法吧！</p>
-<p>**后记：**在文章的早期版本中，我在<code>lsh_split_line()</code>中遇到了一些烦人的错误，这些错误恰好导致了函数间相互抵消。感谢Reddit上的<code>/u/munmap</code>（还有其他一些评论用户）找到了这些错误！可在<a href=https://github.com/brenns10/lsh/commit/486ec6dcdd1e11c6dc82f482acda49ed18be11b5>diff</a>中查看我犯了什么错误。</p>
-<p>**后记2：**感谢Github用户ghswa为函数<code>malloc()</code>所做出的null检查贡献。他/她同样指出了<code>get_line()</code>函数的<a href=http://pubs.opengroup.org/onlinepubs/9699919799/functions/getline.html>manpage</a>上表明其第一个参数应是可释放的，故而在我使用了<code>getline()</code>实现的<code>lsh_read_line()</code>函数中，<code>line</code>应被初始化为<code>NULL</code>。</p>
+<p>**后记：**在文章的早期版本中，我在<code>lsh_split_line()</code>中遇到了一些烦人的错误，这些错误恰好导致了函数间相互抵消。感谢Reddit上的<code>/u/munmap</code>（还有其他一些评论用户）找到了这些错误！可在<a href="https://github.com/brenns10/lsh/commit/486ec6dcdd1e11c6dc82f482acda49ed18be11b5">diff</a>中查看我犯了什么错误。</p>
+<p>**后记2：**感谢Github用户ghswa为函数<code>malloc()</code>所做出的null检查贡献。他/她同样指出了<code>get_line()</code>函数的<a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/getline.html">manpage</a>上表明其第一个参数应是可释放的，故而在我使用了<code>getline()</code>实现的<code>lsh_read_line()</code>函数中，<code>line</code>应被初始化为<code>NULL</code>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">zvector</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-03-31</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/shell/">shell</a>
+          <a href="/tags/c/">C</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tmux-most-useage/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Tmux的快速操作入门</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/useful-vim-command/">
+            <span class="next-text nav-default">一个批处理缩进的VIM技巧</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'zvector';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
+  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-<div class=post-copyright>
-<p class=copyright-item>
-<span class=item-title>文章作者</span>
-<span class=item-content>zvector</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>上次更新</span>
-<span class=item-content>2018-03-31</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>许可协议</span>
-<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-</p>
-</div><footer class=post-footer>
-<div class=post-tags>
-<a href=/tags/shell/>shell</a>
-<a href=/tags/c/>C</a>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zvector</span>
+  </span>
 </div>
-<nav class=post-nav>
-<a class=prev href=/post/tmux-most-useage/>
-<i class="iconfont icon-left"></i>
-<span class="prev-text nav-default">Tmux的快速操作入门</span>
-<span class="prev-text nav-mobile">上一篇</span>
-</a>
-<a class=next href=/post/useful-vim-command/>
-<span class="next-text nav-default">一个批处理缩进的VIM技巧</span>
-<span class="next-text nav-mobile">下一篇</span>
-<i class="iconfont icon-right"></i>
-</a>
-</nav>
-</footer>
-</article>
-</div>
-<div id=disqus_thread></div>
-<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-</div>
-</main>
-<footer id=footer class=footer>
-<div class=social-links>
-<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
-<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
-</div>
-<div class=copyright>
-<span class=power-by>
-由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
-</span>
-<span class=division>|</span>
-<span class=theme-info>
-主题 -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
-</span>
-<div class=busuanzi-footer>
-<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
-</div>
-<span class=copyright-year>
-&copy;
-2018 -
-2022
-<span class=heart>
-<i class="iconfont icon-heart"></i>
-</span>
-<span class=author>zvector</span>
-</span>
-</div>
-</footer>
-<div class=back-to-top id=back-to-top>
-<i class="iconfont icon-up"></i>
-</div>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
-<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
 </body>
 </html>

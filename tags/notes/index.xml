@@ -1,1 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on Zvector &amp; Blog</title><link>https://bivectorfoil.github.io/tags/notes/</link><description>Recent content in notes on Zvector &amp; Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>zvector</copyright><lastBuildDate>Fri, 02 Mar 2018 12:32:53 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>机器学习入坑记录</title><link>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</link><pubDate>Fri, 02 Mar 2018 12:32:53 +0800</pubDate><guid>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</guid><description>跳坑前的废话 今天偶然看到了谷歌的机器学习速成课程，地址在这。兴趣浓厚，虽说是“速成”，但所要学习的东西也不少。很长一段时间以来，我对机器学习</description></item><item><title>《图解HTTP》读书笔记（一）</title><link>https://bivectorfoil.github.io/post/illustration-http-1/</link><pubDate>Mon, 18 Dec 2017 20:43:28 +0800</pubDate><guid>https://bivectorfoil.github.io/post/illustration-http-1/</guid><description>前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要</description></item><item><title>《图解HTTP》读书笔记（零）</title><link>https://bivectorfoil.github.io/post/illustration-http-0/</link><pubDate>Fri, 15 Dec 2017 18:55:02 +0800</pubDate><guid>https://bivectorfoil.github.io/post/illustration-http-0/</guid><description>前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>notes on Zvector &amp; Blog</title>
+    <link>https://bivectorfoil.github.io/tags/notes/</link>
+    <description>Recent content in notes on Zvector &amp; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
+    <lastBuildDate>Fri, 02 Mar 2018 12:32:53 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>机器学习入坑记录</title>
+      <link>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</link>
+      <pubDate>Fri, 02 Mar 2018 12:32:53 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/getting-started-with-machine-learning/</guid>
+      <description>跳坑前的废话 今天偶然看到了谷歌的机器学习速成课程，地址在这。兴趣浓厚，虽说是“速成”，但所要学习的东西也不少。很长一段时间以来，我对机器学习</description>
+    </item>
+    
+    <item>
+      <title>《图解HTTP》读书笔记（一）</title>
+      <link>https://bivectorfoil.github.io/post/illustration-http-1/</link>
+      <pubDate>Mon, 18 Dec 2017 20:43:28 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/illustration-http-1/</guid>
+      <description>前言 本文是《图解HTTP》读书笔记系列的第二篇，其他章节可在这里查看： 《图解HTTP》读书笔记（零） 本篇简要介绍HTTP协议的大致结构和主要</description>
+    </item>
+    
+    <item>
+      <title>《图解HTTP》读书笔记（零）</title>
+      <link>https://bivectorfoil.github.io/post/illustration-http-0/</link>
+      <pubDate>Fri, 15 Dec 2017 18:55:02 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/illustration-http-0/</guid>
+      <description>前言 本文是《图解HTTP》读书笔记的开篇，主要记录在学习《图解HTTP》一书中的思考和笔记。本文不会面面俱到，将集中在我认为值得记录的地方。</description>
+    </item>
+    
+  </channel>
+</rss>

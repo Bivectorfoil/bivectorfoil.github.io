@@ -1,1 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VPS on Zvector &amp; Blog</title><link>https://bivectorfoil.github.io/tags/vps/</link><description>Recent content in VPS on Zvector &amp; Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>zvector</copyright><lastBuildDate>Sat, 02 Dec 2017 11:07:44 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/vps/index.xml" rel="self" type="application/rss+xml"/><item><title>使用Git部署Hugo静态博客到VPS上</title><link>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</link><pubDate>Sat, 02 Dec 2017 11:07:44 +0800</pubDate><guid>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</guid><description>预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VPS on Zvector &amp; Blog</title>
+    <link>https://bivectorfoil.github.io/tags/vps/</link>
+    <description>Recent content in VPS on Zvector &amp; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
+    <lastBuildDate>Sat, 02 Dec 2017 11:07:44 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/vps/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用Git部署Hugo静态博客到VPS上</title>
+      <link>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</link>
+      <pubDate>Sat, 02 Dec 2017 11:07:44 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/</guid>
+      <description>预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简</description>
+    </item>
+    
+  </channel>
+</rss>

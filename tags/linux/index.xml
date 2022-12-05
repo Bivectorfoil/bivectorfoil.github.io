@@ -1,1 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on Zvector &amp; Blog</title><link>https://bivectorfoil.github.io/tags/linux/</link><description>Recent content in linux on Zvector &amp; Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>zvector</copyright><lastBuildDate>Sun, 04 Dec 2022 20:43:42 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>ssh 免密钥登录提示 permission denied 的问题</title><link>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</link><pubDate>Sun, 04 Dec 2022 20:43:42 +0800</pubDate><guid>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</guid><description>ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh</description></item><item><title>浅谈Linux命令rm及回收站</title><link>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</link><pubDate>Fri, 22 Dec 2017 21:34:12 +0800</pubDate><guid>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</guid><description>灌水预警 很久没有写博客了，今天在整理硬盘空间时发现一个小常识，惊异于自己居然没想过这个问题，特此记录。 安全的rm命令 在谈到那个小常识前，我想</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on Zvector &amp; Blog</title>
+    <link>https://bivectorfoil.github.io/tags/linux/</link>
+    <description>Recent content in linux on Zvector &amp; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
+    <lastBuildDate>Sun, 04 Dec 2022 20:43:42 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ssh 免密钥登录提示 permission denied 的问题</title>
+      <link>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</link>
+      <pubDate>Sun, 04 Dec 2022 20:43:42 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/ssh_login_permission_denied/</guid>
+      <description>ssh 密钥登录提示Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 的解决办法（之一）： 远程服务器更换镜像之后，ssh 使用配置项登录提示如下： Permission denied (publickey,gssapi-keyex,gssapi-with-mic) 一番搜索之后，原因是 ssh</description>
+    </item>
+    
+    <item>
+      <title>浅谈Linux命令rm及回收站</title>
+      <link>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</link>
+      <pubDate>Fri, 22 Dec 2017 21:34:12 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/rm-or-trash-on-linux/</guid>
+      <description>灌水预警 很久没有写博客了，今天在整理硬盘空间时发现一个小常识，惊异于自己居然没想过这个问题，特此记录。 安全的rm命令 在谈到那个小常识前，我想</description>
+    </item>
+    
+  </channel>
+</rss>

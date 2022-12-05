@@ -1,178 +1,209 @@
-<!doctype html><html lang=zh-cn>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>极简Hugo搭建个人博客笔记 - Zvector & Blog</title>
-<meta name=renderer content="webkit">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta http-equiv=cache-control content="no-transform">
-<meta http-equiv=cache-control content="no-siteapp">
-<meta name=theme-color content="#f8f5ec">
-<meta name=msapplication-navbutton-color content="#f8f5ec">
-<meta name=apple-mobile-web-app-capable content="yes">
-<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="zvector"><meta name=description content="前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主">
-<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
-<link rel=canonical href=https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/manifest.json>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
-<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="极简Hugo搭建个人博客笔记">
-<meta property="og:description" content="前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/"><meta property="article:section" content="post">
-<meta property="article:published_time" content="2017-11-28T13:50:09+08:00">
-<meta property="article:modified_time" content="2017-11-28T13:50:09+08:00">
-<meta itemprop=name content="极简Hugo搭建个人博客笔记">
-<meta itemprop=description content="前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主"><meta itemprop=datePublished content="2017-11-28T13:50:09+08:00">
-<meta itemprop=dateModified content="2017-11-28T13:50:09+08:00">
-<meta itemprop=wordCount content="1413">
-<meta itemprop=keywords content="memo,Hugo,Blog,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="极简Hugo搭建个人博客笔记">
-<meta name=twitter:description content="前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>极简Hugo搭建个人博客笔记 - Zvector &amp; Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zvector" /><meta name="description" content="前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="极简Hugo搭建个人博客笔记" />
+<meta property="og:description" content="前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2017-11-28T13:50:09+08:00" />
+<meta property="article:modified_time" content="2017-11-28T13:50:09+08:00" />
+
+<meta itemprop="name" content="极简Hugo搭建个人博客笔记">
+<meta itemprop="description" content="前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主"><meta itemprop="datePublished" content="2017-11-28T13:50:09+08:00" />
+<meta itemprop="dateModified" content="2017-11-28T13:50:09+08:00" />
+<meta itemprop="wordCount" content="1413">
+<meta itemprop="keywords" content="memo,Hugo,Blog," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="极简Hugo搭建个人博客笔记"/>
+<meta name="twitter:description" content="前言： 既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅官方文档和Hugo中文文档。 注：另可参阅博主"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
 </head>
 <body>
-<div id=mobile-navbar class=mobile-navbar>
-<div class=mobile-header-logo>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zvector &amp; Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </div>
-<div class=mobile-navbar-icon>
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-<nav id=mobile-menu class="mobile-menu slideout-menu">
-<ul class=mobile-menu-list>
-<a href=/>
-<li class=mobile-menu-item>主页</li>
-</a><a href=/post/>
-<li class=mobile-menu-item>归档</li>
-</a><a href=/tags/>
-<li class=mobile-menu-item>标签</li>
-</a><a href=/categories/>
-<li class=mobile-menu-item>分类</li>
-</a><a href=/about/>
-<li class=mobile-menu-item>关于</li>
-</a>
-</ul>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
 </nav>
-<div class=container id=mobile-panel>
-<header id=header class=header>
-<div class=logo-wrapper>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zvector &amp; Blog</a>
 </div>
-<nav class=site-navbar>
-<ul id=menu class=menu>
-<li class=menu-item>
-<a class=menu-item-link href=/>主页</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/post/>归档</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/tags/>标签</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/categories/>分类</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/about/>关于</a>
-</li>
-</ul>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
 </nav>
-</header>
-<main id=main class=main>
-<div class=content-wrapper>
-<div id=content class=content>
-<article class=post>
-<header class=post-header>
-<h1 class=post-title>极简Hugo搭建个人博客笔记</h1>
-<div class=post-meta>
-<span class=post-time> 2017-11-28 </span>
-<div class=post-category>
-<a href=/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/> 技术备忘录 </a>
-</div>
-<span class=more-meta> 约 1413 字 </span>
-<span class=more-meta> 预计阅读 3 分钟 </span>
-<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
-</div>
-</header>
-<div class=post-toc id=post-toc>
-<h2 class=post-toc-title>文章目录</h2>
-<div class=post-toc-content>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#前言>前言：</a></li>
-<li><a href=#第一步安装>第一步：安装</a></li>
-<li><a href=#第二步生成站点>第二步：生成站点</a></li>
-<li><a href=#第三步创建一些文章>第三步：创建一些文章</a></li>
-<li><a href=#安装皮肤主题>安装皮肤主题</a></li>
-<li><a href=#运行站点>运行站点</a></li>
-</ul>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">极简Hugo搭建个人博客笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-11-28 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/"> 技术备忘录 </a>
+            </div>
+          <span class="more-meta"> 约 1413 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言：</a></li>
+    <li><a href="#第一步安装">第一步：安装</a></li>
+    <li><a href="#第二步生成站点">第二步：生成站点</a></li>
+    <li><a href="#第三步创建一些文章">第三步：创建一些文章</a></li>
+    <li><a href="#安装皮肤主题">安装皮肤主题</a></li>
+    <li><a href="#运行站点">运行站点</a></li>
+  </ul>
 </nav>
+  </div>
 </div>
-</div>
-<div class=post-content>
-<h2 id=前言>前言：</h2>
-<p>既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅<a href=https://gohugo.io/getting-started/>官方文档</a>和<a href=http://www.gohugo.org/>Hugo中文文档</a>。</p>
+    <div class="post-content">
+      <h2 id="前言">前言：</h2>
+<p>既然本文是极简笔记，那将不会把来龙去脉说个清楚，只记录下最关键和常用的步骤，详细文档请参阅<a href="https://gohugo.io/getting-started/">官方文档</a>和<a href="http://www.gohugo.org/">Hugo中文文档</a>。</p>
 <blockquote>
-<p>注：另可参阅博主：<a href=http://blog.coderzh.com/>CoderZh</a>的博文<a href=https://blog.coderzh.com/2015/08/29/hugo/>使用hugo搭建个人博客站点</a>。原文地址：https://blog.coderzh.com/2015/08/29/hugo/</p>
+<p>注：另可参阅博主：<a href="http://blog.coderzh.com/">CoderZh</a>的博文<a href="https://blog.coderzh.com/2015/08/29/hugo/">使用hugo搭建个人博客站点</a>。原文地址：https://blog.coderzh.com/2015/08/29/hugo/</p>
 </blockquote>
 <p>首先还是要先简单介绍下Hugo是什么，我们看看官方文档的介绍。</p>
 <blockquote>
 <p>Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.</p>
 </blockquote>
 <p>简而言之，Hugo是一个用Go语言写的静态网站生成器，对于像生成静态博客网站这样的任务（也是最主要的任务），Hugo十分高效和快速，而且优雅（在我看来）。不像其他静态网站生成器在使用之前需要安装一大堆的包，配置各种文件，Hugo只需要一个二进制文件（hugo.exe，在Windows下的话），和一个网站的主题（后文会提到它的作用）。这是我十分欣赏的一点，就像官方文档介绍的一样，<code>make website creation fun again</code>，对于博客写作，更应该关注于写作本身，而不是将心力耗费在各种配置，调整文件上。（想起了水平不行时强行用Django自己学习写博客系统，汗`）话不多说，开始搭建。</p>
-<h2 id=第一步安装>第一步：安装</h2>
+<h2 id="第一步安装">第一步：安装</h2>
 <ol>
 <li>
 <p>二进制安装</p>
-<p>可以在<a href=https://github.com/gohugoio/hugo/releases>Hugo Release</a>下载对应操作系统版本的Hugo二进制文件。对于Ubuntu（14.04+）用户</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
+<p>可以在<a href="https://github.com/gohugoio/hugo/releases">Hugo Release</a>下载对应操作系统版本的Hugo二进制文件。对于Ubuntu（14.04+）用户</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo apt-get install hugo
-$ hugo version <span class=c1># 查看版本 output v0.25.1</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ sudo apt-get install hugo
+$ hugo version <span class="c1"># 查看版本 output v0.25.1</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
-<p>源码安装（参阅<a href=https://gohugo.io/getting-started/installing/>官方文档</a>)或<a href=http://www.gohugo.org/>中文文档</a>)，在此不做介绍。</p>
+<p>源码安装（参阅<a href="https://gohugo.io/getting-started/installing/">官方文档</a>)或<a href="http://www.gohugo.org/">中文文档</a>)，在此不做介绍。</p>
 </li>
 </ol>
-<h2 id=第二步生成站点>第二步：生成站点</h2>
+<h2 id="第二步生成站点">第二步：生成站点</h2>
 <p>以生成博客站点example-hugo-blog为例，生成到路径<code>/path/to/example-hugo-blog/</code>：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ hugo new site /path/to/example-hugo-blog
-$ <span class=nb>cd</span> example-hugo-blog <span class=c1># 这个目录就是博客站点的目录</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ hugo new site /path/to/example-hugo-blog
+$ <span class="nb">cd</span> example-hugo-blog <span class="c1"># 这个目录就是博客站点的目录</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>目录结构：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span><span class=lnt>9
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>.
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">.
 ├── archetypes
 ├── content
 ├── data
@@ -180,152 +211,181 @@ $ <span class=nb>cd</span> example-hugo-blog <span class=c1># 这个目录就是
 ├── static
 └── themes
 
-<span class=m>6</span> directories
+<span class="m">6</span> directories
 </code></pre></td></tr></table>
 </div>
-</div><p>各个目录主要作用参照<a href=https://gohugo.io/getting-started/directory-structure/>官方文档</a>，目前我们只需要关注两个目录，content（网站内容）和themes（网站主题）。</p>
-<h2 id=第三步创建一些文章>第三步：创建一些文章</h2>
+</div><p>各个目录主要作用参照<a href="https://gohugo.io/getting-started/directory-structure/">官方文档</a>，目前我们只需要关注两个目录，content（网站内容）和themes（网站主题）。</p>
+<h2 id="第三步创建一些文章">第三步：创建一些文章</h2>
 <p>在content目录下新建一个about.md页面（第一个页面总是关于自己的介绍嘛：），BTW，Hugo的默认写作格式是markdown，关于markdown的介绍，有空我会再写一篇博文。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># ~/example-hugo-blog/</span>
-$ hugo new about.md <span class=c1># 默认新建在content目录下 或者</span>
-$ hugo new path_you_want/about.md <span class=c1># 会新建content/path_you_want/about.md</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ~/example-hugo-blog/</span>
+$ hugo new about.md <span class="c1"># 默认新建在content目录下 或者</span>
+$ hugo new path_you_want/about.md <span class="c1"># 会新建content/path_you_want/about.md</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>新生成的页面默认内容与archetypes/default.md文件相同：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown>---
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">---
 title: &#34;About&#34;
 date: 2017-11-28T15:14:14+08:00
 draft: true
 ---
 </code></pre></td></tr></table>
 </div>
-</div><p>“&mdash;”扩起来的内容是md文件的<a href=https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE>元数据</a>，由Hugo自动生成。定义了关于这个页面要显示那些信息，如何渲染成html文件等等。以“&mdash;”分隔开是<a href=http://www.yaml.org/>YAML</a>格式，其他格式如以“+++”分隔的TOML格式详细内容见<a href=https://gohugo.io/getting-started/configuration/>官方文档</a>。接下来我们新建第一篇博文，为了统一管理，均放置在content/post/目录下。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+</div><p>“&mdash;”扩起来的内容是md文件的<a href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE">元数据</a>，由Hugo自动生成。定义了关于这个页面要显示那些信息，如何渲染成html文件等等。以“&mdash;”分隔开是<a href="http://www.yaml.org/">YAML</a>格式，其他格式如以“+++”分隔的TOML格式详细内容见<a href="https://gohugo.io/getting-started/configuration/">官方文档</a>。接下来我们新建第一篇博文，为了统一管理，均放置在content/post/目录下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ hugo new post/first.md
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ hugo new post/first.md
 </code></pre></td></tr></table>
 </div>
 </div><p>使用任何你喜欢的编辑器编辑first.md文件，输入一些内容，保存。</p>
-<h2 id=安装皮肤主题>安装皮肤主题</h2>
-<p>Hugo默认是不带皮肤的，需要自行下载使用，否则使用hugo server查看网站情况时会是一片白茫茫大雪真干净。在官方的<a href=http://www.gohugo.org/theme/>皮肤列表</a>选择一个下载使用。或者你也可以使用自己编写的主题，文档参阅<a href=https://gohugo.io/themes/creating/>这里</a>。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
+<h2 id="安装皮肤主题">安装皮肤主题</h2>
+<p>Hugo默认是不带皮肤的，需要自行下载使用，否则使用hugo server查看网站情况时会是一片白茫茫大雪真干净。在官方的<a href="http://www.gohugo.org/theme/">皮肤列表</a>选择一个下载使用。或者你也可以使用自己编写的主题，文档参阅<a href="https://gohugo.io/themes/creating/">这里</a>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ <span class=nb>cd</span> themes
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> themes
 $ git clone https://github.com/digitalcraftsman/hugo-cactus-theme.git
 </code></pre></td></tr></table>
 </div>
-</div><h2 id=运行站点>运行站点</h2>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
+</div><h2 id="运行站点">运行站点</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># ~/example-hugo-blog</span>
-$ hugo server --theme<span class=o>=</span>hugo-cactus-theme --buildDrafts
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ~/example-hugo-blog</span>
+$ hugo server --theme<span class="o">=</span>hugo-cactus-theme --buildDrafts
 </code></pre></td></tr></table>
 </div>
-</div><p>在浏览器地址栏打开<code>localhost:1313</code>，That&rsquo;s all ！Hugo搭建个人博客先告一段落，关于Hugo的部署有空我会再写一篇博文：2018.5.28 更新，请参看<a href=https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/>这里</a>）Now,enjoy writing~</p>
+</div><p>在浏览器地址栏打开<code>localhost:1313</code>，That&rsquo;s all ！Hugo搭建个人博客先告一段落，关于Hugo的部署有空我会再写一篇博文：2018.5.28 更新，请参看<a href="https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/">这里</a>）Now,enjoy writing~</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">zvector</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-11-28</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/memo/">memo</a>
+          <a href="/tags/hugo/">Hugo</a>
+          <a href="/tags/blog/">Blog</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/how-to-get-a-domain-name/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">如何拥有一个域名</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/install-nginx-ubuntu16.04/">
+            <span class="next-text nav-default">Install Nginx on Ubuntu16.04</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'zvector';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
+  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-<div class=post-copyright>
-<p class=copyright-item>
-<span class=item-title>文章作者</span>
-<span class=item-content>zvector</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>上次更新</span>
-<span class=item-content>2017-11-28</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>许可协议</span>
-<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-</p>
-</div><footer class=post-footer>
-<div class=post-tags>
-<a href=/tags/memo/>memo</a>
-<a href=/tags/hugo/>Hugo</a>
-<a href=/tags/blog/>Blog</a>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zvector</span>
+  </span>
 </div>
-<nav class=post-nav>
-<a class=prev href=/post/how-to-get-a-domain-name/>
-<i class="iconfont icon-left"></i>
-<span class="prev-text nav-default">如何拥有一个域名</span>
-<span class="prev-text nav-mobile">上一篇</span>
-</a>
-<a class=next href=/post/install-nginx-ubuntu16.04/>
-<span class="next-text nav-default">Install Nginx on Ubuntu16.04</span>
-<span class="next-text nav-mobile">下一篇</span>
-<i class="iconfont icon-right"></i>
-</a>
-</nav>
-</footer>
-</article>
-</div>
-<div id=disqus_thread></div>
-<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-</div>
-</main>
-<footer id=footer class=footer>
-<div class=social-links>
-<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
-<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
-</div>
-<div class=copyright>
-<span class=power-by>
-由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
-</span>
-<span class=division>|</span>
-<span class=theme-info>
-主题 -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
-</span>
-<div class=busuanzi-footer>
-<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
-</div>
-<span class=copyright-year>
-&copy;
-2018 -
-2022
-<span class=heart>
-<i class="iconfont icon-heart"></i>
-</span>
-<span class=author>zvector</span>
-</span>
-</div>
-</footer>
-<div class=back-to-top id=back-to-top>
-<i class="iconfont icon-up"></i>
-</div>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
-<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
 </body>
 </html>

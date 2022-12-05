@@ -1,379 +1,439 @@
-<!doctype html><html lang=zh-cn>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>使用Git部署Hugo静态博客到VPS上 - Zvector & Blog</title>
-<meta name=renderer content="webkit">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta http-equiv=cache-control content="no-transform">
-<meta http-equiv=cache-control content="no-siteapp">
-<meta name=theme-color content="#f8f5ec">
-<meta name=msapplication-navbutton-color content="#f8f5ec">
-<meta name=apple-mobile-web-app-capable content="yes">
-<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="zvector"><meta name=description content="预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简">
-<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
-<link rel=canonical href=https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/manifest.json>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
-<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="使用Git部署Hugo静态博客到VPS上">
-<meta property="og:description" content="预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/"><meta property="article:section" content="post">
-<meta property="article:published_time" content="2017-12-02T11:07:44+08:00">
-<meta property="article:modified_time" content="2017-12-02T11:07:44+08:00">
-<meta itemprop=name content="使用Git部署Hugo静态博客到VPS上">
-<meta itemprop=description content="预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简"><meta itemprop=datePublished content="2017-12-02T11:07:44+08:00">
-<meta itemprop=dateModified content="2017-12-02T11:07:44+08:00">
-<meta itemprop=wordCount content="1563">
-<meta itemprop=keywords content="VPS,Hugo,Let's Encrypt,blog,memo,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="使用Git部署Hugo静态博客到VPS上">
-<meta name=twitter:description content="预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用Git部署Hugo静态博客到VPS上 - Zvector &amp; Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zvector" /><meta name="description" content="预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用Git部署Hugo静态博客到VPS上" />
+<meta property="og:description" content="预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bivectorfoil.github.io/post/deploy-personal-blogs-on-vps/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2017-12-02T11:07:44+08:00" />
+<meta property="article:modified_time" content="2017-12-02T11:07:44+08:00" />
+
+<meta itemprop="name" content="使用Git部署Hugo静态博客到VPS上">
+<meta itemprop="description" content="预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简"><meta itemprop="datePublished" content="2017-12-02T11:07:44+08:00" />
+<meta itemprop="dateModified" content="2017-12-02T11:07:44+08:00" />
+<meta itemprop="wordCount" content="1563">
+<meta itemprop="keywords" content="VPS,Hugo,Let&#39;s Encrypt,blog,memo," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用Git部署Hugo静态博客到VPS上"/>
+<meta name="twitter:description" content="预先准备 一台VPS，可见如何购买VPS及购买后的安全措施 一个DNS解析到VPS的域名，可见如何拥有一个域名 本地搭建好的Hugo博客，可见极简"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
 </head>
 <body>
-<div id=mobile-navbar class=mobile-navbar>
-<div class=mobile-header-logo>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zvector &amp; Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </div>
-<div class=mobile-navbar-icon>
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-<nav id=mobile-menu class="mobile-menu slideout-menu">
-<ul class=mobile-menu-list>
-<a href=/>
-<li class=mobile-menu-item>主页</li>
-</a><a href=/post/>
-<li class=mobile-menu-item>归档</li>
-</a><a href=/tags/>
-<li class=mobile-menu-item>标签</li>
-</a><a href=/categories/>
-<li class=mobile-menu-item>分类</li>
-</a><a href=/about/>
-<li class=mobile-menu-item>关于</li>
-</a>
-</ul>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
 </nav>
-<div class=container id=mobile-panel>
-<header id=header class=header>
-<div class=logo-wrapper>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zvector &amp; Blog</a>
 </div>
-<nav class=site-navbar>
-<ul id=menu class=menu>
-<li class=menu-item>
-<a class=menu-item-link href=/>主页</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/post/>归档</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/tags/>标签</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/categories/>分类</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/about/>关于</a>
-</li>
-</ul>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
 </nav>
-</header>
-<main id=main class=main>
-<div class=content-wrapper>
-<div id=content class=content>
-<article class=post>
-<header class=post-header>
-<h1 class=post-title>使用Git部署Hugo静态博客到VPS上</h1>
-<div class=post-meta>
-<span class=post-time> 2017-12-02 </span>
-<div class=post-category>
-<a href=/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/> 技术备忘录 </a>
-</div>
-<span class=more-meta> 约 1563 字 </span>
-<span class=more-meta> 预计阅读 4 分钟 </span>
-<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
-</div>
-</header>
-<div class=post-toc id=post-toc>
-<h2 class=post-toc-title>文章目录</h2>
-<div class=post-toc-content>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#预先准备>预先准备</a></li>
-<li><a href=#git部署>Git部署</a></li>
-<li><a href=#本地仓库建立>本地仓库建立</a></li>
-<li><a href=#添加网站https化lets-encrypt>添加网站HTTPS化,Let&rsquo;s Encrypt!</a>
-<ul>
-<li><a href=#前言>前言</a></li>
-<li><a href=#第一步安装certbot>第一步，安装Certbot</a></li>
-<li><a href=#第二步调整防火墙设置>第二步，调整防火墙设置</a></li>
-<li><a href=#第三步获取ssl证书>第三步，获取SSL证书</a></li>
-<li><a href=#确认certbot自动更新>确认Certbot自动更新</a></li>
-</ul>
-</li>
-<li><a href=#参考资料>参考资料</a></li>
-</ul>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用Git部署Hugo静态博客到VPS上</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-12-02 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/"> 技术备忘录 </a>
+            </div>
+          <span class="more-meta"> 约 1563 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#预先准备">预先准备</a></li>
+    <li><a href="#git部署">Git部署</a></li>
+    <li><a href="#本地仓库建立">本地仓库建立</a></li>
+    <li><a href="#添加网站https化lets-encrypt">添加网站HTTPS化,Let&rsquo;s Encrypt!</a>
+      <ul>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#第一步安装certbot">第一步，安装Certbot</a></li>
+        <li><a href="#第二步调整防火墙设置">第二步，调整防火墙设置</a></li>
+        <li><a href="#第三步获取ssl证书">第三步，获取SSL证书</a></li>
+        <li><a href="#确认certbot自动更新">确认Certbot自动更新</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
 </nav>
+  </div>
 </div>
-</div>
-<div class=post-content>
-<h2 id=预先准备>预先准备</h2>
+    <div class="post-content">
+      <h2 id="预先准备">预先准备</h2>
 <ol>
-<li>一台VPS，可见<a href=https://bivectorfoil.github.io/post/how-to-buy-vps-and-security-setting/>如何购买VPS及购买后的安全措施</a></li>
-<li>一个DNS解析到VPS的域名，可见<a href=https://bivectorfoil.github.io/post/how-to-get-a-domain-name/>如何拥有一个域名</a></li>
-<li>本地搭建好的Hugo博客，可见<a href=https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/>极简Hugo搭建个人博客笔记</a></li>
-<li>使用Nginx作为网站服务器，可见<a href=https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/>Install Nginx Ubuntu16.04</a></li>
+<li>一台VPS，可见<a href="https://bivectorfoil.github.io/post/how-to-buy-vps-and-security-setting/">如何购买VPS及购买后的安全措施</a></li>
+<li>一个DNS解析到VPS的域名，可见<a href="https://bivectorfoil.github.io/post/how-to-get-a-domain-name/">如何拥有一个域名</a></li>
+<li>本地搭建好的Hugo博客，可见<a href="https://bivectorfoil.github.io/post/minimal-hugo-build-personal-blog-notes/">极简Hugo搭建个人博客笔记</a></li>
+<li>使用Nginx作为网站服务器，可见<a href="https://bivectorfoil.github.io/post/install-nginx-ubuntu16.04/">Install Nginx Ubuntu16.04</a></li>
 </ol>
 <p>如果一切就绪，那让我们现在开始吧~</p>
-<h2 id=git部署>Git部署</h2>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<h2 id="git部署">Git部署</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ hugo <span class=c1># 在博客目录下生成了public文件夹，这就是博客网站的目录</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ hugo <span class="c1"># 在博客目录下生成了public文件夹，这就是博客网站的目录</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>ssh登录到VPS，我们需要修改Nginx配置文件，在目录<code>/etc/nginx/nginx.conf</code>下，以sudo权限修改，找到http段，修改以下项：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>server <span class=o>{</span>
-        listen 80<span class=p>;</span>
-        server_name your_blog_domain_name<span class=p>;</span>
-        root /usr/share/nginx/html<span class=p>;</span>
-        location / <span class=o>{</span>
-                index index.html<span class=p>;</span>
-        <span class=o>}</span>
-        error_page <span class=m>404</span> /404.html<span class=p>;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">server <span class="o">{</span>
+        listen 80<span class="p">;</span>
+        server_name your_blog_domain_name<span class="p">;</span>
+        root /usr/share/nginx/html<span class="p">;</span>
+        location / <span class="o">{</span>
+                index index.html<span class="p">;</span>
+        <span class="o">}</span>
+        error_page <span class="m">404</span> /404.html<span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>将include /etc/nginx/sites-enabled/*;注释掉，否则网站的默认目录会是/var/www/html，而不是/usr/share/nginx/html了。</p>
 <p>既然是使用Git完成博客的部署，VPS上首先应先安装Git，此处略过。依次执行：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ <span class=nb>cd</span> ~ <span class=c1># 回到用户目录</span>
-$ mkdir blog <span class=o>&amp;&amp;</span> <span class=nb>cd</span> blog <span class=c1># 此处以目录名blog为例，可自行修改</span>
-$ git init --bare <span class=o>&amp;&amp;</span> <span class=nb>cd</span> hook <span class=o>&amp;&amp;</span> touch post-receive <span class=c1># 创建裸仓库，并创建Git hook文件</span>
-$ vim post-receive <span class=c1># 用你喜欢的编辑器打开post-receive文件并写入以下内容：</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> ~ <span class="c1"># 回到用户目录</span>
+$ mkdir blog <span class="o">&amp;&amp;</span> <span class="nb">cd</span> blog <span class="c1"># 此处以目录名blog为例，可自行修改</span>
+$ git init --bare <span class="o">&amp;&amp;</span> <span class="nb">cd</span> hook <span class="o">&amp;&amp;</span> touch post-receive <span class="c1"># 创建裸仓库，并创建Git hook文件</span>
+$ vim post-receive <span class="c1"># 用你喜欢的编辑器打开post-receive文件并写入以下内容：</span>
 </code></pre></td></tr></table>
 </div>
-</div><div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=cp>#!/bin/sh 
-</span><span class=cp></span><span class=nv>GIT_REPO</span><span class=o>=</span>/home/your_user/blog
-<span class=nv>TMP_GIT_CLONE</span><span class=o>=</span>/tmp/blog
-<span class=nv>NGINX_HTML</span><span class=o>=</span>/usr/share/nginx/html
-rm -rf <span class=si>${</span><span class=nv>TMP_GIT_CLONE</span><span class=si>}</span>
-git clone <span class=nv>$GIT_REPO</span> <span class=nv>$TMP_GIT_CLONE</span>
-rm -rf <span class=si>${</span><span class=nv>NGINX_HTML</span><span class=si>}</span>/*
-cp -rf <span class=si>${</span><span class=nv>TMP_GIT_CLONE</span><span class=si>}</span>/* <span class=si>${</span><span class=nv>NGINX_HTML</span><span class=si>}</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh 
+</span><span class="cp"></span><span class="nv">GIT_REPO</span><span class="o">=</span>/home/your_user/blog
+<span class="nv">TMP_GIT_CLONE</span><span class="o">=</span>/tmp/blog
+<span class="nv">NGINX_HTML</span><span class="o">=</span>/usr/share/nginx/html
+rm -rf <span class="si">${</span><span class="nv">TMP_GIT_CLONE</span><span class="si">}</span>
+git clone <span class="nv">$GIT_REPO</span> <span class="nv">$TMP_GIT_CLONE</span>
+rm -rf <span class="si">${</span><span class="nv">NGINX_HTML</span><span class="si">}</span>/*
+cp -rf <span class="si">${</span><span class="nv">TMP_GIT_CLONE</span><span class="si">}</span>/* <span class="si">${</span><span class="nv">NGINX_HTML</span><span class="si">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>关于git hook的工作原理，可以查看<a href=https://git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git-%E9%92%A9%E5%AD%90>自定义 Git - Git 钩子</a>。</p>
+</div><p>关于git hook的工作原理，可以查看<a href="https://git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git-%E9%92%A9%E5%AD%90">自定义 Git - Git 钩子</a>。</p>
 <p>保存文件后添加可执行权限<code>sudo chmod +x post-receive</code>，每当blog仓库有push更新，Git钩子可以自动将更新拷贝到先前设置的Nginx网站目录中去，使网站内容更新。我们还需要修改网站文件夹/usr/nginx/html的所有权为你所拥有：<code>sudo chown your_user:your_user /usr/share/nginx/html</code>。</p>
-<h2 id=本地仓库建立>本地仓库建立</h2>
+<h2 id="本地仓库建立">本地仓库建立</h2>
 <p>在博客的public目录下：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ <span class=nb>cd</span> public
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> public
 $ git init
 $ git add --all
-$ git commit -m <span class=s2>&#34;Initial blog repo&#34;</span>
+$ git commit -m <span class="s2">&#34;Initial blog repo&#34;</span>
 $ git remote add origin your_user@IPAddress:/home/your_user/blog
-$ git remote set-url origin ssh://your_user@VPS_IP:Port/home/your_user/blog <span class=c1># 若VPS的ssh默认端口不是22，需另设置ssh端口。</span>
+$ git remote set-url origin ssh://your_user@VPS_IP:Port/home/your_user/blog <span class="c1"># 若VPS的ssh默认端口不是22，需另设置ssh端口。</span>
 $ git push origin master
 </code></pre></td></tr></table>
 </div>
 </div><p>以上便完成了Hugo在VPS上的部署，下面我们更进一步，为自己的网站添加HTTPS支持。</p>
-<h2 id=添加网站https化lets-encrypt>添加网站HTTPS化,Let&rsquo;s Encrypt!</h2>
-<h3 id=前言>前言</h3>
+<h2 id="添加网站https化lets-encrypt">添加网站HTTPS化,Let&rsquo;s Encrypt!</h2>
+<h3 id="前言">前言</h3>
 <blockquote>
-<p><strong>Let&rsquo;s Encrypt</strong>是一个于2015年三季度推出的<a href=https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E6%9C%BA%E6%9E%84>数字证书认证机构</a>，旨在以自动化流程消除手动创建和安装证书的复杂流程，并推广使<a href=https://zh.wikipedia.org/wiki/%E8%90%AC%E7%B6%AD%E7%B6%B2>万维网</a>服务器的加密连接无所不在，为安全网站提供免费的<a href=https://zh.wikipedia.org/wiki/SSL>SSL</a>/<a href=https://zh.wikipedia.org/wiki/TLS>TLS</a>证书。&ndash;wikipedia</p>
+<p><strong>Let&rsquo;s Encrypt</strong>是一个于2015年三季度推出的<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E6%9C%BA%E6%9E%84">数字证书认证机构</a>，旨在以自动化流程消除手动创建和安装证书的复杂流程，并推广使<a href="https://zh.wikipedia.org/wiki/%E8%90%AC%E7%B6%AD%E7%B6%B2">万维网</a>服务器的加密连接无所不在，为安全网站提供免费的<a href="https://zh.wikipedia.org/wiki/SSL">SSL</a>/<a href="https://zh.wikipedia.org/wiki/TLS">TLS</a>证书。&ndash;wikipedia</p>
 </blockquote>
-<h3 id=第一步安装certbot>第一步，安装Certbot</h3>
+<h3 id="第一步安装certbot">第一步，安装Certbot</h3>
 <p>Certbot是Let&rsquo;s Encrypt推出的自动化配置工具，我们通过添加官方源来下载它。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo add-apt-repository ppa:certbot/certbot
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ sudo add-apt-repository ppa:certbot/certbot
 $ sudo apt-get update
 $ sudo apt-get install python-certbot-nginx
 </code></pre></td></tr></table>
 </div>
 </div><p>先前我们已经设置了Nginx所要配置的网站域名，可以通过以下命令查看有没有配置错误。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo nginx -t
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ sudo nginx -t
 </code></pre></td></tr></table>
 </div>
-</div><h3 id=第二步调整防火墙设置>第二步，调整防火墙设置</h3>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
+</div><h3 id="第二步调整防火墙设置">第二步，调整防火墙设置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo ufw status <span class=c1># 查看ufw状态</span>
-$ sudo ufw allow <span class=s1>&#39;Nginx Full&#39;</span> <span class=c1># 开启Nginx HTTP和HTTPS支持</span>
-$ sudo ufw delete allow <span class=s1>&#39;Nginx HTTP&#39;</span> <span class=c1># 关闭先前设置的HTTP，避免和Nginx HTTP重复</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ sudo ufw status <span class="c1"># 查看ufw状态</span>
+$ sudo ufw allow <span class="s1">&#39;Nginx Full&#39;</span> <span class="c1"># 开启Nginx HTTP和HTTPS支持</span>
+$ sudo ufw delete allow <span class="s1">&#39;Nginx HTTP&#39;</span> <span class="c1"># 关闭先前设置的HTTP，避免和Nginx HTTP重复</span>
 $ sudo ufw status
 </code></pre></td></tr></table>
 </div>
-</div><h3 id=第三步获取ssl证书>第三步，获取SSL证书</h3>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+</div><h3 id="第三步获取ssl证书">第三步，获取SSL证书</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo certbot --nginx -d your_domain_name
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ sudo certbot --nginx -d your_domain_name
 </code></pre></td></tr></table>
 </div>
 </div><p>Certbot使用nginx插件，选项-d指定需要使用SSL证书的域名。一路回车，输入联系邮件地址，Certbot工具会自动完成证书的注册和部署。之后再重新打开网站，应该就会看到网站首部的绿色安全标记了。</p>
-<h3 id=确认certbot自动更新>确认Certbot自动更新</h3>
+<h3 id="确认certbot自动更新">确认Certbot自动更新</h3>
 <p>Let&rsquo;s Encrypt只有三个月的有效期，这时为了督促用户及时更新网站的安全设置而考虑的。Certbot工具在/etc/cron.d/目录下设置了自动任务，可以以一天两次的频率确保证书不过期，我们来测试一下自动更新。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo certbot renew --dry-run
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ sudo certbot renew --dry-run
 </code></pre></td></tr></table>
 </div>
 </div><p>一切顺利的话将会看到模拟自动更新成功。如果当后续的自动更新失败的话，Let&rsquo;s Encrypt会向我们先前设置的邮箱地址发一封警告邮件，至此，网站的HTTPS化完成。</p>
-<h2 id=参考资料>参考资料</h2>
+<h2 id="参考资料">参考资料</h2>
 <ol>
-<li><a href=https://paysonli.com/post/VPS+hugo+Nginx%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%85%A8%E8%BF%87%E7%A8%8B/>VPS+hugo+Nginx博客搭建全过程</a></li>
-<li><a href=https://www.digitalocean.com/community/tutorials/how-to-set-up-let-s-encrypt-with-nginx-server-blocks-on-ubuntu-16-04>How To Set Up Let&rsquo;s Encrypt with Nginx Server Blocks on Ubuntu 16.04</a></li>
+<li><a href="https://paysonli.com/post/VPS+hugo+Nginx%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%85%A8%E8%BF%87%E7%A8%8B/">VPS+hugo+Nginx博客搭建全过程</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-let-s-encrypt-with-nginx-server-blocks-on-ubuntu-16-04">How To Set Up Let&rsquo;s Encrypt with Nginx Server Blocks on Ubuntu 16.04</a></li>
 </ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">zvector</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-12-02</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/vps/">VPS</a>
+          <a href="/tags/hugo/">Hugo</a>
+          <a href="/tags/lets-encrypt/">Let&#39;s Encrypt</a>
+          <a href="/tags/blog/">blog</a>
+          <a href="/tags/memo/">memo</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/ssserver-on-vps/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">在VPS上搭建绿色上网工具</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/how-to-get-a-domain-name/">
+            <span class="next-text nav-default">如何拥有一个域名</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'zvector';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
+  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-<div class=post-copyright>
-<p class=copyright-item>
-<span class=item-title>文章作者</span>
-<span class=item-content>zvector</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>上次更新</span>
-<span class=item-content>2017-12-02</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>许可协议</span>
-<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-</p>
-</div><footer class=post-footer>
-<div class=post-tags>
-<a href=/tags/vps/>VPS</a>
-<a href=/tags/hugo/>Hugo</a>
-<a href=/tags/lets-encrypt/>Let's Encrypt</a>
-<a href=/tags/blog/>blog</a>
-<a href=/tags/memo/>memo</a>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zvector</span>
+  </span>
 </div>
-<nav class=post-nav>
-<a class=prev href=/post/ssserver-on-vps/>
-<i class="iconfont icon-left"></i>
-<span class="prev-text nav-default">在VPS上搭建绿色上网工具</span>
-<span class="prev-text nav-mobile">上一篇</span>
-</a>
-<a class=next href=/post/how-to-get-a-domain-name/>
-<span class="next-text nav-default">如何拥有一个域名</span>
-<span class="next-text nav-mobile">下一篇</span>
-<i class="iconfont icon-right"></i>
-</a>
-</nav>
-</footer>
-</article>
-</div>
-<div id=disqus_thread></div>
-<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-</div>
-</main>
-<footer id=footer class=footer>
-<div class=social-links>
-<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
-<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
-</div>
-<div class=copyright>
-<span class=power-by>
-由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
-</span>
-<span class=division>|</span>
-<span class=theme-info>
-主题 -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
-</span>
-<div class=busuanzi-footer>
-<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
-</div>
-<span class=copyright-year>
-&copy;
-2018 -
-2022
-<span class=heart>
-<i class="iconfont icon-heart"></i>
-</span>
-<span class=author>zvector</span>
-</span>
-</div>
-</footer>
-<div class=back-to-top id=back-to-top>
-<i class="iconfont icon-up"></i>
-</div>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
-<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
 </body>
 </html>

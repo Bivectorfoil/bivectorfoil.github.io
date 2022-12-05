@@ -1,131 +1,162 @@
-<!doctype html><html lang=zh-cn>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>使用 Ruby 自制 Web 服务器 - Zvector & Blog</title>
-<meta name=renderer content="webkit">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta http-equiv=cache-control content="no-transform">
-<meta http-equiv=cache-control content="no-siteapp">
-<meta name=theme-color content="#f8f5ec">
-<meta name=msapplication-navbutton-color content="#f8f5ec">
-<meta name=apple-mobile-web-app-capable content="yes">
-<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="zvector"><meta name=description content="原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是">
-<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
-<link rel=canonical href=https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/manifest.json>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
-<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="使用 Ruby 自制 Web 服务器">
-<meta property="og:description" content="原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/"><meta property="article:section" content="post">
-<meta property="article:published_time" content="2020-12-27T17:26:29+08:00">
-<meta property="article:modified_time" content="2020-12-27T17:26:29+08:00">
-<meta itemprop=name content="使用 Ruby 自制 Web 服务器">
-<meta itemprop=description content="原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是"><meta itemprop=datePublished content="2020-12-27T17:26:29+08:00">
-<meta itemprop=dateModified content="2020-12-27T17:26:29+08:00">
-<meta itemprop=wordCount content="2031">
-<meta itemprop=keywords content="Ruby,Web,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="使用 Ruby 自制 Web 服务器">
-<meta name=twitter:description content="原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Ruby 自制 Web 服务器 - Zvector &amp; Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zvector" /><meta name="description" content="原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用 Ruby 自制 Web 服务器" />
+<meta property="og:description" content="原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bivectorfoil.github.io/post/build-your-own-web-server-with-ruby/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-12-27T17:26:29+08:00" />
+<meta property="article:modified_time" content="2020-12-27T17:26:29+08:00" />
+
+<meta itemprop="name" content="使用 Ruby 自制 Web 服务器">
+<meta itemprop="description" content="原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是"><meta itemprop="datePublished" content="2020-12-27T17:26:29+08:00" />
+<meta itemprop="dateModified" content="2020-12-27T17:26:29+08:00" />
+<meta itemprop="wordCount" content="2031">
+<meta itemprop="keywords" content="Ruby,Web," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Ruby 自制 Web 服务器"/>
+<meta name="twitter:description" content="原文链接：Build Your Own Web Server With Ruby ，作者：Jesus Castello 少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下服务器应用： Puma Thin Unicorn 但是"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
 </head>
 <body>
-<div id=mobile-navbar class=mobile-navbar>
-<div class=mobile-header-logo>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zvector &amp; Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </div>
-<div class=mobile-navbar-icon>
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-<nav id=mobile-menu class="mobile-menu slideout-menu">
-<ul class=mobile-menu-list>
-<a href=/>
-<li class=mobile-menu-item>主页</li>
-</a><a href=/post/>
-<li class=mobile-menu-item>归档</li>
-</a><a href=/tags/>
-<li class=mobile-menu-item>标签</li>
-</a><a href=/categories/>
-<li class=mobile-menu-item>分类</li>
-</a><a href=/about/>
-<li class=mobile-menu-item>关于</li>
-</a>
-</ul>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
 </nav>
-<div class=container id=mobile-panel>
-<header id=header class=header>
-<div class=logo-wrapper>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zvector &amp; Blog</a>
 </div>
-<nav class=site-navbar>
-<ul id=menu class=menu>
-<li class=menu-item>
-<a class=menu-item-link href=/>主页</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/post/>归档</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/tags/>标签</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/categories/>分类</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/about/>关于</a>
-</li>
-</ul>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
 </nav>
-</header>
-<main id=main class=main>
-<div class=content-wrapper>
-<div id=content class=content>
-<article class=post>
-<header class=post-header>
-<h1 class=post-title>使用 Ruby 自制 Web 服务器</h1>
-<div class=post-meta>
-<span class=post-time> 2020-12-27 </span>
-<div class=post-category>
-<a href=/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/> 技术翻译 </a>
-</div>
-<span class=more-meta> 约 2031 字 </span>
-<span class=more-meta> 预计阅读 5 分钟 </span>
-<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
-</div>
-</header>
-<div class=post-toc id=post-toc>
-<h2 class=post-toc-title>文章目录</h2>
-<div class=post-toc-content>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#第一步监听连接>第一步：监听连接</a></li>
-<li><a href=#第二步解析请求>第二步：解析请求</a></li>
-<li><a href=#第三步-准备好发送响应>第三步 准备好发送响应</a></li>
-<li><a href=#常用的-http-响应码>常用的 HTTP 响应码</a></li>
-<li><a href=#响应类和方法>响应类和方法</a></li>
-<li><a href=#安全相关>安全相关</a></li>
-<li><a href=#完整可运行的代码>完整可运行的代码</a>
-<ul>
-<li><a href=#链接在此>链接在此：</a></li>
-</ul>
-</li>
-<li><a href=#总结>总结</a></li>
-</ul>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 Ruby 自制 Web 服务器</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-27 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E7%BF%BB%E8%AF%91/"> 技术翻译 </a>
+            </div>
+          <span class="more-meta"> 约 2031 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#第一步监听连接">第一步：监听连接</a></li>
+    <li><a href="#第二步解析请求">第二步：解析请求</a></li>
+    <li><a href="#第三步-准备好发送响应">第三步 准备好发送响应</a></li>
+    <li><a href="#常用的-http-响应码">常用的 HTTP 响应码</a></li>
+    <li><a href="#响应类和方法">响应类和方法</a></li>
+    <li><a href="#安全相关">安全相关</a></li>
+    <li><a href="#完整可运行的代码">完整可运行的代码</a>
+      <ul>
+        <li><a href="#链接在此">链接在此：</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
 </nav>
+  </div>
 </div>
-</div>
-<div class=post-content>
-<blockquote>
-<p>原文链接：<a href=https://www.rubyguides.com/2016/08/build-your-own-web-server/>Build Your Own Web Server With Ruby</a> ，作者：<a href=https://www.rubyguides.com/author/admin/>Jesus Castello</a></p>
+    <div class="post-content">
+      <blockquote>
+<p>原文链接：<a href="https://www.rubyguides.com/2016/08/build-your-own-web-server/">Build Your Own Web Server With Ruby</a> ，作者：<a href="https://www.rubyguides.com/author/admin/">Jesus Castello</a></p>
 </blockquote>
-<p>少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下<a href=https://www.rubyguides.com/2019/08/puma-app-server/>服务器应用</a>：</p>
+<p>少年，你是否曾用 Ruby 写过专属于你自己的 web 服务器？虽然我们已经有了如下<a href="https://www.rubyguides.com/2019/08/puma-app-server/">服务器应用</a>：</p>
 <ul>
 <li>
 <p>Puma</p>
@@ -139,31 +170,31 @@
 </ul>
 <p>但是我还是觉得自己写一个简单的 web 服务器会是学习服务器运行原理的<strong>绝佳机会</strong>。今天你算是赶上了。
 让我们一步一步来！</p>
-<h2 id=第一步监听连接>第一步：监听连接</h2>
+<h2 id="第一步监听连接">第一步：监听连接</h2>
 <p>首要的第一件事是监听 80 端口的 TCP 新连接。
-我之前写过一篇 <a href=https://www.rubyguides.com/2015/04/ruby-network-programming/>Ruby中的网络编程</a>，所以这里我就不多解释原理了，<strong>直接上代码</strong>：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span><span class=lnt>9
+我之前写过一篇 <a href="https://www.rubyguides.com/2015/04/ruby-network-programming/">Ruby中的网络编程</a>，所以这里我就不多解释原理了，<strong>直接上代码</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby>  <span class=nb>require</span> <span class=s1>&#39;socket&#39;</span><span class=p>;</span>
-  <span class=n>server</span> <span class=o>=</span> <span class=no>TCPServer</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=s1>&#39;localhost&#39;</span><span class=p>,</span> <span class=mi>80</span><span class=p>)</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="nb">require</span> <span class="s1">&#39;socket&#39;</span><span class="p">;</span>
+  <span class="n">server</span> <span class="o">=</span> <span class="no">TCPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
 
-  <span class=kp>loop</span> <span class=p>{</span>
-    <span class=n>client</span> <span class=o>=</span> <span class=n>server</span><span class=o>.</span><span class=n>aceept</span>
-    <span class=n>request</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>readpartial</span><span class=p>(</span><span class=mi>2048</span><span class=p>)</span>
+  <span class="kp">loop</span> <span class="p">{</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">aceept</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">readpartial</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
     
-    <span class=nb>puts</span> <span class=n>request</span>
-  <span class=p>}</span>
+    <span class="nb">puts</span> <span class="n">request</span>
+  <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>运行上述代码，我们得到了一个在 80 端口上接受请求的
@@ -174,130 +205,130 @@ server。目前来说它做的工作还不多，不过也足够你看到进来�
 </blockquote>
 <p>使用浏览器或者是 <code>curl</code> 可以简单地构造一个请求。</p>
 <p>如下是你这么做了之后所能看到的打印信息：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-html data-lang=html>  GET / HTTP/1.1
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">  GET / HTTP/1.1
   Host: localhost
   User-Agent: curl/7.58.1
   Accept:*/*
 </code></pre></td></tr></table>
 </div>
-</div><p>这是一个 <a href=https://www.rubyguides.com/2018/08/ruby-http-request/>HTTP 请求</a>。HTTP 是一个为了在 web 浏览器和 web
-服务器之间通信的文本协议。正式的协议细节详见这里：<a href=https//tools.ietf.org/html/rfc7230>https//tools.ietf.org/html/rfc7230</a>。</p>
-<h2 id=第二步解析请求>第二步：解析请求</h2>
+</div><p>这是一个 <a href="https://www.rubyguides.com/2018/08/ruby-http-request/">HTTP 请求</a>。HTTP 是一个为了在 web 浏览器和 web
+服务器之间通信的文本协议。正式的协议细节详见这里：<a href="https//tools.ietf.org/html/rfc7230">https//tools.ietf.org/html/rfc7230</a>。</p>
+<h2 id="第二步解析请求">第二步：解析请求</h2>
 <p>现在我们需要将请求分割成服务器所能理解的小份形式。要实现这样的效果我们可以自己实现解析器或者复用已有的工具。为了加深对请求每一部分的理解，我们还是撸起袖子自己干吧。</p>
 <p><strong>这副配图应该有帮助</strong></p>
-<p><img src="https://i2.wp.com/i.imgur.com/WEhYtyK.png?ssl=1" alt></p>
+<p><img src="https://i2.wp.com/i.imgur.com/WEhYtyK.png?ssl=1" alt=""></p>
 <p>请求头里包括浏览器缓存、虚拟地址和数据压缩等等，不过对于一个基础的服务器实现来说，我们可以忽略这些要素。</p>
 <p>认识到如下事实对我们实现自己的解析器大有俾益：请求数据是被换行符号 <code>\r\n</code>
 所分割的。为保持简单，我们不会做错误处理或数据校验。</p>
 <p>那么我们就得到了如下代码：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby>  <span class=k>def</span> <span class=nf>parse</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
-    <span class=nb>method</span><span class=p>,</span> <span class=n>path</span><span class=p>,</span> <span class=n>versoin</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>lines</span><span class=o>[</span><span class=mi>0</span><span class=o>].</span><span class=n>split</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="nb">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">versoin</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">lines</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="n">split</span>
 
-    <span class=p>{</span>
-      <span class=ss>path</span><span class=p>:</span> <span class=n>path</span><span class=p>,</span>
-      <span class=nb>method</span><span class=p>:</span> <span class=nb>method</span><span class=p>,</span>
-      <span class=ss>headers</span><span class=p>:</span> <span class=n>parse_headers</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
-    <span class=p>}</span>
-  <span class=k>end</span>
+    <span class="p">{</span>
+      <span class="ss">path</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span>
+      <span class="nb">method</span><span class="p">:</span> <span class="nb">method</span><span class="p">,</span>
+      <span class="ss">headers</span><span class="p">:</span> <span class="n">parse_headers</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
 
-  <span class=k>def</span> <span class=nf>parse_headers</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
-    <span class=n>headers</span> <span class=o>=</span> <span class=p>{}</span>
+  <span class="k">def</span> <span class="nf">parse_headers</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class=n>request</span><span class=o>.</span><span class=n>lines</span><span class=o>[</span><span class=mi>1</span><span class=o>..-</span><span class=mi>1</span><span class=o>].</span><span class=n>each</span> <span class=k>do</span> <span class=o>|</span><span class=n>line</span><span class=o>|</span>
-      <span class=k>return</span> <span class=n>headers</span> <span class=k>if</span> <span class=n>line</span> <span class=o>==</span> <span class=s2>&#34;</span><span class=se>\r\n</span><span class=s2>&#34;</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">lines</span><span class="o">[</span><span class="mi">1</span><span class="o">..-</span><span class="mi">1</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+      <span class="k">return</span> <span class="n">headers</span> <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&#34;</span><span class="se">\r\n</span><span class="s2">&#34;</span>
 
-      <span class=n>header</span><span class=p>,</span> <span class=n>value</span> <span class=o>=</span> <span class=n>line</span><span class=o>.</span><span class=n>split</span>
-      <span class=n>header</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>header</span><span class=p>)</span>
+      <span class="n">header</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span>
+      <span class="n">header</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
 
-      <span class=n>headers</span><span class=o>[</span><span class=n>header</span><span class=o>]</span> <span class=o>=</span> <span class=n>value</span>
-    <span class=k>end</span>
+      <span class="n">headers</span><span class="o">[</span><span class="n">header</span><span class="o">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">end</span>
 
-    <span class=k>def</span> <span class=nf>normalize</span><span class=p>(</span><span class=n>header</span><span class=p>)</span>
-      <span class=n>header</span><span class=o>.</span><span class=n>gsub</span><span class=p>(</span><span class=s2>&#34;:&#34;</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>)</span><span class=o>.</span><span class=n>downcase</span><span class=o>.</span><span class=n>to_sym</span>
-    <span class=k>end</span>
-  <span class=k>end</span>
+    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+      <span class="n">header</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">downcase</span><span class="o">.</span><span class="n">to_sym</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>以上将会返回经过解析的请求数据。既然我们已经得到了规范化后的请求数据，现在可以为客户端构造响应了。</p>
-<h2 id=第三步-准备好发送响应>第三步 准备好发送响应</h2>
+<h2 id="第三步-准备好发送响应">第三步 准备好发送响应</h2>
 <p>在返回响应之前我们需要检查请求资源是否可用。换句话说，我们需要检查文件是否存在。</p>
 <p>以下是为此准备的代码：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby>  <span class=no>SERVER_ROOT</span> <span class=o>=</span> <span class=s2>&#34;/tmp/web-server/&#34;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="no">SERVER_ROOT</span> <span class="o">=</span> <span class="s2">&#34;/tmp/web-server/&#34;</span>
 
-  <span class=k>def</span> <span class=nf>prepare_response</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
-    <span class=k>if</span> <span class=n>request</span><span class=o>.</span><span class=n>fetch</span><span class=p>(</span><span class=ss>:path</span><span class=p>)</span> <span class=o>==</span> <span class=s2>&#34;/&#34;</span>
-      <span class=n>respond_with</span><span class=p>(</span><span class=no>SERVER_ROOT</span> <span class=o>+</span> <span class=s2>&#34;index.html&#34;</span><span class=p>)</span>
-    <span class=k>else</span>
-      <span class=n>respond_with</span><span class=p>(</span><span class=no>SERVER_ROOT</span> <span class=o>+</span> <span class=n>request</span><span class=o>.</span><span class=n>fetch</span><span class=p>(</span><span class=ss>:path</span><span class=p>))</span>
-    <span class=k>end</span>
-  <span class=k>end</span>
+  <span class="k">def</span> <span class="nf">prepare_response</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:path</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&#34;/&#34;</span>
+      <span class="n">respond_with</span><span class="p">(</span><span class="no">SERVER_ROOT</span> <span class="o">+</span> <span class="s2">&#34;index.html&#34;</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="n">respond_with</span><span class="p">(</span><span class="no">SERVER_ROOT</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:path</span><span class="p">))</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  <span class=k>def</span> <span class=nf>respond_with</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
-    <span class=k>if</span> <span class=no>File</span><span class=o>.</span><span class=n>exists?</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
-      <span class=n>send_ok_response</span><span class=p>(</span><span class=no>File</span><span class=o>.</span><span class=n>binread</span><span class=p>(</span><span class=n>path</span><span class=p>))</span>
-    <span class=k>else</span>
-      <span class=n>send_file_not_found</span>
-    <span class=k>end</span>
-  <span class=k>end</span>
+  <span class="k">def</span> <span class="nf">respond_with</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+      <span class="n">send_ok_response</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">binread</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+    <span class="k">else</span>
+      <span class="n">send_file_not_found</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>代码中包含两种情况：</strong></p>
@@ -306,7 +337,7 @@ server。目前来说它做的工作还不多，不过也足够你看到进来�
 <li>其次，如果请求文件存在，我们便将文件内容连同一个 OK 响应发回。</li>
 </ul>
 <p>不过如果文件不存在的话，我们就要返回经典的 <code>404 Not Found</code> 响应了。</p>
-<h2 id=常用的-http-响应码>常用的 HTTP 响应码</h2>
+<h2 id="常用的-http-响应码">常用的 HTTP 响应码</h2>
 <p>供参考。</p>
 <table>
 <thead>
@@ -358,99 +389,99 @@ server。目前来说它做的工作还不多，不过也足够你看到进来�
 </tr>
 </tbody>
 </table>
-<h2 id=响应类和方法>响应类和方法</h2>
+<h2 id="响应类和方法">响应类和方法</h2>
 <p>以下是我们上面用到的 &ldquo;send&rdquo; 方法：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby>  <span class=k>def</span> <span class=nf>send_ok_response</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
-    <span class=no>Response</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>code</span><span class=p>:</span> <span class=mi>200</span><span class=p>,</span> <span class=ss>data</span><span class=p>:</span> <span class=n>data</span><span class=p>)</span>
-  <span class=k>end</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="k">def</span> <span class="nf">send_ok_response</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="no">Response</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="ss">data</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
+  <span class="k">end</span>
 
-  <span class=k>def</span> <span class=nf>send_file_not_found</span>
-    <span class=no>Response</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>code</span><span class=p>:</span> <span class=mi>404</span><span class=p>)</span>
-  <span class=k>end</span>
+  <span class="k">def</span> <span class="nf">send_file_not_found</span>
+    <span class="no">Response</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">code</span><span class="p">:</span> <span class="mi">404</span><span class="p">)</span>
+  <span class="k">end</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>以下是 <code>Response</code> 类：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby>  <span class=k>class</span> <span class=nc>Reponse</span>
-    <span class=kp>attr_reader</span> <span class=ss>:code</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="k">class</span> <span class="nc">Reponse</span>
+    <span class="kp">attr_reader</span> <span class="ss">:code</span>
 
-    <span class=k>def</span> <span class=nf>initialize</span><span class=p>(</span><span class=ss>code</span><span class=p>:,</span> <span class=ss>data</span><span class=p>:</span> <span class=s2>&#34;&#34;</span><span class=p>)</span>
-      <span class=vi>@response</span> <span class=o>=</span> 
-      <span class=s2>&#34;HTTP / 1.1 </span><span class=si>#{</span><span class=n>code</span><span class=si>}</span><span class=se>\r\n</span><span class=s2>&#34;</span> <span class=o>+</span>
-      <span class=s2>&#34;Content-Length: </span><span class=si>#{</span><span class=n>data</span><span class=o>.</span><span class=n>size</span><span class=si>}</span><span class=se>\r\n</span><span class=s2>&#34;</span> <span class=o>+</span>
-      <span class=s2>&#34;</span><span class=se>\r\n</span><span class=s2>&#34;</span> <span class=o>+</span>
-      <span class=s2>&#34;</span><span class=si>#{</span><span class=n>data</span><span class=si>}</span><span class=se>\r\n</span><span class=s2>&#34;</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">code</span><span class="p">:,</span> <span class="ss">data</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+      <span class="vi">@response</span> <span class="o">=</span> 
+      <span class="s2">&#34;HTTP / 1.1 </span><span class="si">#{</span><span class="n">code</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&#34;</span> <span class="o">+</span>
+      <span class="s2">&#34;Content-Length: </span><span class="si">#{</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&#34;</span> <span class="o">+</span>
+      <span class="s2">&#34;</span><span class="se">\r\n</span><span class="s2">&#34;</span> <span class="o">+</span>
+      <span class="s2">&#34;</span><span class="si">#{</span><span class="n">data</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&#34;</span>
 
-      <span class=vi>@code</span> <span class=o>=</span> <span class=n>code</span>
-    <span class=k>end</span>
+      <span class="vi">@code</span> <span class="o">=</span> <span class="n">code</span>
+    <span class="k">end</span>
 
-    <span class=k>def</span> <span class=nf>send</span><span class=p>(</span><span class=n>client</span><span class=p>)</span>
-      <span class=n>client</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=vi>@response</span><span class=p>)</span>
-    <span class=k>end</span>
-  <span class=k>end</span>
+    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+      <span class="n">client</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="vi">@response</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>响应由模板和字符串插值构成。到此阶段之后只要将所有这些代码组合进之前的接受连接的
 <code>loop</code> 里，我们就得到了一个功能完备的服务器了。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby>  <span class=kp>loop</span> <span class=p>{</span>
-    <span class=n>client</span> <span class=o>=</span> <span class=n>server</span><span class=o>.</span><span class=n>accept</span>
-    <span class=n>request</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>readpartial</span><span class=p>(</span><span class=mi>2048</span><span class=p>)</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="kp">loop</span> <span class="p">{</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">accept</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">readpartial</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
 
-    <span class=n>request</span> <span class=o>=</span> <span class=no>RequestParse</span><span class=o>.</span><span class=n>new</span><span class=o>.</span><span class=n>parse</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
-    <span class=n>response</span> <span class=o>=</span> <span class=no>ResponseParse</span><span class=o>.</span><span class=n>new</span><span class=o>.</span><span class=n>parse</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="no">RequestParse</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="no">ResponseParse</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
-    <span class=nb>puts</span> <span class=s2>&#34;</span><span class=si>#{</span><span class=n>client</span><span class=o>.</span><span class=n>peeraddr</span><span class=o>[</span><span class=mi>3</span><span class=o>]</span><span class=si>}</span><span class=s2> </span><span class=si>#{</span><span class=n>request</span><span class=o>.</span><span class=n>fetch</span><span class=p>(</span><span class=ss>:path</span><span class=p>)</span><span class=si>}</span><span class=s2>-</span><span class=si>#{</span><span class=n>response</span><span class=o>.</span><span class=n>code</span><span class=si>}</span><span class=s2>&#34;</span>
+    <span class="nb">puts</span> <span class="s2">&#34;</span><span class="si">#{</span><span class="n">client</span><span class="o">.</span><span class="n">peeraddr</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">request</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:path</span><span class="p">)</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="n">response</span><span class="o">.</span><span class="n">code</span><span class="si">}</span><span class="s2">&#34;</span>
 
-    <span class=n>response</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>client</span><span class=p>)</span>
-    <span class=n>client</span><span class=o>.</span><span class=n>close</span>
-  <span class=p>}</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">close</span>
+  <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>试着在<code>SERVER_ROOT</code> 目录下添加些 HTML
@@ -469,130 +500,159 @@ server。目前来说它做的工作还不多，不过也足够你看到进来�
 <li>浏览器缓存（响应 304 状态码）</li>
 <li>重定向</li>
 </ul>
-<h2 id=安全相关>安全相关</h2>
-<p>接受并操作用户的输入永远是一件有风险的事情。在我们的小服务器项目中，用户输入是<a href=https://www.rubyguides.com/2018/08/ruby-http-request/>HTTP请求</a>。</p>
+<h2 id="安全相关">安全相关</h2>
+<p>接受并操作用户的输入永远是一件有风险的事情。在我们的小服务器项目中，用户输入是<a href="https://www.rubyguides.com/2018/08/ruby-http-request/">HTTP请求</a>。</p>
 <p>我们引入了一个被称为“路径遍历”的漏洞。用户可以访问任何服务器应用用户有权限访问的路径，包括那些不在我们的 <code>SERVER_ROOT</code> 路径下的目录。</p>
 <p>下面这行代码是导致此问题的关键：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby>  <span class=no>FIle</span><span class=o>.</span><span class=n>binread</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="no">FIle</span><span class="o">.</span><span class="n">binread</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>你可以亲自实验一下，看看这问题是怎么产生的。为此你需要“手动”构造 HTTP
-请求，因为大多数 <a href=https://www.rubyguides.com/2018/08/ruby-http-request/>HTTP客户端</a>（包括 <code>curl</code> ）会预先处理请求 URL 并移除会导致此漏洞的部分。</p>
-<p>你可以用 <a href=https://en.wikipedia.org/wiki/Netcat/>netcat</a> 尝试一下。</p>
+请求，因为大多数 <a href="https://www.rubyguides.com/2018/08/ruby-http-request/">HTTP客户端</a>（包括 <code>curl</code> ）会预先处理请求 URL 并移除会导致此漏洞的部分。</p>
+<p>你可以用 <a href="https://en.wikipedia.org/wiki/Netcat/">netcat</a> 尝试一下。</p>
 <p>以下是其中一种生成办法：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>  $ nc localhost <span class=m>8080</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  $ nc localhost <span class="m">8080</span>
   GET ../../etc/passwd HTTP/1.1
 </code></pre></td></tr></table>
 </div>
 </div><p>如果你是类 Unix 系统的话，上述请求会返回 <code>/etc/passwd</code> 文件的内容。其中的原理是因为双点号（<code>..</code>）表示上层目录，于是你便“跳出“了 <code>SERVER_ROOT</code> 目录。</p>
 <p>某一个解决办法是将多个点号”压缩成一个：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby>  <span class=n>path</span><span class=o>.</span><span class=n>gsub!</span><span class=p>(</span><span class=sr>/\.+/</span><span class=p>,</span><span class=s2>&#34;.&#34;</span><span class=p>)</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="n">path</span><span class="o">.</span><span class="n">gsub!</span><span class="p">(</span><span class="sr">/\.+/</span><span class="p">,</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>解决安全问题要时刻有“以己之矛，攻己之盾”的准备。例如，如果你只是简单的
-<code>path.gsub!("..", ".")</code>，那么使用三重点号（&mldr;）便可以轻易绕过此限制。</p>
-<h2 id=完整可运行的代码>完整可运行的代码</h2>
+<code>path.gsub!(&quot;..&quot;, &quot;.&quot;)</code>，那么使用三重点号（&hellip;）便可以轻易绕过此限制。</p>
+<h2 id="完整可运行的代码">完整可运行的代码</h2>
 <p>我知道本文中的代码四散在文章各处，所以如果你想得到完整，可运行的代码的话。。。</p>
-<h3 id=链接在此>链接在此：</h3>
-<p><a href=https://gist.github.com/matugm/efe0a1c4fc53310f7ac93dcd1f041f6c#file-web-server-rb>https://gist.github.com/matugm/efe0a1c4fc53310f7ac93dcd1f041f6c#file-web-server-rb</a></p>
+<h3 id="链接在此">链接在此：</h3>
+<p><a href="https://gist.github.com/matugm/efe0a1c4fc53310f7ac93dcd1f041f6c#file-web-server-rb">https://gist.github.com/matugm/efe0a1c4fc53310f7ac93dcd1f041f6c#file-web-server-rb</a></p>
 <p>好好享用吧！</p>
-<h2 id=总结>总结</h2>
+<h2 id="总结">总结</h2>
 <p>在本文中，你学到了如何监听新连接、HTTP 请求是什么样子了和如何解析它们。同样地，你学会了如何用响应码和请求文件的内容（如何提供的话）构造响应。</p>
 <p>最后，你学到了什么是“路径遍历”漏洞和如何避免它。</p>
 <p>希望本文能对你有所帮助！不要忘了订阅我的博客（地址在下面），这样你就不会漏掉我的每一篇文章啦：）</p>
-<p><a href=https://www.rubyguides.com/>https://www.rubyguides.com/</a></p>
+<p><a href="https://www.rubyguides.com/">https://www.rubyguides.com/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">zvector</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2020-12-27</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ruby/">Ruby</a>
+          <a href="/tags/web/">Web</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/learn-or-quit/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Learn or Quit</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/toy-database-in-python/">
+            <span class="next-text nav-default">分分钟学会使用Python编写玩具数据库</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'zvector';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
+  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-<div class=post-copyright>
-<p class=copyright-item>
-<span class=item-title>文章作者</span>
-<span class=item-content>zvector</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>上次更新</span>
-<span class=item-content>2020-12-27</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>许可协议</span>
-<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-</p>
-</div><footer class=post-footer>
-<div class=post-tags>
-<a href=/tags/ruby/>Ruby</a>
-<a href=/tags/web/>Web</a>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zvector</span>
+  </span>
 </div>
-<nav class=post-nav>
-<a class=prev href=/post/learn-or-quit/>
-<i class="iconfont icon-left"></i>
-<span class="prev-text nav-default">Learn or Quit</span>
-<span class="prev-text nav-mobile">上一篇</span>
-</a>
-<a class=next href=/post/toy-database-in-python/>
-<span class="next-text nav-default">分分钟学会使用Python编写玩具数据库</span>
-<span class="next-text nav-mobile">下一篇</span>
-<i class="iconfont icon-right"></i>
-</a>
-</nav>
-</footer>
-</article>
-</div>
-<div id=disqus_thread></div>
-<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-</div>
-</main>
-<footer id=footer class=footer>
-<div class=social-links>
-<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
-<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
-</div>
-<div class=copyright>
-<span class=power-by>
-由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
-</span>
-<span class=division>|</span>
-<span class=theme-info>
-主题 -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
-</span>
-<div class=busuanzi-footer>
-<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
-</div>
-<span class=copyright-year>
-&copy;
-2018 -
-2022
-<span class=heart>
-<i class="iconfont icon-heart"></i>
-</span>
-<span class=author>zvector</span>
-</span>
-</div>
-</footer>
-<div class=back-to-top id=back-to-top>
-<i class="iconfont icon-up"></i>
-</div>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
-<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
 </body>
 </html>

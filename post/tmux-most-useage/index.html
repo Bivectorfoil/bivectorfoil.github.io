@@ -1,130 +1,161 @@
-<!doctype html><html lang=zh-cn>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>Tmux的快速操作入门 - Zvector & Blog</title>
-<meta name=renderer content="webkit">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta http-equiv=cache-control content="no-transform">
-<meta http-equiv=cache-control content="no-siteapp">
-<meta name=theme-color content="#f8f5ec">
-<meta name=msapplication-navbutton-color content="#f8f5ec">
-<meta name=apple-mobile-web-app-capable content="yes">
-<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="zvector"><meta name=description content="什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端">
-<meta name=generator content="Hugo 0.91.2 with even 4.0.0">
-<link rel=canonical href=https://bivectorfoil.github.io/post/tmux-most-useage/>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/manifest.json>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
-<link href=/dist/even.c2a46f00.min.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="Tmux的快速操作入门">
-<meta property="og:description" content="什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://bivectorfoil.github.io/post/tmux-most-useage/"><meta property="article:section" content="post">
-<meta property="article:published_time" content="2018-04-29T15:25:02+08:00">
-<meta property="article:modified_time" content="2018-04-29T15:25:02+08:00">
-<meta itemprop=name content="Tmux的快速操作入门">
-<meta itemprop=description content="什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端"><meta itemprop=datePublished content="2018-04-29T15:25:02+08:00">
-<meta itemprop=dateModified content="2018-04-29T15:25:02+08:00">
-<meta itemprop=wordCount content="2606">
-<meta itemprop=keywords content="tmux,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="Tmux的快速操作入门">
-<meta name=twitter:description content="什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Tmux的快速操作入门 - Zvector &amp; Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zvector" /><meta name="description" content="什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://bivectorfoil.github.io/post/tmux-most-useage/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Tmux的快速操作入门" />
+<meta property="og:description" content="什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bivectorfoil.github.io/post/tmux-most-useage/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-04-29T15:25:02+08:00" />
+<meta property="article:modified_time" content="2018-04-29T15:25:02+08:00" />
+
+<meta itemprop="name" content="Tmux的快速操作入门">
+<meta itemprop="description" content="什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端"><meta itemprop="datePublished" content="2018-04-29T15:25:02+08:00" />
+<meta itemprop="dateModified" content="2018-04-29T15:25:02+08:00" />
+<meta itemprop="wordCount" content="2606">
+<meta itemprop="keywords" content="tmux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tmux的快速操作入门"/>
+<meta name="twitter:description" content="什么是Tmux Tmux 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
 </head>
 <body>
-<div id=mobile-navbar class=mobile-navbar>
-<div class=mobile-header-logo>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zvector &amp; Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </div>
-<div class=mobile-navbar-icon>
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-<nav id=mobile-menu class="mobile-menu slideout-menu">
-<ul class=mobile-menu-list>
-<a href=/>
-<li class=mobile-menu-item>主页</li>
-</a><a href=/post/>
-<li class=mobile-menu-item>归档</li>
-</a><a href=/tags/>
-<li class=mobile-menu-item>标签</li>
-</a><a href=/categories/>
-<li class=mobile-menu-item>分类</li>
-</a><a href=/about/>
-<li class=mobile-menu-item>关于</li>
-</a>
-</ul>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
 </nav>
-<div class=container id=mobile-panel>
-<header id=header class=header>
-<div class=logo-wrapper>
-<a href=/ class=logo>Zvector & Blog</a>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zvector &amp; Blog</a>
 </div>
-<nav class=site-navbar>
-<ul id=menu class=menu>
-<li class=menu-item>
-<a class=menu-item-link href=/>主页</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/post/>归档</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/tags/>标签</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/categories/>分类</a>
-</li><li class=menu-item>
-<a class=menu-item-link href=/about/>关于</a>
-</li>
-</ul>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
 </nav>
-</header>
-<main id=main class=main>
-<div class=content-wrapper>
-<div id=content class=content>
-<article class=post>
-<header class=post-header>
-<h1 class=post-title>Tmux的快速操作入门</h1>
-<div class=post-meta>
-<span class=post-time> 2018-04-29 </span>
-<div class=post-category>
-<a href=/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/> 技术备忘录 </a>
-</div>
-<span class=more-meta> 约 2606 字 </span>
-<span class=more-meta> 预计阅读 6 分钟 </span>
-<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
-</div>
-</header>
-<div class=post-toc id=post-toc>
-<h2 class=post-toc-title>文章目录</h2>
-<div class=post-toc-content>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#cs模型>C/S模型</a></li>
-<li><a href=#基础操作>基础操作</a>
-<ul>
-<li><a href=#窗格操作>窗格操作</a></li>
-<li><a href=#窗口操作>窗口操作</a></li>
-<li><a href=#session操作>Session操作</a></li>
-</ul>
-</li>
-</ul>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Tmux的快速操作入门</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-29 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/"> 技术备忘录 </a>
+            </div>
+          <span class="more-meta"> 约 2606 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#cs模型">C/S模型</a></li>
+    <li><a href="#基础操作">基础操作</a>
+      <ul>
+        <li><a href="#窗格操作">窗格操作</a></li>
+        <li><a href="#窗口操作">窗口操作</a></li>
+        <li><a href="#session操作">Session操作</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
+  </div>
 </div>
-</div>
-<div class=post-content>
-<h1 id=什么是tmux>什么是Tmux</h1>
-<p><a href=https://github.com/tmux/tmux>Tmux</a> 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端，而不必打开多个终端窗口。并且可以方便的分割窗口，随时最大化当前窗口或恢复原大小。Tmux带来的便利性远不止于此。它甚至还可以管理多个Sessions，更进一步的将我们从打开的繁多个终端迷雾中解放出来。</p>
+    <div class="post-content">
+      <h1 id="什么是tmux">什么是Tmux</h1>
+<p><a href="https://github.com/tmux/tmux">Tmux</a> 是一个多终端复用器，简单来说，我们可以使用Tmux来管理多个终端（Shell）。Tmux可以实现在一个终端窗口中管理多个终端，而不必打开多个终端窗口。并且可以方便的分割窗口，随时最大化当前窗口或恢复原大小。Tmux带来的便利性远不止于此。它甚至还可以管理多个Sessions，更进一步的将我们从打开的繁多个终端迷雾中解放出来。</p>
 <p>工欲善其事，必先利其器。盲目地追求酷炫的工具，沉迷于炫技一般的工具操作中是本末倒置的做法，十分不可取。工具应该为我们所用，而不是令我们迷失在工具繁杂的操作技巧中不能自拔。那么怎么知道Tmux适不适合我使用呢？如果你差不多是一个“活在命令行”中的人，每天都要打开多个终端窗口，对成天辗转于多个数不清的终端窗口中感到十分厌倦。追求效率的最大化，安全性。那么，你可以接着往下看了，在了解了Tmux的基本操作后，Tmux不会让你失望。Tmux的安装方式和其他软件大同小异，在此不再赘述。</p>
-<h1 id=tmux的基础操作方式>Tmux的基础操作方式</h1>
+<h1 id="tmux的基础操作方式">Tmux的基础操作方式</h1>
 <p>在介绍Tmux的基础操作前，先让我们大体上了解一下Tmux的工作原理。</p>
-<h2 id=cs模型>C/S模型</h2>
-<p>根据<a href=https://zh.wikipedia.org/wiki/Tmux>维基百科</a>，tmux 采用 <a href=https://zh.wikipedia.org/wiki/Client/server>client/server</a> 模型，主要由以下模块组成：</p>
+<h2 id="cs模型">C/S模型</h2>
+<p>根据<a href="https://zh.wikipedia.org/wiki/Tmux">维基百科</a>，tmux 采用 <a href="https://zh.wikipedia.org/wiki/Client/server">client/server</a> 模型，主要由以下模块组成：</p>
 <table>
 <thead>
 <tr>
@@ -153,277 +184,306 @@
 </table>
 <p>当在命令行输入 <code>tmux</code>时，Tmux就开启了一个server，session，window，panel等模块均运行于此。session，window，panel 的包含关系为：session &lt; window &lt; panel，后者为前者的子集。可以看出Tmux可以包含数量众多的<strong>窗格</strong>（panel），而每一个Panel都可以最大化为当前<strong>窗口</strong>（window），方便使用，这是一个层级包含的关系。Tmux操作带来的便利性就在于此。我们只需在一个终端窗口中开启tmux，便可管理多个<strong>session</strong>，<strong>window</strong>，<strong>panel</strong>。并且这些是层次分明，有条不紊的，从而不会使得我们迷失工作要点。</p>
 <p>工具中百分之二十的基础操作差不多就可以应对工作中百分之八十的需求。熟练掌握Tmux的一些基本操作，便可享受其所带来的极大的便利性。下面让我们来看看Tmux的几个基本操作。</p>
-<h2 id=基础操作>基础操作</h2>
-<h3 id=窗格操作>窗格操作</h3>
+<h2 id="基础操作">基础操作</h2>
+<h3 id="窗格操作">窗格操作</h3>
 <p>终端中输入</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>tmux
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tmux
 </code></pre></td></tr></table>
 </div>
 </div><p>我们就进入了Tmux的工作环境，Tmux Server已经在后台运行了，目前我们处在一个serssion中，它包含了一个window，在没有进行下一步操作后，当前window只有一个窗格（Panel）让我们来分割窗口。</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>ctrl-b %
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ctrl-b %
 </code></pre></td></tr></table>
 </div>
 </div><p>注意，ctrl-b（下文均使用C-b表示） 是Tmux基础操作中一个重要的前缀键，在基础操作命令中均需要先按下C-b键（松开后）输入其他命令。C-b %表示将当前窗口竖分为左右两个窗格。</p>
 <p>而命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b <span class=s2>&#34; # C-b加上 &#34;</span>（双引号）
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b <span class="s2">&#34; # C-b加上 &#34;</span>（双引号）
 </code></pre></td></tr></table>
 </div>
-</div><p>表示将当前窗口水平分为上下两个窗格，使用C-b + %，C-b + &ldquo;，可将窗口任意分为多个窗格。</p>
+</div><p>表示将当前窗口水平分为上下两个窗格，使用C-b  + %，C-b + &ldquo;，可将窗口任意分为多个窗格。</p>
 <p>要查看窗格的编号，我们可以使用命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b q
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b q
 </code></pre></td></tr></table>
 </div>
 </div><p>会显示当前窗口下所打开的窗格的顺序。想要暂时最大化当前窗格应该怎么做呢？命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b z
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b z
 </code></pre></td></tr></table>
 </div>
 </div><p>可以最大化光标处的窗格，方便编辑文件，代码等。再次使用此命令可以退出最大化。需要将窗格升级为窗口？使用命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b !
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b !
 </code></pre></td></tr></table>
 </div>
 </div><p>可将窗格升级为新窗口，也使得我们进入到接下来的操作了。</p>
-<h3 id=窗口操作>窗口操作</h3>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<h3 id="窗口操作">窗口操作</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b c
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b c
 </code></pre></td></tr></table>
 </div>
 </div><p>新建窗口，此时你会发现在下方的状态栏里出现了多个窗口的名称。使用命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b w
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b w
 </code></pre></td></tr></table>
 </div>
 </div><p>可以查看当前session（还记得三者间的层级关系吗？）中有几个窗口，上下键选择后回车可进入选中的窗口。</p>
 <p>在新建的窗口中同样的可以执行C-b + %，或C-b + &ldquo;，新建窗格。为了不导致窗口之间的混乱，我们可以使用命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b , <span class=c1># ,为英文逗号</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b , <span class="c1"># ,为英文逗号</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>重命名当前窗口，给窗口一个主要任务的命名。开启了多个窗口，该怎么在窗口之间切换？命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b n <span class=c1># 切换到下一个窗口</span>
-C-b p <span class=c1># 切换到上一个窗口</span>
-C-b <span class=o>[</span>0-9<span class=o>]</span> <span class=c1># 在窗口[0-9]之间进行切换</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b n <span class="c1"># 切换到下一个窗口</span>
+C-b p <span class="c1"># 切换到上一个窗口</span>
+C-b <span class="o">[</span>0-9<span class="o">]</span> <span class="c1"># 在窗口[0-9]之间进行切换</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>在下方的状态栏中，当前所在窗口名称后会有“*”号标识，方便识别。</p>
-<h3 id=session操作>Session操作</h3>
+<h3 id="session操作">Session操作</h3>
 <p>Tmux最酷的一点是，我们可以临时挂起当前会话，转而去做其他的事情，而挂起的会话不会受到影响。使用命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b d
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b d
 </code></pre></td></tr></table>
 </div>
 </div><p>挂起当前会话，我们会退回到了一开始使用命令<code>tmux</code>建立Tmux Server的位置。Tmux的这一特性可以保证在使用ssh连接远程服务器时，若应未知的网络中断导致session中止，当我们再次进入ssh时可以恢复中断的session。使用命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>tmux attach
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tmux attach
 </code></pre></td></tr></table>
 </div>
 </div><p>可以恢复先前挂起的Session。要注意，Tmux不能保证关机后Session的恢复，要实现这一点，可以配合适当的Tmux插件和配置来完成，此处不谈。如同给window命名一样，我们也可以给Session命令，使用命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b $
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b $
 </code></pre></td></tr></table>
 </div>
 </div><p>可以在下方的状态栏中按照提示重命名当前Session。打开了多个Session，使用完毕后怎么关闭呢？我们先使用命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b s <span class=c1># or </span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b s <span class="c1"># or </span>
 tmux ls
 </code></pre></td></tr></table>
 </div>
 </div><p>查看所有Session名称，同时也可以看到每一个Session中所含的窗口数量，或者切换到不同的Session中去。为避免不必要的麻烦，我们不在要关闭的Session中执行以下命令：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>tmux kill-session -t <span class=o>[</span>session-name<span class=o>]</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tmux kill-session -t <span class="o">[</span>session-name<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>[session-name]即为要关闭的Session名称。若在要关闭的Session中执行，Tmux会退出Session，来到终端命令行。此时我们可以使用<code>tmux a</code>回到未退出的Session中。</p>
 <p>以上就是Tmux的一些基本操作，对于初学者来说，上述操作可以解决大部分使用Tmux的需求了。若有其他需求，可自行搜索。</p>
-<h1 id=tmux的配置>Tmux的配置</h1>
+<h1 id="tmux的配置">Tmux的配置</h1>
 <p>很多时候，Tmux会和Vim配合使用，如果Vim已经配置了自己的配色方案，在Tmux中使用Vim会发现Vim的配色方案失效了。这时候我们需要配置Tmux。新建（如果没有的话）Tmux的配置文件<code>~/.tmux.conf</code>，写入如下配置：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span><span class=lnt>9
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>set</span> -g default-terminal <span class=s2>&#34;screen-256color&#34;</span>
-<span class=c1># navigate panes with hjkl, optional</span>
-<span class=nb>bind</span> h <span class=k>select</span>-pane -L
-<span class=nb>bind</span> j <span class=k>select</span>-pane -D
-<span class=nb>bind</span> k <span class=k>select</span>-pane -U
-<span class=nb>bind</span> l <span class=k>select</span>-pane -R
-<span class=c1># mouse support, optional</span>
-<span class=nb>set</span> -g mouse on
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> -g default-terminal <span class="s2">&#34;screen-256color&#34;</span>
+<span class="c1"># navigate panes with hjkl, optional</span>
+<span class="nb">bind</span> h <span class="k">select</span>-pane -L
+<span class="nb">bind</span> j <span class="k">select</span>-pane -D
+<span class="nb">bind</span> k <span class="k">select</span>-pane -U
+<span class="nb">bind</span> l <span class="k">select</span>-pane -R
+<span class="c1"># mouse support, optional</span>
+<span class="nb">set</span> -g mouse on
 
 </code></pre></td></tr></table>
 </div>
 </div><p>绑定hjkl键为Tmux中在窗格（Panel）中移动的方式，Vim-mode方法。注意，使用hjkl前同样需要先按前缀键C-b。最后一行是设置Tmux支持鼠标操作，在窗格中上下浏览更方便。否则需要使用命令</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>C-b Pgup/Pgdn <span class=c1># up or down scroll</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">C-b Pgup/Pgdn <span class="c1"># up or down scroll</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>来上下浏览。在vimrc中，写入：</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>set</span> <span class=nv>term</span><span class=o>=</span>screen-256color
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nv">term</span><span class="o">=</span>screen-256color
 </code></pre></td></tr></table>
 </div>
 </div><p>完成设置。这样，vim在Shell和Tmux中的行为应该是一致的了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">zvector</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-04-29</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/tmux/">tmux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/how-to-reset-mysql-root-pass/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">如何重置MySQL的root密码</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/write-a-shell-in-c/">
+            <span class="next-text nav-default">[译］教程 - 用C实现一个Shell</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'zvector';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bivectorfoil" class="iconfont icon-github" title="github"></a>
+  <a href="https://bivectorfoil.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-<div class=post-copyright>
-<p class=copyright-item>
-<span class=item-title>文章作者</span>
-<span class=item-content>zvector</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>上次更新</span>
-<span class=item-content>2018-04-29</span>
-</p>
-<p class=copyright-item>
-<span class=item-title>许可协议</span>
-<span class=item-content><a rel=license href=https://creativecommons.org/licenses/by/4.0/deed.zh target=_blank title="(CC BY 4.0)">CC 署名 4.0 国际</a></span>
-</p>
-</div><footer class=post-footer>
-<div class=post-tags>
-<a href=/tags/tmux/>tmux</a>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zvector</span>
+  </span>
 </div>
-<nav class=post-nav>
-<a class=prev href=/post/how-to-reset-mysql-root-pass/>
-<i class="iconfont icon-left"></i>
-<span class="prev-text nav-default">如何重置MySQL的root密码</span>
-<span class="prev-text nav-mobile">上一篇</span>
-</a>
-<a class=next href=/post/write-a-shell-in-c/>
-<span class="next-text nav-default">[译］教程 - 用C实现一个Shell</span>
-<span class="next-text nav-mobile">下一篇</span>
-<i class="iconfont icon-right"></i>
-</a>
-</nav>
-</footer>
-</article>
-</div>
-<div id=disqus_thread></div>
-<script type=text/javascript>(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='zvector',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-</div>
-</main>
-<footer id=footer class=footer>
-<div class=social-links>
-<a href=https://github.com/Bivectorfoil class="iconfont icon-github" title=github></a>
-<a href=https://bivectorfoil.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
-</div>
-<div class=copyright>
-<span class=power-by>
-由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
-</span>
-<span class=division>|</span>
-<span class=theme-info>
-主题 -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
-</span>
-<div class=busuanzi-footer>
-<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
-</div>
-<span class=copyright-year>
-&copy;
-2018 -
-2022
-<span class=heart>
-<i class="iconfont icon-heart"></i>
-</span>
-<span class=author>zvector</span>
-</span>
-</div>
-</footer>
-<div class=back-to-top id=back-to-top>
-<i class="iconfont icon-up"></i>
-</div>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
-<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
-<script type=text/javascript src=/dist/even.26188efa.min.js></script>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
 </body>
 </html>

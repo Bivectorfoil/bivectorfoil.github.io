@@ -1,1 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>think on Zvector &amp; Blog</title><link>https://bivectorfoil.github.io/tags/think/</link><description>Recent content in think on Zvector &amp; Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>zvector</copyright><lastBuildDate>Sat, 06 Nov 2021 21:39:54 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/think/index.xml" rel="self" type="application/rss+xml"/><item><title>Learn or Quit</title><link>https://bivectorfoil.github.io/post/learn-or-quit/</link><pubDate>Sat, 06 Nov 2021 21:39:54 +0800</pubDate><guid>https://bivectorfoil.github.io/post/learn-or-quit/</guid><description>摘录自《程序员的呐喊》 时间从哪来？ 经常有人问我怎么有时间学新东西。我在这里统一回答一下：时间是挤出来的。 这个答案没人会喜欢，但你我都知道这是</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>think on Zvector &amp; Blog</title>
+    <link>https://bivectorfoil.github.io/tags/think/</link>
+    <description>Recent content in think on Zvector &amp; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
+    <lastBuildDate>Sat, 06 Nov 2021 21:39:54 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/think/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learn or Quit</title>
+      <link>https://bivectorfoil.github.io/post/learn-or-quit/</link>
+      <pubDate>Sat, 06 Nov 2021 21:39:54 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/learn-or-quit/</guid>
+      <description>摘录自《程序员的呐喊》 时间从哪来？ 经常有人问我怎么有时间学新东西。我在这里统一回答一下：时间是挤出来的。 这个答案没人会喜欢，但你我都知道这是</description>
+    </item>
+    
+  </channel>
+</rss>
