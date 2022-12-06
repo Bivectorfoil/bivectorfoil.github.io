@@ -14,7 +14,7 @@
       <pubDate>Mon, 05 Dec 2022 22:38:50 +0800</pubDate>
       
       <guid>https://bivectorfoil.github.io/post/use-github-action-to-publish-blog/</guid>
-      <description>Github Action 实现博客自动发布部署 这是一篇测试文档，验证 GitHub Action 的自动部署效果。</description>
+      <description>Github Action 实现博客自动发布部署 这是一篇测试文档，验证 GitHub Action 的自动部署效果。 BTY, 这篇文章的部署脚本：GitHub Actions 的编写得到了 chatGPT 的帮助，有空的话会写一篇</description>
     </item>
     
     <item>
