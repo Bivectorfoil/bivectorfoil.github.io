@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>zvector</copyright>
-    <lastBuildDate>Mon, 05 Dec 2022 22:38:50 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Dec 2022 23:30:47 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go 1.18带来的 go work 使用一记</title>
+      <link>https://bivectorfoil.github.io/post/go-work-and-mod-mode-usage/</link>
+      <pubDate>Thu, 08 Dec 2022 23:30:47 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/go-work-and-mod-mode-usage/</guid>
+      <description>Go work 和 Go mod 使用机制给我带来的困扰 今日在学习 gRPC 时遇到的一个问题，在启用了 go.mod 且 go env 输出 GO111MODULE=&amp;quot;on&amp;quot; 的项目目录下，在编写自定义的 package 时，始终遇到了 no required module provides package 这</description>
+    </item>
+    
     <item>
       <title>Use Github Action to Publish Blog</title>
       <link>https://bivectorfoil.github.io/post/use-github-action-to-publish-blog/</link>

@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>zvector</copyright>
-    <lastBuildDate>Mon, 05 Dec 2022 22:38:50 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Dec 2022 23:30:47 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang</title>
+      <link>https://bivectorfoil.github.io/tags/golang/</link>
+      <pubDate>Thu, 08 Dec 2022 23:30:47 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Hugo</title>
       <link>https://bivectorfoil.github.io/tags/hugo/</link>

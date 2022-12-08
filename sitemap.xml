@@ -3,7 +3,49 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/categories/</loc>
-    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
+    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/go-work-and-mod-mode-usage/</loc>
+    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/golang/</loc>
+    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/</loc>
+    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/</loc>
+    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/</loc>
+    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
+    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -16,35 +58,7 @@
   </url>
   
   <url>
-    <loc>https://bivectorfoil.github.io/post/</loc>
-    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/tags/</loc>
-    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://bivectorfoil.github.io/post/use-github-action-to-publish-blog/</loc>
-    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/</loc>
-    <lastmod>2022-12-05T22:38:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
     <lastmod>2022-12-05T22:38:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
