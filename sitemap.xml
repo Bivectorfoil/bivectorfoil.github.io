@@ -3,7 +3,49 @@
   
   <url>
     <loc>https://bivectorfoil.github.io/categories/</loc>
-    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
+    <lastmod>2023-03-03T23:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/pixel/</loc>
+    <lastmod>2023-03-03T23:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/</loc>
+    <lastmod>2023-03-03T23:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/tags/</loc>
+    <lastmod>2023-03-03T23:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/</loc>
+    <lastmod>2023-03-03T23:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/post/upgrade-your-pixel-phone/</loc>
+    <lastmod>2023-03-03T23:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E9%97%B2%E8%B0%88/</loc>
+    <lastmod>2023-03-03T23:32:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -23,49 +65,7 @@
   </url>
   
   <url>
-    <loc>https://bivectorfoil.github.io/tags/pixel/</loc>
-    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/post/</loc>
-    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/tags/</loc>
-    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/</loc>
-    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/post/upgrade-your-pixel-phone/</loc>
-    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
-    <lastmod>2022-12-08T23:30:47+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bivectorfoil.github.io/categories/%E6%8A%80%E6%9C%AF%E9%97%B2%E8%B0%88/</loc>
     <lastmod>2022-12-08T23:30:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>zvector</copyright>
-    <lastBuildDate>Thu, 08 Dec 2022 23:30:47 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Mar 2023 23:32:47 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何升级你的 Pixel 手机</title>
+      <link>https://bivectorfoil.github.io/post/upgrade-your-pixel-phone/</link>
+      <pubDate>Fri, 03 Mar 2023 23:32:47 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/upgrade-your-pixel-phone/</guid>
+      <description>在大陆地区如何升级 Pixel 手机？ 周末了水一篇文章，今天意外解决了一个之前困惑许久的问题，记录一下。总所周知，在大陆使用 Pixel 手机是一种充满自我折磨的选</description>
+    </item>
+    
     <item>
       <title>Go 1.18带来的 go work 使用一记</title>
       <link>https://bivectorfoil.github.io/post/go-work-and-mod-mode-usage/</link>
@@ -15,15 +24,6 @@
       
       <guid>https://bivectorfoil.github.io/post/go-work-and-mod-mode-usage/</guid>
       <description>Go work 和 Go mod 使用机制给我带来的困扰 今日在学习 gRPC 时遇到的一个问题，在启用了 go.mod 且 go env 输出 GO111MODULE=&amp;quot;on&amp;quot; 的项目目录下，在编写自定义的 package 时，始终遇到了 no required module provides package 这</description>
-    </item>
-    
-    <item>
-      <title>如何升级你的 Pixel 手机</title>
-      <link>https://bivectorfoil.github.io/post/upgrade-your-pixel-phone/</link>
-      <pubDate>Thu, 08 Dec 2022 23:30:47 +0800</pubDate>
-      
-      <guid>https://bivectorfoil.github.io/post/upgrade-your-pixel-phone/</guid>
-      <description>在大陆地区如何升级 Pixel 手机？ 周末了水一篇文章，今天意外解决了一个之前困惑许久的问题，记录一下。总所周知，在大陆使用 Pixel 手机是一种充满自我折磨的选</description>
     </item>
     
     <item>
