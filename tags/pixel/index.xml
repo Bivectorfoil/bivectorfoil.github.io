@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pixel on Zvector &amp; Blog</title>
+    <link>https://bivectorfoil.github.io/tags/pixel/</link>
+    <description>Recent content in Pixel on Zvector &amp; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>zvector</copyright>
+    <lastBuildDate>Thu, 08 Dec 2022 23:30:47 +0800</lastBuildDate><atom:link href="https://bivectorfoil.github.io/tags/pixel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何升级你的 Pixel 手机</title>
+      <link>https://bivectorfoil.github.io/post/upgrade-your-pixel-phone/</link>
+      <pubDate>Thu, 08 Dec 2022 23:30:47 +0800</pubDate>
+      
+      <guid>https://bivectorfoil.github.io/post/upgrade-your-pixel-phone/</guid>
+      <description>在大陆地区如何升级 Pixel 手机？ 周末了水一篇文章，今天意外解决了一个之前困惑许久的问题，记录一下。总所周知，在大陆使用 Pixel 手机是一种充满自我折磨的选</description>
+    </item>
+    
+  </channel>
+</rss>
